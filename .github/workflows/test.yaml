@@ -1,4 +1,4 @@
-name: Run tests only
+name: Run tests
 
 on:
   push:
@@ -35,4 +35,4 @@ jobs:
       - name: 🧪 run tests
         id: test
         run: |
-          pdm run pytest -v
+          pdm run pytest --cov -v

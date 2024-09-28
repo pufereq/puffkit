@@ -7,6 +7,7 @@ on:
 
 jobs:
   comment_coverage:
+    name: Comment coverage on PR
     runs-on: ubuntu-latest
     steps:
       - name: GH_TOKEN
