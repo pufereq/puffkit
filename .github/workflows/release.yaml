@@ -35,17 +35,10 @@ on:
           - 'rc'
           - 'post'
 env:
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test
-        uses: ./.github/actions/test
   bump_version:
-    needs: test
     runs-on: ubuntu-latest
     name: Bump version and create release
     steps:
@@ -100,7 +93,7 @@ jobs:
 
       - name: 📦 get new version
         id: get_version
-        run: echo "BUMPED_VERSION=$(cat ${{ github.event.repository.name }}/__init__.py | grep __version__ | cut -d '"' -f 2)" >> $GITHUB_OUTPUT
+        run: echo "BUMPED_VERSION=$(cat pyproject.toml | grep -e "^version = " | cut -d '"' -f 2)" >> $GITHUB_OUTPUT
 
       - name: 📝 create changelog
         run: |
