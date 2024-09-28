@@ -10,3 +10,4 @@ from puffkit.object import PkObject
 from puffkit.rect import PkRect
 from puffkit.subsurface import PkSubSurface
 from puffkit.surface import PkSurface
+from puffkit.textures import get_texture
