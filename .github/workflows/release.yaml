@@ -35,15 +35,20 @@ on:
           - 'rc'
           - 'post'
 env:
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - name: Test
-        uses: ./.github/actions/test
+    - name: 🔀 checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: "${{ secrets.GITHUB_TOKEN }}"
+    - name: Test
+      uses: ./.github/workflows/test.yaml
   bump_version:
     needs: test
     runs-on: ubuntu-latest
