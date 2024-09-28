@@ -8,3 +8,4 @@ from puffkit.color import palettes
 from puffkit.color.color import ColorValue, PkColor
 from puffkit.object import PkObject
 from puffkit.rect import PkRect
+from puffkit.surface import PkSurface
