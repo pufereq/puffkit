@@ -9,6 +9,7 @@ import pygame as pg
 from puffkit.color.palettes import PkBasicPalette
 from puffkit.font.font import PkFont
 from puffkit.font.sysfont import PkSysFont
+from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.object import PkObject
 from puffkit.scene import PkScene
 from puffkit.surface import PkSurface

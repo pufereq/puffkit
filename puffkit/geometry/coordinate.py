@@ -44,8 +44,6 @@ class PkCoordinate:
         Returns:
             PkCoordinate: The sum of the two coordinates.
 
-        Raises:
-            TypeError: If `other` is not an instance of `PkCoordinate`.
         """
         return PkCoordinate(self.x + other.x, self.y + other.y)
 

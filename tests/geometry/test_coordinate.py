@@ -1,6 +1,6 @@
 import pytest
 
-from puffkit.coordinate import PkCoordinate
+from puffkit.geometry.coordinate import PkCoordinate
 
 
 @pytest.mark.parametrize(
