@@ -3,7 +3,7 @@ import pytest
 
 from puffkit.color.color import ColorValue, PkColor
 from puffkit.font.font import PkFont
-from puffkit.rect import PkRect
+from puffkit.geometry.rect import PkRect
 from puffkit.surface import PkSurface
 
 
