@@ -10,8 +10,8 @@ import pygame
 from puffkit.color.color import ColorValue, PkColor
 from puffkit.color.palettes import PkBasicPalette
 from puffkit.font.sysfont import PkSysFont
+from puffkit.geometry.rect import PkRect, RectValue
 from puffkit.object import PkObject
-from puffkit.rect import PkRect, RectValue
 
 
 class PkSurface(PkObject):

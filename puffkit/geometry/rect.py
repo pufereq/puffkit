@@ -6,6 +6,8 @@ import logging as lg
 
 import pygame
 
+from puffkit.geometry.coordinate import PkCoordinate
+from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
 
 type RectValue = tuple[float, float, float, float]
@@ -21,7 +23,11 @@ class PkRect(PkObject):
     and size units.
     """
 
-    def __init__(self, pos: tuple[float, float], size: tuple[float, float]) -> None:
+    def __init__(
+        self,
+        pos: tuple[float, float] | PkCoordinate,
+        size: tuple[float, float] | PkSize,
+    ) -> None:
         """Initialize the rectangle.
 
         Args:
