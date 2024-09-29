@@ -1,6 +1,6 @@
 import pytest
 
-from puffkit.rect import PkRect, RectValue
+from puffkit.geometry.rect import PkRect, RectValue
 
 
 @pytest.mark.parametrize(
