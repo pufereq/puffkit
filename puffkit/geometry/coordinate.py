@@ -3,7 +3,7 @@
 
 This module contains the `PkCoordinate` class, which is used to represent a
 coordinate in a 2D space. The class is used in the `puffkit` package to
-represent positions and sizes of objects on the screen.
+represent positions of objects on the screen.
 """
 
 from __future__ import annotations
@@ -14,7 +14,7 @@ from typing import Iterable
 class PkCoordinate:
     """Class to represent a coordinate in a 2D space.
 
-    The class is used to represent positions and sizes of objects on the screen.
+    The class is used to represent positions of objects on the screen.
     """
 
     def __init__(self, x: int, y: int) -> None:
