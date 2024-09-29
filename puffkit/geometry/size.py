@@ -17,12 +17,12 @@ class PkSize:
     The class is used to represent the size of objects on the screen.
     """
 
-    def __init__(self, w: int, h: int) -> None:
+    def __init__(self, w: int | float, h: int | float) -> None:
         """Initialize the size.
 
         Args:
-            w (int): Width.
-            h (int): Height.
+            w (int | float): Width of the size.
+            h (int | float): Height of the size.
         """
         self.w = w
         self.h = h
@@ -35,18 +35,19 @@ class PkSize:
         """Return a string representation of the size."""
         return f"PkSize({self.w}, {self.h})"
 
-    def __eq__(self, other: PkSize) -> bool:
+    def __eq__(self, other: PkSize | tuple[int | float, int | float]) -> bool:
         """Compare two sizes for equality.
 
         Args:
-            other (PkSize): The other size to compare.
-
+            other (PkSize | tuple[int | float, int | float]): The other size to compare.
         Returns:
             bool: True if the sizes are equal, False otherwise.
         """
+        if not isinstance(other, PkSize):
+            other = PkSize(*other)
         return self.w == other.w and self.h == other.h
 
-    def __ne__(self, other: PkSize) -> bool:
+    def __ne__(self, other: PkSize | tuple[int | float, int | float]) -> bool:
         """Compare two sizes for inequality.
 
         Args:
@@ -55,6 +56,8 @@ class PkSize:
         Returns:
             bool: True if the sizes are not equal, False otherwise.
         """
+        if not isinstance(other, PkSize):
+            other = PkSize(*other)
         return self.w != other.w or self.h != other.h
 
     def __add__(self, other: PkSize) -> PkSize:
