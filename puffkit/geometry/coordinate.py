@@ -17,12 +17,12 @@ class PkCoordinate:
     The class is used to represent positions of objects on the screen.
     """
 
-    def __init__(self, x: int, y: int) -> None:
+    def __init__(self, x: int | float, y: int | float) -> None:
         """Initialize the coordinate.
 
         Args:
-            x (int): X coordinate.
-            y (int): Y coordinate.
+            x (int | float): X coordinate.
+            y (int | float): Y coordinate.
         """
         self.x = x
         self.y = y
@@ -80,7 +80,7 @@ class PkCoordinate:
         """
         return PkCoordinate(self.x // other, self.y // other)
 
-    def to_tuple(self) -> tuple[int, int]:
+    def to_tuple(self) -> tuple[int | float, int | float]:
         """Return the coordinate as a tuple.
 
         Returns:
@@ -99,16 +99,20 @@ class PkCoordinate:
         """
         return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5
 
-    def __eq__(self, other: PkCoordinate) -> bool:
+    def __eq__(self, other: PkCoordinate | tuple[int | float, int | float]) -> bool:
+        if not isinstance(other, PkCoordinate):
+            other = PkCoordinate(*other)
         return self.x == other.x and self.y == other.y
 
-    def __ne__(self, other: PkCoordinate) -> bool:
+    def __ne__(self, other: PkCoordinate | tuple[int | float, int | float]) -> bool:
+        if not isinstance(other, PkCoordinate):
+            other = PkCoordinate(*other)
         return self.x != other.x or self.y != other.y
 
-    def __iter__(self) -> Iterable[int]:
+    def __iter__(self) -> Iterable[int | float]:
         return iter((self.x, self.y))
 
-    def __getitem__(self, index: int) -> int:
+    def __getitem__(self, index: int) -> int | float:
         return (self.x, self.y)[index]
 
     @classmethod
