@@ -62,4 +62,12 @@ jobs:
       - name: 🧪 run tests
         id: test
         run: |
-          pdm run pytest --cov -v
+          pdm run pytest -v --cov
+
+      - name: 📊 generate coverage report
+        if: always()
+        run: |
+          echo "### 📊 Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo "```" >> $GITHUB_STEP_SUMMARY
+          pdm run coverage report >> $GITHUB_STEP_SUMMARY
+          echo "```" >> $GITHUB_STEP_SUMMARY
