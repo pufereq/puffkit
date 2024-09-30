@@ -36,10 +36,12 @@ def test_repr(w: int, h: int, expected_repr: str) -> None:
     [
         (PkSize(10, 20), PkSize(10, 20), True),
         (PkSize(10, 20), PkSize(5, 20), False),
-        (PkSize(10, 20), PkSize(10, 15), False),
+        (PkSize(10, 20), (10, 15), False),
     ],
 )
-def test_eq(size1: PkSize, size2: PkSize, expected: bool) -> None:
+def test_eq(
+    size1: PkSize, size2: PkSize | tuple[int | float, int | float], expected: bool
+) -> None:
     """Test the __eq__ method of PkSize."""
     assert (size1 == size2) == expected
 
@@ -49,10 +51,12 @@ def test_eq(size1: PkSize, size2: PkSize, expected: bool) -> None:
     [
         (PkSize(10, 20), PkSize(10, 20), False),
         (PkSize(10, 20), PkSize(5, 20), True),
-        (PkSize(10, 20), PkSize(10, 15), True),
+        (PkSize(10, 20), (10, 15), True),
     ],
 )
-def test_ne(size1: PkSize, size2: PkSize, expected: bool) -> None:
+def test_ne(
+    size1: PkSize, size2: PkSize | tuple[int | float, int | float], expected: bool
+) -> None:
     """Test the __ne__ method of PkSize."""
     assert (size1 != size2) == expected
 
