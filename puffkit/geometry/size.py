@@ -27,6 +27,16 @@ class PkSize:
         self.w = w
         self.h = h
 
+    @property
+    def width(self) -> int | float:
+        """Return the width of the size."""
+        return self.w
+
+    @property
+    def height(self) -> int | float:
+        """Return the height of the size."""
+        return self.h
+
     def __str__(self) -> str:
         """Return a human-friendly representation of the size."""
         return f"({self.w}, {self.h})"
