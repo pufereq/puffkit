@@ -6,6 +6,7 @@ import logging as lg
 
 import pygame as pg
 
+from puffkit.app import PkApp
 from puffkit.font.sysfont import PkSysFont
 from puffkit.object import PkObject
 from puffkit.surface import PkSurface
@@ -20,7 +21,7 @@ class PkScene(PkObject):
     A scene takes up the whole screen (minus the topbar).
     """
 
-    def __init__(self, size: tuple[int, int], pos: tuple[int, int]) -> None:
+    def __init__(self, app: PkApp) -> None:
         """Initialize the scene.
 
         Args:
@@ -32,17 +33,18 @@ class PkScene(PkObject):
         self.logger = lg.getLogger(f"{__name__}.{self.id}")
 
         self.logger.debug(f"Initializing scene {self.id}...")
-        self.size = size
-        self.pos = pos
+        self.app = app
+        self.size = app.internal_screen_size
+        self.pos = (0, 0)
 
-        self.surface = PkSurface(self.size, self.pos)
+        self.surface = PkSurface(tuple(self.size), self.pos)
 
         self.surface.fill((255, 255, 255))
 
         # show fallback message if Scene called directly
         if type(self) is PkScene:
             self.logger.warning(
-                "`PkScene` called directly, " "showing fallback message..."
+                "`PkScene` called directly, showing fallback message..."
             )
             self.surface.blit_text(
                 "FALLBACK SCENE",
