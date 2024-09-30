@@ -10,6 +10,7 @@ from puffkit.color.palettes import PkBasicPalette
 from puffkit.font.font import PkFont
 from puffkit.font.sysfont import PkSysFont
 from puffkit.geometry.coordinate import PkCoordinate
+from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
 from puffkit.scene import PkScene
 from puffkit.surface import PkSurface
@@ -49,8 +50,8 @@ class PkApp(PkObject):
         # set app info
         self.app_name: str = app_name
         self.app_version: str = app_version
-        self.display_size: tuple[int, int] = display_size
-        self.internal_screen_size: tuple[int, int] = internal_screen_size
+        self.display_size: PkSize = PkSize(*display_size)
+        self.internal_screen_size: PkSize = PkSize(*internal_screen_size)
 
         self.fps: int = fps
         self.delta_time: float = 1
@@ -61,7 +62,9 @@ class PkApp(PkObject):
         pg.init()
 
         # set up display
-        self.display = pg.display.set_mode(self.display_size, **display_arguments)
+        self.display = pg.display.set_mode(
+            tuple(self.display_size), **display_arguments
+        )
         self.internal_screen = PkSurface(self.internal_screen_size)
 
         # set up fonts
