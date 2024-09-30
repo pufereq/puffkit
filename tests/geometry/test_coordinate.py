@@ -119,32 +119,36 @@ def test_distance_to(x1: int, y1: int, x2: int, y2: int, expected: float) -> Non
 
 
 @pytest.mark.parametrize(
-    "x1, y1, x2, y2, expected",
+    "coord1, coord2, expected",
     [
-        (1, 2, 1, 2, True),
-        (0, 0, 0, 0, True),
-        (1, 2, 2, 1, False),
+        (PkCoordinate(1, 2), PkCoordinate(1.0, 2.0), True),
+        (PkCoordinate(0, 0), PkCoordinate(0, 0), True),
+        (PkCoordinate(1, 2), (2, 1), False),
     ],
 )
-def test_eq(x1: int, y1: int, x2: int, y2: int, expected: bool) -> None:
+def test_eq(
+    coord1: PkCoordinate,
+    coord2: PkCoordinate | tuple[int | float, int | float],
+    expected: bool,
+) -> None:
     """Test the __eq__ method of PkCoordinate."""
-    coord1 = PkCoordinate(x1, y1)
-    coord2 = PkCoordinate(x2, y2)
     assert (coord1 == coord2) == expected
 
 
 @pytest.mark.parametrize(
-    "x1, y1, x2, y2, expected",
+    "coord1, coord2, expected",
     [
-        (1, 2, 1, 2, False),
-        (0, 0, 0, 0, False),
-        (1, 2, 2, 1, True),
+        (PkCoordinate(1, 2), PkCoordinate(1.0, 2.0), False),
+        (PkCoordinate(0, 0), PkCoordinate(0, 0), False),
+        (PkCoordinate(1, 2), (2, 1), True),
     ],
 )
-def test_ne(x1: int, y1: int, x2: int, y2: int, expected: bool) -> None:
+def test_ne(
+    coord1: PkCoordinate,
+    coord2: PkCoordinate | tuple[int | float, int | float],
+    expected: bool,
+) -> None:
     """Test the __ne__ method of PkCoordinate."""
-    coord1 = PkCoordinate(x1, y1)
-    coord2 = PkCoordinate(x2, y2)
     assert (coord1 != coord2) == expected
 
 
