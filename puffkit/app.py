@@ -12,7 +12,6 @@ from puffkit.font.sysfont import PkSysFont
 from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
-from puffkit.scene import PkScene
 from puffkit.surface import PkSurface
 
 
@@ -65,7 +64,7 @@ class PkApp(PkObject):
         self.display = pg.display.set_mode(
             tuple(self.display_size), **display_arguments
         )
-        self.internal_screen = PkSurface(self.internal_screen_size)
+        self.internal_screen = PkSurface(tuple(self.internal_screen_size))
 
         # set up fonts
         pg.font.init()
@@ -73,6 +72,8 @@ class PkApp(PkObject):
         self.add_font("default", None, 12)
 
         # set up scenes
+        from puffkit.scene import PkScene
+
         self.scenes: dict[str, PkScene] = {}
         self.active_scene_id: str = ""
 
