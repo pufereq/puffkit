@@ -114,10 +114,10 @@ class PkSize:
         """
         return PkSize(self.w // other, self.h // other)
 
-    def __iter__(self) -> Iterable[int]:
+    def __iter__(self) -> Iterable[int | float]:
         """Return an iterable of the size components."""
         return iter((self.w, self.h))
 
-    def __getitem__(self, index: int) -> int:
+    def __getitem__(self, index: int) -> int | float:
         """Return the size component at the given index."""
         return (self.w, self.h)[index]
