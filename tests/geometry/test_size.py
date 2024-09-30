@@ -11,7 +11,7 @@ from puffkit.geometry.size import PkSize
         (-5, 15, "(-5, 15)"),
     ],
 )
-def test_str(w: int, h: int, expected_str: str) -> None:
+def test_pksize_str(w: int, h: int, expected_str: str) -> None:
     """Test the __str__ method of PkSize."""
     size = PkSize(w, h)
     assert str(size) == expected_str
@@ -25,7 +25,7 @@ def test_str(w: int, h: int, expected_str: str) -> None:
         (-5, 15, "PkSize(-5, 15)"),
     ],
 )
-def test_repr(w: int, h: int, expected_repr: str) -> None:
+def test_pksize_repr(w: int, h: int, expected_repr: str) -> None:
     """Test the __repr__ method of PkSize."""
     size = PkSize(w, h)
     assert repr(size) == expected_repr
@@ -39,7 +39,7 @@ def test_repr(w: int, h: int, expected_repr: str) -> None:
         (PkSize(10, 20), (10, 15), False),
     ],
 )
-def test_eq(
+def test_pksize_eq(
     size1: PkSize, size2: PkSize | tuple[int | float, int | float], expected: bool
 ) -> None:
     """Test the __eq__ method of PkSize."""
@@ -54,7 +54,7 @@ def test_eq(
         (PkSize(10, 20), (10, 15), True),
     ],
 )
-def test_ne(
+def test_pksize_ne(
     size1: PkSize, size2: PkSize | tuple[int | float, int | float], expected: bool
 ) -> None:
     """Test the __ne__ method of PkSize."""
@@ -69,7 +69,7 @@ def test_ne(
         (PkSize(-5, 15), PkSize(5, -15), PkSize(0, 0)),
     ],
 )
-def test_add(size1: PkSize, size2: PkSize, expected: PkSize) -> None:
+def test_pksize_add(size1: PkSize, size2: PkSize, expected: PkSize) -> None:
     """Test the __add__ method of PkSize."""
     assert size1 + size2 == expected
 
@@ -82,7 +82,7 @@ def test_add(size1: PkSize, size2: PkSize, expected: PkSize) -> None:
         (PkSize(-5, 15), PkSize(5, -15), PkSize(-10, 30)),
     ],
 )
-def test_sub(size1: PkSize, size2: PkSize, expected: PkSize) -> None:
+def test_pksize_sub(size1: PkSize, size2: PkSize, expected: PkSize) -> None:
     """Test the __sub__ method of PkSize."""
     assert size1 - size2 == expected
 
@@ -95,7 +95,7 @@ def test_sub(size1: PkSize, size2: PkSize, expected: PkSize) -> None:
         (PkSize(-5, 15), 3, PkSize(-15, 45)),
     ],
 )
-def test_mul(size: PkSize, scalar: int, expected: PkSize) -> None:
+def test_pksize_mul(size: PkSize, scalar: int, expected: PkSize) -> None:
     """Test the __mul__ method of PkSize."""
     assert size * scalar == expected
 
@@ -108,7 +108,7 @@ def test_mul(size: PkSize, scalar: int, expected: PkSize) -> None:
         (PkSize(-6, 15), 3, PkSize(-2, 5)),
     ],
 )
-def test_truediv(size: PkSize, scalar: int, expected: PkSize) -> None:
+def test_pksize_truediv(size: PkSize, scalar: int, expected: PkSize) -> None:
     """Test the __truediv__ method of PkSize."""
     assert size / scalar == expected
 
@@ -121,7 +121,7 @@ def test_truediv(size: PkSize, scalar: int, expected: PkSize) -> None:
         (PkSize(-5, 15), [-5, 15]),
     ],
 )
-def test_iter(size: PkSize, expected: list[int]) -> None:
+def test_pksize_iter(size: PkSize, expected: list[int]) -> None:
     """Test the __iter__ method of PkSize."""
     assert list(size) == expected
 
@@ -135,6 +135,18 @@ def test_iter(size: PkSize, expected: list[int]) -> None:
         (PkSize(-5, 15), 1, 15),
     ],
 )
-def test_getitem(size: PkSize, index: int, expected: int) -> None:
+def test_pksize_getitem(size: PkSize, index: int, expected: int) -> None:
     """Test the __getitem__ method of PkSize."""
     assert size[index] == expected
+
+
+def test_pksize_width() -> None:
+    """Test the width property of PkSize."""
+    size = PkSize(10, 20)
+    assert size.width == 10
+
+
+def test_pksize_height() -> None:
+    """Test the height property of PkSize."""
+    size = PkSize(10, 20)
+    assert size.height == 20
