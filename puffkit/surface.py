@@ -10,8 +10,10 @@ import pygame
 from puffkit.color.color import ColorValue, PkColor
 from puffkit.color.palettes import PkBasicPalette
 from puffkit.font.sysfont import PkSysFont
+from puffkit.geometry.coordinate import PkCoordinate
+from puffkit.geometry.rect import PkRect, RectValue
+from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
-from puffkit.rect import PkRect, RectValue
 
 
 class PkSurface(PkObject):
@@ -43,13 +45,13 @@ class PkSurface(PkObject):
         """
         super().__init__()
 
-        self.pos = pos
+        self.pos = PkCoordinate(*pos)
         self.pos_x = pos[0]
         self.pos_y = pos[1]
 
         self.masks = masks
 
-        self.internal_surface = pygame.Surface(size, flags, depth, masks)
+        self.internal_surface = pygame.Surface(tuple(size), flags, depth, masks)
 
     @classmethod
     def from_pygame(cls, surface: pygame.Surface):
@@ -71,31 +73,31 @@ class PkSurface(PkObject):
         return instance
 
     @property
-    def size(self) -> tuple[int, int]:
+    def size(self) -> PkSize:
         """Size of the surface.
 
         Returns:
             tuple[int, int]: Size of the surface.
         """
-        return self.internal_surface.get_size()
+        return PkSize(*self.internal_surface.get_size())
 
     @property
-    def width(self) -> int:
+    def width(self) -> int | float:
         """Width of the surface.
 
         Returns:
             int: Width of the surface.
         """
-        return self.internal_surface.get_width()
+        return self.size.w
 
     @property
-    def height(self) -> int:
+    def height(self) -> int | float:
         """Height of the surface.
 
         Returns:
             int: Height of the surface.
         """
-        return self.internal_surface.get_height()
+        return self.size.h
 
     def blit(
         self,
