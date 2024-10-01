@@ -131,3 +131,14 @@ def test_pkapp_run(app: PkApp):
         mock.patch("puffkit.app.PkApp.handle_events"),
     ):
         app.run(run_once=True)
+
+
+def test_type_checking_imports():
+    """Test importing PkApp with TYPE_CHECKING."""
+    with mock.patch("typing.TYPE_CHECKING", True):
+        from puffkit import app
+        import importlib
+
+        importlib.reload(app)
+
+        assert PkScene
