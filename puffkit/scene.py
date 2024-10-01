@@ -6,10 +6,13 @@ import logging as lg
 
 import pygame as pg
 
-from puffkit.app import PkApp
+from typing import TYPE_CHECKING
 from puffkit.font.sysfont import PkSysFont
 from puffkit.object import PkObject
 from puffkit.surface import PkSurface
+
+if TYPE_CHECKING:
+    from puffkit.app import PkApp
 
 
 class PkScene(PkObject):
