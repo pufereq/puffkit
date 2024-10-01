@@ -8,6 +8,7 @@ import pygame as pg
 
 from typing import TYPE_CHECKING
 from puffkit.font.sysfont import PkSysFont
+from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.object import PkObject
 from puffkit.surface import PkSurface
 
@@ -38,9 +39,9 @@ class PkScene(PkObject):
         self.logger.debug(f"Initializing scene {self.id}...")
         self.app = app
         self.size = app.internal_screen_size
-        self.pos = (0, 0)
+        self.pos = PkCoordinate(0, 0)
 
-        self.surface = PkSurface(tuple(self.size), self.pos)
+        self.surface = PkSurface(self.size, self.pos)
 
         self.surface.fill((255, 255, 255))
 
