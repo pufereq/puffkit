@@ -6,13 +6,16 @@ import logging as lg
 
 import pygame as pg
 
+from typing import TYPE_CHECKING
 from puffkit.color.palettes import PkBasicPalette
 from puffkit.font.font import PkFont
 from puffkit.font.sysfont import PkSysFont
-from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
 from puffkit.surface import PkSurface
+
+if TYPE_CHECKING:
+    from puffkit.scene import PkScene
 
 
 class PkApp(PkObject):
@@ -72,8 +75,6 @@ class PkApp(PkObject):
         self.add_font("default", None, 12)
 
         # set up scenes
-        from puffkit.scene import PkScene
-
         self.scenes: dict[str, PkScene] = {}
         self.active_scene_id: str = ""
 
