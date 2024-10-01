@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Self
+from typing import Any, Self, TYPE_CHECKING
 
 import pygame
 
@@ -14,6 +14,10 @@ from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.geometry.rect import PkRect, RectValue
 from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
+
+if TYPE_CHECKING:
+    from puffkit.subsurface import PkSubSurface
+    from puffkit.font.font import PkFont
 
 
 class PkSurface(PkObject):
@@ -363,7 +367,7 @@ class PkSurface(PkObject):
         """
         return PkRect.from_pygame(self.internal_surface.get_clip())
 
-    def subsurface(self, rect: PkRect | RectValue) -> "PkSubSurface":
+    def subsurface(self, rect: PkRect | RectValue) -> PkSubSurface:
         """Create a subsurface.
 
         Args:
