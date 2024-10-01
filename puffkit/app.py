@@ -108,12 +108,12 @@ class PkApp(PkObject):
         """
         self.active_scene_id = scene_id
 
-    def add_font(self, name: str | None, path: str, size: int) -> None:
+    def add_font(self, name: str, path: str | None, size: int) -> None:
         """Add a font to the app.
 
         Args:
-            name (str | None): Name of the font. If None, use the default font.
-            path (str): Path to the font file.
+            name (str): Name of the font.
+            path (str | None): Path to the font file. If None, use system font.
             size (int): Size of the font (px).
         """
         self.fonts[name] = PkFont(path, size)
