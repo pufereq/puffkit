@@ -58,12 +58,13 @@ def test_pkapp_add_scene(app: PkApp):
     assert "test_pkapp_scene" in app.scenes
 
 
-def test_pkapp_change_scene(app: PkApp):
+def test_pkapp_set_scene(app: PkApp):
     """Test changing the active scene."""
     scene = mock.Mock(spec=PkScene)
     scene.id = "test_pkapp_scene"
     app.add_scene(scene)
-    app.change_scene("test_pkapp_scene")
+    scene.initialized = False
+    app.set_scene("test_pkapp_scene")
     assert app.active_scene_id == "test_pkapp_scene"
 
 
@@ -97,7 +98,8 @@ def test_pkapp_update(app: PkApp):
     scene = mock.Mock(spec=PkScene)
     scene.id = "test_pkapp_scene"
     app.add_scene(scene)
-    app.change_scene("test_pkapp_scene")
+    scene.initialized = False
+    app.set_scene("test_pkapp_scene")
     app.update(0.016)
     scene.update.assert_called_once_with(0.016)
 
@@ -107,7 +109,8 @@ def test_pkapp_render(app: PkApp):
     scene = mock.Mock(spec=PkScene)
     scene.id = "test_pkapp_scene"
     app.add_scene(scene)
-    app.change_scene("test_pkapp_scene")
+    scene.initialized = False
+    app.set_scene("test_pkapp_scene")
     with (
         mock.patch("pygame.display.flip"),
         mock.patch("puffkit.surface.PkSurface.fill"),
