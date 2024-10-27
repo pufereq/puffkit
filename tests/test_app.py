@@ -68,6 +68,22 @@ def test_pkapp_set_scene(app: PkApp):
     assert app.active_scene_id == "test_pkapp_scene"
 
 
+def test_pkapp_set_scene_nonlazy(app: PkApp):
+    """Test changing the active scene non-lazily."""
+    scene = PkScene(app=app, lazy=False)
+    scene.id = "test_pkapp_scene"
+    app.add_scene(scene)
+    assert app.scenes[scene.id].initialized is True
+    app.set_scene("test_pkapp_scene")
+    assert app.active_scene_id == "test_pkapp_scene"
+
+
+def test_pkapp_set_scene_nonexistent(app: PkApp):
+    """Test changing the active scene to a nonexistent scene."""
+    with pytest.raises(ValueError):
+        app.set_scene("nonexistent_scene")
+
+
 def test_pkapp_add_font(app: PkApp):
     """Test adding a font to the app."""
     with mock.patch("puffkit.font.font.PkFont", autospec=True) as MockFont:
