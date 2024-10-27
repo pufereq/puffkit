@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2024-10-27
+
+### Bug Fixes
+
+- [`4425bb9`](https://github.com/pufereq/template-repo/commit/4425bb987323a57c85d04c5d3bb903463b0a95a2) **app.py**: fix wrong placement of `None ` type in `PkApp.add_font()` method
+
+### Features
+
+- [`938fb14`](https://github.com/pufereq/template-repo/commit/938fb14c3bb21d9d1a73c6e73befaeeec9aa1174) **app.py**: rename `PkApp.change_scene()` -> `set_scene()`
+- [`4edb011`](https://github.com/pufereq/template-repo/commit/4edb01171a7d0b1c65895c3a18c0bffbcbcad52e) **app.py**: add support for scene lazy-loading in `PkApp.set_scene()`
+- [`02a4544`](https://github.com/pufereq/template-repo/commit/02a4544aeb79ce4469cf732315790a92d70146a3) **scene.py**: add lazy scene-loading
+
+### Miscellaneous Tasks
+
+- [`a9391a7`](https://github.com/pufereq/template-repo/commit/a9391a75ea7a57a81a8d902fae35d8efe392f919) **app.py**: add log calls to several methods for verbosity
+- [`24335b0`](https://github.com/pufereq/template-repo/commit/24335b0834c507f54cd076f48b3c4f0ba95264bc) **app.py**: modify `size` argument of call to `PkSurface` (`PkApp.internal_screen_surface`)
+- [`dafbe29`](https://github.com/pufereq/template-repo/commit/dafbe2923d3724775b40995373e7d8bf0f69a9c5) **scene.py**: alter type of `self.pos` and `self.size` to adhere to PkSurface's new types
+- [`0b1c18d`](https://github.com/pufereq/template-repo/commit/0b1c18d00ef5319bfb09efadbc3e1847eb2bb741) **surface.py**: use only `PkSize` and `PkCoordinate` for initializing geometry
+
+### Styling
+
+- [`5be3709`](https://github.com/pufereq/template-repo/commit/5be37091accc009697da804d54984b75387c17b1) **app.py**: add type checking-only imports
+- [`3a15bb7`](https://github.com/pufereq/template-repo/commit/3a15bb7b7c723e960b7683c9d9bb784366c8721b) **scene.py**: add type checking-only imports
+- [`47e145e`](https://github.com/pufereq/template-repo/commit/47e145eb774e2288f089fbad44460ab301adeb22) **surface.py**: add type checking-only imports
+
+### Testing
+
+- [`b1f2746`](https://github.com/pufereq/template-repo/commit/b1f2746bd8fc3cf9c0b6cca2aabbeacf25c95488) **test_app.py**: add tests for new conditions in `PkApp.set_scene()`
+- [`1a01496`](https://github.com/pufereq/template-repo/commit/1a01496a08c4eb03fda83ad6754e29fd5f5dc102) **test_app.py**: modify tests to adhere to PkApp's changes
+- [`53393cd`](https://github.com/pufereq/template-repo/commit/53393cd47aa5eda3d9ce7e328053f513a86ad13f) **test_app.py**: add test for TYPE_CHECKING conditional
+- [`9dd1ddd`](https://github.com/pufereq/template-repo/commit/9dd1dddeb95a567b4a712dd9b434e700d60c54c4) **test_scene.py**: add test for TYPE_CHECKING conditional
+- [`90f5166`](https://github.com/pufereq/template-repo/commit/90f516616e89d94e23a13706776bddd93fd3b146) **test_surface.py**: add test for TYPE_CHECKING conditional
+
 ## [0.2.1] - 2024-09-30
 
 ### Bug Fixes
