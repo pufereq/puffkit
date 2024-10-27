@@ -113,6 +113,9 @@ class PkApp(PkObject):
 
         self.active_scene_id = scene_id
 
+        if not self.active_scene.initialized:
+            self.active_scene.init()
+
     def add_font(self, name: str, path: str | None, size: int) -> None:
         """Add a font to the app.
 
