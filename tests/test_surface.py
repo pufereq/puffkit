@@ -1,3 +1,4 @@
+from unittest import mock
 import pygame
 import pytest
 
@@ -423,3 +424,14 @@ def test_pksurface_blit_text(
     surface.blit_text(
         "Hello, World!", position, vertical_align=vertical_align, font=PkFont(None, 12)
     )
+
+
+@mock.patch("typing.TYPE_CHECKING", True)
+def test_type_checking_imports() -> None:
+    """Test importing PkSurface with TYPE_CHECKING."""
+    from puffkit import surface
+    import importlib
+
+    importlib.reload(surface)
+
+    assert PkSurface

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""puffkit Surface."""
+"""Surface module for puffkit."""
 
 from __future__ import annotations
 
-from typing import Any, Self
+from typing import Any, Self, TYPE_CHECKING
 
 import pygame
 
@@ -15,6 +15,10 @@ from puffkit.geometry.rect import PkRect, RectValue
 from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
 
+if TYPE_CHECKING:
+    from puffkit.subsurface import PkSubSurface
+    from puffkit.font.font import PkFont
+
 
 class PkSurface(PkObject):
     """Base class for surfaces.
@@ -25,8 +29,8 @@ class PkSurface(PkObject):
 
     def __init__(
         self,
-        size: tuple[int, int],
-        pos: tuple[int, int] = (0, 0),
+        size: PkSize,
+        pos: PkCoordinate = PkCoordinate(0, 0),
         *,
         flags: int = 0,
         depth: int = 32,
@@ -35,9 +39,9 @@ class PkSurface(PkObject):
         """Initialize the surface.
 
         Args:
-            size (tuple[int, int]): Size of the surface.
-            pos (tuple[int, int], optional): Position of the surface.
-                Defaults to (0, 0).
+            size (PkSize): Size of the surface.
+            pos (PkCoordinate, optional): Position of the surface.
+                Defaults to PkCoordinate(0, 0).
             flags (int, optional): Flags for the surface. Defaults to 0.
             depth (int, optional): Depth of the surface. Defaults to 32.
             masks (tuple[int, int, int, int], optional): Masks for the surface.
@@ -45,16 +49,12 @@ class PkSurface(PkObject):
         """
         super().__init__()
 
-        self.pos = PkCoordinate(*pos)
-        self.pos_x = pos[0]
-        self.pos_y = pos[1]
-
+        self.pos = pos
         self.masks = masks
-
         self.internal_surface = pygame.Surface(tuple(size), flags, depth, masks)
 
     @classmethod
-    def from_pygame(cls, surface: pygame.Surface):
+    def from_pygame(cls, surface: pygame.Surface) -> Self:
         """Create a surface from a pygame surface.
 
         Args:
@@ -64,7 +64,7 @@ class PkSurface(PkObject):
             Surface: The created surface.
         """
         instance = cls(
-            size=surface.get_size(),
+            size=PkSize(*surface.get_size()),
             flags=surface.get_flags(),
             depth=surface.get_bitsize(),
             masks=surface.get_masks(),
@@ -102,8 +102,8 @@ class PkSurface(PkObject):
     def blit(
         self,
         source: PkSurface,
-        dest: tuple[int, int],
-        area: tuple[int, int, int, int] | None = None,
+        dest: PkCoordinate,
+        area: tuple[int, int, int, int] | PkRect | None = None,
         special_flags: int = 0,
     ):
         """Draw one surface onto another.
@@ -112,7 +112,9 @@ class PkSurface(PkObject):
             source (Surface): Surface to draw.
             dest (tuple[int, int]): Position of the surface.
         """
-        self.internal_surface.blit(source.internal_surface, dest, area, special_flags)
+        self.internal_surface.blit(
+            source.internal_surface, tuple(dest), area, special_flags
+        )
 
     def blits(
         self,
@@ -365,7 +367,7 @@ class PkSurface(PkObject):
         """
         return PkRect.from_pygame(self.internal_surface.get_clip())
 
-    def subsurface(self, rect: PkRect | RectValue) -> "PkSubSurface":
+    def subsurface(self, rect: PkRect | RectValue) -> PkSubSurface:
         """Create a subsurface.
 
         Args:
@@ -410,7 +412,7 @@ class PkSurface(PkObject):
         Returns:
             tuple[int, int]: Size of the surface.
         """
-        return self.size
+        return tuple(self.size)
 
     def get_width(self) -> int:
         """Get the width of the surface.

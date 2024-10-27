@@ -6,10 +6,14 @@ import logging as lg
 
 import pygame as pg
 
-from puffkit.app import PkApp
+from typing import TYPE_CHECKING
 from puffkit.font.sysfont import PkSysFont
+from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.object import PkObject
 from puffkit.surface import PkSurface
+
+if TYPE_CHECKING:
+    from puffkit.app import PkApp
 
 
 class PkScene(PkObject):
@@ -21,24 +25,34 @@ class PkScene(PkObject):
     A scene takes up the whole screen (minus the topbar).
     """
 
-    def __init__(self, app: PkApp) -> None:
-        """Initialize the scene.
+    def __init__(self, app: PkApp, *, lazy: bool = True) -> None:
+        """Initialize the scene class.
 
         Args:
-            size (tuple[int, int]): Size of the scene (px).
-            pos (tuple[int, int]): Position of the scene (px).
+            app (PkApp): The app instance.
+            lazy (bool): Whether to initialize the scene lazily.
         """
+        super().__init__()
         self.id = type(self).__name__
+        self.lazy = lazy
 
         self.logger = lg.getLogger(f"{__name__}.{self.id}")
 
         self.logger.debug(f"Initializing scene {self.id}...")
         self.app = app
         self.size = app.internal_screen_size
-        self.pos = (0, 0)
+        self.pos = PkCoordinate(0, 0)
 
-        self.surface = PkSurface(tuple(self.size), self.pos)
+        self.surface = PkSurface(self.size, self.pos)
 
+        self.initialized: bool = False
+
+        if not self.lazy:
+            self.init()
+            self.initialized = True
+
+    def init(self) -> None:
+        """Initialize the scene fully. Should be called even if subclassed."""
         self.surface.fill((255, 255, 255))
 
         # show fallback message if Scene called directly

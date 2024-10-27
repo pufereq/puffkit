@@ -59,3 +59,14 @@ def test_scene_draw(scene: PkScene) -> None:
     mock_screen = mock.Mock(spec=PkSurface)
     scene.draw(mock_screen)
     mock_screen.blit.assert_called_once_with(scene.surface, scene.surface.pos)
+
+
+def test_type_checking_imports():
+    """Test importing PkScene with TYPE_CHECKING."""
+    with mock.patch("typing.TYPE_CHECKING", True):
+        from puffkit import scene
+        import importlib
+
+        importlib.reload(scene)
+
+        assert PkScene

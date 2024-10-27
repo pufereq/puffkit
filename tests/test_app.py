@@ -58,13 +58,30 @@ def test_pkapp_add_scene(app: PkApp):
     assert "test_pkapp_scene" in app.scenes
 
 
-def test_pkapp_change_scene(app: PkApp):
+def test_pkapp_set_scene(app: PkApp):
     """Test changing the active scene."""
     scene = mock.Mock(spec=PkScene)
     scene.id = "test_pkapp_scene"
     app.add_scene(scene)
-    app.change_scene("test_pkapp_scene")
+    scene.initialized = False
+    app.set_scene("test_pkapp_scene")
     assert app.active_scene_id == "test_pkapp_scene"
+
+
+def test_pkapp_set_scene_nonlazy(app: PkApp):
+    """Test changing the active scene non-lazily."""
+    scene = PkScene(app=app, lazy=False)
+    scene.id = "test_pkapp_scene"
+    app.add_scene(scene)
+    assert app.scenes[scene.id].initialized is True
+    app.set_scene("test_pkapp_scene")
+    assert app.active_scene_id == "test_pkapp_scene"
+
+
+def test_pkapp_set_scene_nonexistent(app: PkApp):
+    """Test changing the active scene to a nonexistent scene."""
+    with pytest.raises(ValueError):
+        app.set_scene("nonexistent_scene")
 
 
 def test_pkapp_add_font(app: PkApp):
@@ -97,7 +114,8 @@ def test_pkapp_update(app: PkApp):
     scene = mock.Mock(spec=PkScene)
     scene.id = "test_pkapp_scene"
     app.add_scene(scene)
-    app.change_scene("test_pkapp_scene")
+    scene.initialized = False
+    app.set_scene("test_pkapp_scene")
     app.update(0.016)
     scene.update.assert_called_once_with(0.016)
 
@@ -107,7 +125,8 @@ def test_pkapp_render(app: PkApp):
     scene = mock.Mock(spec=PkScene)
     scene.id = "test_pkapp_scene"
     app.add_scene(scene)
-    app.change_scene("test_pkapp_scene")
+    scene.initialized = False
+    app.set_scene("test_pkapp_scene")
     with (
         mock.patch("pygame.display.flip"),
         mock.patch("puffkit.surface.PkSurface.fill"),
@@ -131,3 +150,14 @@ def test_pkapp_run(app: PkApp):
         mock.patch("puffkit.app.PkApp.handle_events"),
     ):
         app.run(run_once=True)
+
+
+def test_type_checking_imports():
+    """Test importing PkApp with TYPE_CHECKING."""
+    with mock.patch("typing.TYPE_CHECKING", True):
+        from puffkit import app
+        import importlib
+
+        importlib.reload(app)
+
+        assert PkScene

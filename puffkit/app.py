@@ -6,13 +6,16 @@ import logging as lg
 
 import pygame as pg
 
+from typing import TYPE_CHECKING
 from puffkit.color.palettes import PkBasicPalette
 from puffkit.font.font import PkFont
 from puffkit.font.sysfont import PkSysFont
-from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
 from puffkit.surface import PkSurface
+
+if TYPE_CHECKING:
+    from puffkit.scene import PkScene
 
 
 class PkApp(PkObject):
@@ -64,7 +67,7 @@ class PkApp(PkObject):
         self.display = pg.display.set_mode(
             tuple(self.display_size), **display_arguments
         )
-        self.internal_screen = PkSurface(tuple(self.internal_screen_size))
+        self.internal_screen = PkSurface(self.internal_screen_size)
 
         # set up fonts
         pg.font.init()
@@ -72,8 +75,6 @@ class PkApp(PkObject):
         self.add_font("default", None, 12)
 
         # set up scenes
-        from puffkit.scene import PkScene
-
         self.scenes: dict[str, PkScene] = {}
         self.active_scene_id: str = ""
 
@@ -97,24 +98,33 @@ class PkApp(PkObject):
         Args:
             scene (PkScene): Scene to add.
         """
+        self.logger.debug(f"Adding scene {scene.id}...")
         self.scenes[scene.id] = scene
 
-    def change_scene(self, scene_id: str) -> None:
+    def set_scene(self, scene_id: str) -> None:
         """Change the active scene.
 
         Args:
             scene_id (str): ID of the scene to change to.
         """
+        self.logger.info(f"Changing scene to {scene_id}...")
+        if scene_id not in self.scenes:
+            raise ValueError(f"Scene {scene_id} not found.")
+
         self.active_scene_id = scene_id
 
-    def add_font(self, name: str | None, path: str, size: int) -> None:
+        if not self.active_scene.initialized:
+            self.active_scene.init()
+
+    def add_font(self, name: str, path: str | None, size: int) -> None:
         """Add a font to the app.
 
         Args:
-            name (str | None): Name of the font. If None, use the default font.
-            path (str): Path to the font file.
+            name (str): Name of the font.
+            path (str | None): Path to the font file. If None, use system font.
             size (int): Size of the font (px).
         """
+        self.logger.debug(f"Adding font {name}...")
         self.fonts[name] = PkFont(path, size)
 
     def add_sysfont(self, name: str, size: int) -> None:
@@ -124,6 +134,7 @@ class PkApp(PkObject):
             name (str): Name of the system font.
             size (int): Size of the font (px).
         """
+        self.logger.debug(f"Adding system font {name}...")
         self.fonts[name] = PkSysFont(name, size)
 
     def handle_events(self) -> None:
