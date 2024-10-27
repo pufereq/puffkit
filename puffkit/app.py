@@ -101,7 +101,7 @@ class PkApp(PkObject):
         self.logger.debug(f"Adding scene {scene.id}...")
         self.scenes[scene.id] = scene
 
-    def change_scene(self, scene_id: str) -> None:
+    def set_scene(self, scene_id: str) -> None:
         """Change the active scene.
 
         Args:
