@@ -98,6 +98,7 @@ class PkApp(PkObject):
         Args:
             scene (PkScene): Scene to add.
         """
+        self.logger.debug(f"Adding scene {scene.id}...")
         self.scenes[scene.id] = scene
 
     def change_scene(self, scene_id: str) -> None:
@@ -106,6 +107,10 @@ class PkApp(PkObject):
         Args:
             scene_id (str): ID of the scene to change to.
         """
+        self.logger.info(f"Changing scene to {scene_id}...")
+        if scene_id not in self.scenes:
+            raise ValueError(f"Scene {scene_id} not found.")
+
         self.active_scene_id = scene_id
 
     def add_font(self, name: str, path: str | None, size: int) -> None:
@@ -116,6 +121,7 @@ class PkApp(PkObject):
             path (str | None): Path to the font file. If None, use system font.
             size (int): Size of the font (px).
         """
+        self.logger.debug(f"Adding font {name}...")
         self.fonts[name] = PkFont(path, size)
 
     def add_sysfont(self, name: str, size: int) -> None:
@@ -125,6 +131,7 @@ class PkApp(PkObject):
             name (str): Name of the system font.
             size (int): Size of the font (px).
         """
+        self.logger.debug(f"Adding system font {name}...")
         self.fonts[name] = PkSysFont(name, size)
 
     def handle_events(self) -> None:
