@@ -25,15 +25,16 @@ class PkScene(PkObject):
     A scene takes up the whole screen (minus the topbar).
     """
 
-    def __init__(self, app: PkApp, *, lazy: bool) -> None:
+    def __init__(self, _id: str, app: PkApp, *, lazy: bool) -> None:
         """Initialize the scene class.
 
         Args:
+            _id (str): The ID of the scene.
             app (PkApp): The app instance.
             lazy (bool): Whether to initialize the scene lazily.
         """
         super().__init__()
-        self.id = type(self).__name__
+        self.id = _id
         self.lazy = lazy
 
         self.logger = lg.getLogger(f"{__name__}.{self.id}")
