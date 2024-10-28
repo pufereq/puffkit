@@ -25,7 +25,7 @@ class PkScene(PkObject):
     A scene takes up the whole screen (minus the topbar).
     """
 
-    def __init__(self, app: PkApp, *, lazy: bool = True) -> None:
+    def __init__(self, app: PkApp, *, lazy: bool) -> None:
         """Initialize the scene class.
 
         Args:
