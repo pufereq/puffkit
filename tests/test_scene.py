@@ -17,12 +17,12 @@ def mock_app() -> PkApp:
 @pytest.fixture
 def scene(mock_app: PkApp) -> PkScene:
     pygame.font.init()
-    return PkScene(mock_app)
+    return PkScene("mock_scene", mock_app, lazy=True)
 
 
 def test_scene_initialization(scene: PkScene, mock_app: PkApp) -> None:
     """Test the initialization of the scene."""
-    assert scene.id == "PkScene"
+    assert scene.id == "mock_scene"
     assert scene.size == mock_app.internal_screen_size
     assert scene.pos == (0, 0)
     assert isinstance(scene.surface, PkSurface)
