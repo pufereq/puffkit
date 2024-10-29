@@ -2,20 +2,15 @@
 """puffkit App module."""
 from __future__ import annotations
 
-import logging as lg
-
 import pygame as pg
 
-from typing import TYPE_CHECKING
 from puffkit.color.palettes import PkBasicPalette
 from puffkit.font.font import PkFont
 from puffkit.font.sysfont import PkSysFont
 from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
+from puffkit.scene import PkScene
 from puffkit.surface import PkSurface
-
-if TYPE_CHECKING:
-    from puffkit.scene import PkScene
 
 
 class PkApp(PkObject):
