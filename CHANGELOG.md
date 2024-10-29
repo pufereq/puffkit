@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2024-10-29
+
+### Features
+
+- [`23a8aed`](https://github.com/pufereq/template-repo/commit/23a8aede748a28f3718df3229232854a81fb7fad) **app.py**: add fallback scene, set by default
+- [`22f2253`](https://github.com/pufereq/template-repo/commit/22f2253d12fc8e3fb649856f96f4ad69ff56eb01) **scene.py**: add `_id` argument to `PkScene's` `__init__` instead of assigning id based on class name
+
+### Miscellaneous Tasks
+
+- [`78da30d`](https://github.com/pufereq/template-repo/commit/78da30dd2e82eddcfa2e2d6000cc5a57bc7b918d) **scene.py**: use `default` font from `app` instead of monospace
+- [`c0ed583`](https://github.com/pufereq/template-repo/commit/c0ed58344f24b0288111a98a16619f35e273bf6a) **scene.py**: draw 'fallback scene' text only when id is `fallback` instead of type
+- [`4364c16`](https://github.com/pufereq/template-repo/commit/4364c16590bee511d47ff80d87eebd516e857829) **app.py**: import `PkScene` in module
+- [`6c64108`](https://github.com/pufereq/template-repo/commit/6c641081cff7c6bea0cefcfe52d17077e92c7f94) **scene.py**: require keyword argument `lazy` in `PkScene.__init__()`
+
+### Testing
+
+- [`e79b351`](https://github.com/pufereq/template-repo/commit/e79b351374b272606804ddf387f337fb97d62bd0) **test_scene.py**: modify tests to provide new arguments to `PkScene`
+
 ## [0.3.0] - 2024-10-27
 
 ### Bug Fixes
