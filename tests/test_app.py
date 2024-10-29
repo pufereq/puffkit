@@ -70,8 +70,7 @@ def test_pkapp_set_scene(app: PkApp):
 
 def test_pkapp_set_scene_nonlazy(app: PkApp):
     """Test changing the active scene non-lazily."""
-    scene = PkScene(app=app, lazy=False)
-    scene.id = "test_pkapp_scene"
+    scene = PkScene("test_pkapp_scene", app=app, lazy=False)
     app.add_scene(scene)
     assert app.scenes[scene.id].initialized is True
     app.set_scene("test_pkapp_scene")

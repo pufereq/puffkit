@@ -2,20 +2,15 @@
 """puffkit App module."""
 from __future__ import annotations
 
-import logging as lg
-
 import pygame as pg
 
-from typing import TYPE_CHECKING
 from puffkit.color.palettes import PkBasicPalette
 from puffkit.font.font import PkFont
 from puffkit.font.sysfont import PkSysFont
 from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
+from puffkit.scene import PkScene
 from puffkit.surface import PkSurface
-
-if TYPE_CHECKING:
-    from puffkit.scene import PkScene
 
 
 class PkApp(PkObject):
@@ -76,7 +71,9 @@ class PkApp(PkObject):
 
         # set up scenes
         self.scenes: dict[str, PkScene] = {}
-        self.active_scene_id: str = ""
+        self.active_scene_id: str = "fallback"
+        self.add_scene(PkScene("fallback", self, lazy=True))
+        self.set_scene("fallback")
 
         # set up clock
         self.clock = pg.time.Clock()

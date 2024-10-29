@@ -25,15 +25,16 @@ class PkScene(PkObject):
     A scene takes up the whole screen (minus the topbar).
     """
 
-    def __init__(self, app: PkApp, *, lazy: bool = True) -> None:
+    def __init__(self, _id: str, app: PkApp, *, lazy: bool) -> None:
         """Initialize the scene class.
 
         Args:
+            _id (str): The ID of the scene.
             app (PkApp): The app instance.
             lazy (bool): Whether to initialize the scene lazily.
         """
         super().__init__()
-        self.id = type(self).__name__
+        self.id = _id
         self.lazy = lazy
 
         self.logger = lg.getLogger(f"{__name__}.{self.id}")
@@ -55,16 +56,16 @@ class PkScene(PkObject):
         """Initialize the scene fully. Should be called even if subclassed."""
         self.surface.fill((255, 255, 255))
 
-        # show fallback message if Scene called directly
         if type(self) is PkScene:
-            self.logger.warning(
-                "`PkScene` called directly, showing fallback message..."
-            )
+            self.logger.warning("PkScene class should be subclassed.")
+
+        # draw fallback text
+        if self.id == "fallback":
             self.surface.blit_text(
                 "FALLBACK SCENE",
                 (20, 20),
                 color="#ff0000",
-                font=PkSysFont("monospace", 12),
+                font=self.app.fonts["default"],
             )
 
     def input(
