@@ -71,7 +71,9 @@ class PkApp(PkObject):
 
         # set up scenes
         self.scenes: dict[str, PkScene] = {}
-        self.active_scene_id: str = ""
+        self.active_scene_id: str = "fallback"
+        self.add_scene(PkScene("fallback", self, lazy=True))
+        self.set_scene("fallback")
 
         # set up clock
         self.clock = pg.time.Clock()
