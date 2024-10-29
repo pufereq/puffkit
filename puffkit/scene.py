@@ -56,11 +56,11 @@ class PkScene(PkObject):
         """Initialize the scene fully. Should be called even if subclassed."""
         self.surface.fill((255, 255, 255))
 
-        # show fallback message if Scene called directly
         if type(self) is PkScene:
-            self.logger.warning(
-                "`PkScene` called directly, showing fallback message..."
-            )
+            self.logger.warning("PkScene class should be subclassed.")
+
+        # draw fallback text
+        if self.id == "fallback":
             self.surface.blit_text(
                 "FALLBACK SCENE",
                 (20, 20),
