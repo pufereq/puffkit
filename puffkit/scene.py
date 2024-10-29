@@ -65,7 +65,7 @@ class PkScene(PkObject):
                 "FALLBACK SCENE",
                 (20, 20),
                 color="#ff0000",
-                font=PkSysFont("monospace", 12),
+                font=self.app.fonts["default"],
             )
 
     def input(
