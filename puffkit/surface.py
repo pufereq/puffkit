@@ -10,9 +10,9 @@ import pygame
 from puffkit.color.color import ColorValue, PkColor
 from puffkit.color.palettes import PkBasicPalette
 from puffkit.font.sysfont import PkSysFont
-from puffkit.geometry.coordinate import PkCoordinate
+from puffkit.geometry.coordinate import PkCoordinate, CoordinateValue
 from puffkit.geometry.rect import PkRect, RectValue
-from puffkit.geometry.size import PkSize
+from puffkit.geometry.size import PkSize, SizeValue
 from puffkit.object import PkObject
 
 if TYPE_CHECKING:
@@ -29,8 +29,8 @@ class PkSurface(PkObject):
 
     def __init__(
         self,
-        size: PkSize,
-        pos: PkCoordinate = PkCoordinate(0, 0),
+        size: PkSize | SizeValue,
+        pos: PkCoordinate | CoordinateValue = PkCoordinate(0, 0),
         *,
         flags: int = 0,
         depth: int = 32,
@@ -47,11 +47,16 @@ class PkSurface(PkObject):
             masks (tuple[int, int, int, int], optional): Masks for the surface.
                 Defaults to (0, 0, 0, 0).
         """
+        if not isinstance(size, PkSize):
+            size = PkSize(*size)
+        if not isinstance(pos, PkCoordinate):
+            pos = PkCoordinate(*pos)
+
         super().__init__()
 
         self.pos = pos
         self.masks = masks
-        self.internal_surface = pygame.Surface(tuple(size), flags, depth, masks)
+        self.internal_surface = pygame.Surface(size.tuple, flags, depth, masks)
 
     @classmethod
     def from_pygame(cls, surface: pygame.Surface) -> Self:
@@ -102,8 +107,8 @@ class PkSurface(PkObject):
     def blit(
         self,
         source: PkSurface,
-        dest: PkCoordinate,
-        area: tuple[int, int, int, int] | PkRect | None = None,
+        dest: PkCoordinate | CoordinateValue,
+        area: RectValue | PkRect | None = None,
         special_flags: int = 0,
     ):
         """Draw one surface onto another.
@@ -112,8 +117,10 @@ class PkSurface(PkObject):
             source (Surface): Surface to draw.
             dest (tuple[int, int]): Position of the surface.
         """
+        if not isinstance(dest, PkCoordinate):
+            dest = PkCoordinate(*dest)
         self.internal_surface.blit(
-            source.internal_surface, tuple(dest), area, special_flags
+            source.internal_surface, dest.tuple, area, special_flags
         )
 
     def blits(
