@@ -37,6 +37,11 @@ class PkSize:
         """Return the height of the size."""
         return self.h
 
+    @property
+    def tuple(self) -> tuple[int | float, int | float]:
+        """Return the size as a tuple."""
+        return (self.w, self.h)
+
     def __str__(self) -> str:
         """Return a human-friendly representation of the size."""
         return f"({self.w}, {self.h})"
