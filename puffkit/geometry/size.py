@@ -11,6 +11,9 @@ from __future__ import annotations
 from typing import Iterable
 
 
+type SizeValue = tuple[int | float, int | float]
+
+
 class PkSize:
     """Class to represent a size in a 2D space.
 
