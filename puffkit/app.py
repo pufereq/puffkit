@@ -156,7 +156,10 @@ class PkApp(PkObject):
         self.internal_screen.fill(PkBasicPalette.WHITE)
         self.active_scene.render(self.internal_screen)
 
-        self.display.blit(self.internal_screen.internal_surface, (0, 0))
+        scaled = pg.transform.scale(
+            self.internal_screen.internal_surface, self.display_size.tuple
+        )
+        self.display.blit(scaled, (0, 0))
         pg.display.flip()
 
     def run(self, *, run_once: bool = False) -> None:
