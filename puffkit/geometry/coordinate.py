@@ -11,6 +11,9 @@ from __future__ import annotations
 from typing import Iterable
 
 
+type CoordinateValue = tuple[int | float, int | float]
+
+
 class PkCoordinate:
     """Class to represent a coordinate in a 2D space.
 
