@@ -59,9 +59,7 @@ class PkApp(PkObject):
         pg.init()
 
         # set up display
-        self.display = pg.display.set_mode(
-            tuple(self.display_size), **display_arguments
-        )
+        self.display = pg.display.set_mode(self.display_size.tuple, **display_arguments)
         self.internal_screen = PkSurface(self.internal_screen_size)
 
         # set up fonts
