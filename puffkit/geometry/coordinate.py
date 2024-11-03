@@ -27,6 +27,15 @@ class PkCoordinate:
         self.x = x
         self.y = y
 
+    @property
+    def tuple(self) -> tuple[int | float, int | float]:
+        """Return the coordinate as a tuple.
+
+        Returns:
+            tuple[int, int]: The coordinate as a tuple.
+        """
+        return (self.x, self.y)
+
     def __str__(self) -> str:
         """Return a human-friendly representation of the coordinate."""
         return f"({self.x}, {self.y})"
