@@ -62,6 +62,10 @@ class PkApp(PkObject):
         self.display = pg.display.set_mode(self.display_size.tuple, **display_arguments)
         self.internal_screen = PkSurface(self.internal_screen_size)
 
+        # set window title
+        self.title: str = f"{self.app_name} {self.app_version}"
+        pg.display.set_caption(self.title)
+
         # set up fonts
         pg.font.init()
         self.fonts: dict[str, PkFont] = {}
@@ -147,6 +151,7 @@ class PkApp(PkObject):
 
     def update(self, delta_time: float) -> None:
         """Run update hooks."""
+        pg.display.set_caption(f"{self.title} - {round(self.clock.get_fps(), 2)} FPS")
         self.active_scene.update(delta_time)
 
     def render(self) -> None:
