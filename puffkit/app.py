@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import pygame as pg
 
+from typing import Final
+
 from puffkit.color.palettes import PkBasicPalette
 from puffkit.font.font import PkFont
 from puffkit.font.sysfont import PkSysFont
@@ -72,7 +74,7 @@ class PkApp(PkObject):
         self.add_font("default", None, 12)
 
         # set up scenes
-        self.scenes: dict[str, PkScene] = {}
+        self.scenes: Final[dict[str, PkScene]] = {}
         self.active_scene_id: str = "fallback"
         self.add_scene(PkScene("fallback", self, lazy=True))
         self.set_scene("fallback")
