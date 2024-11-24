@@ -52,6 +52,15 @@ class PkScene(PkObject):
             self.init()
             self.initialized = True
 
+    def __str__(self) -> str:
+        return f"{self.class_name} {self.id}"
+
+    def __repr__(self) -> str:
+        return (
+            f"<{self.class_name} id={self.id} lazy={self.lazy}"
+            f" initialized={self.initialized}>"
+        )
+
     def init(self) -> None:
         """Initialize the scene fully. Should be called even if subclassed."""
         self.surface.fill((255, 255, 255))
