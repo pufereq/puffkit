@@ -37,7 +37,9 @@ class PkApp(PkObject):
 
         Args:
             app_name (str): Name of the app.
+            app_version (str): Version of the app.
             display_size (tuple[int, int]): Size of the display window.
+            display_arguments (dict[str, bool]): Arguments for the display window.
             internal_screen_size (tuple[int, int]): Size of the internal screen.
             fps (int, optional): Frames per second. Defaults to 60.
         """
