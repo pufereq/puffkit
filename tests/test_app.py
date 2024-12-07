@@ -17,7 +17,7 @@ class PkAppSubclass(PkApp):
             display_size=(800, 600),
             display_arguments={},
             internal_screen_size=(800, 600),
-            fps=60,
+            fps_limit=60,
         )
 
 
@@ -33,7 +33,7 @@ def test_pkapp_initialization(app: PkApp):
     assert app.app_version == "1.0"
     assert app.display_size == (800, 600)
     assert app.internal_screen_size == (800, 600)
-    assert app.fps == 60
+    assert app.fps_limit == 60
     assert app.running is False
 
 
@@ -46,7 +46,7 @@ def test_pkapp_exception():
             display_size=(800, 600),
             display_arguments={},
             internal_screen_size=(800, 600),
-            fps=60,
+            fps_limit=60,
         )
 
 
