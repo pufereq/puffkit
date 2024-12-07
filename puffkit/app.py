@@ -31,7 +31,7 @@ class PkApp(PkObject):
         display_size: tuple[int, int],
         display_arguments: dict[str, bool],
         internal_screen_size: tuple[int, int],
-        fps: int = 60,
+        fps_limit: int = 60,
     ) -> None:
         """Initialize the app.
 
@@ -41,7 +41,7 @@ class PkApp(PkObject):
             display_size (tuple[int, int]): Size of the display window.
             display_arguments (dict[str, bool]): Arguments for the display window.
             internal_screen_size (tuple[int, int]): Size of the internal screen.
-            fps (int, optional): Frames per second. Defaults to 60.
+            fps_limit (int, optional): Frame rate cap. Defaults to 60.
         """
         super().__init__()
 
@@ -54,7 +54,7 @@ class PkApp(PkObject):
         self.display_size: PkSize = PkSize(*display_size)
         self.internal_screen_size: PkSize = PkSize(*internal_screen_size)
 
-        self.fps: int = fps
+        self.fps_limit: int = fps_limit
         self.delta_time: float = 1
 
         self.logger.info(f"Initializing {self.app_name} {self.app_version}...")
@@ -180,7 +180,7 @@ class PkApp(PkObject):
             self.handle_events()
             self.update(self.delta_time)
             self.render()
-            self.delta_time = self.clock.tick(self.fps) / 1000  # [seconds]
+            self.delta_time = self.clock.tick(self.fps_limit) / 1000  # [seconds]
 
         pg.quit()
 
