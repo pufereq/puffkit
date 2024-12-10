@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-__version__ = "0.4.0"
-
-print(f"puffkit {__version__}")
-
 from puffkit.app import PkApp
 from puffkit.color import palettes
 from puffkit.color.color import ColorValue, PkColor
@@ -14,3 +10,7 @@ from puffkit.scene import PkScene
 from puffkit.subsurface import PkSubSurface
 from puffkit.surface import PkSurface
 from puffkit.textures import get_texture
+
+__version__ = "0.4.0"
+
+print(f"puffkit {__version__}")
