@@ -46,11 +46,11 @@ class PkScene(PkObject):
 
         self.surface = PkSurface(self.size, self.pos)
 
-        self.initialized: bool = False
+        self.loaded: bool = False
 
         if not self.lazy:
             self.init()
-            self.initialized = True
+            self.loaded = True
 
     def __str__(self) -> str:
         return f"{self.class_name} {self.id}"
@@ -58,7 +58,7 @@ class PkScene(PkObject):
     def __repr__(self) -> str:
         return (
             f"<{self.class_name} id={self.id} lazy={self.lazy}"
-            f" initialized={self.initialized}>"
+            f" loaded={self.loaded}>"
         )
 
     def init(self) -> None:
