@@ -49,7 +49,7 @@ class PkScene(PkObject):
         self.loaded: bool = False
 
         if not self.lazy:
-            self.init()
+            self.load()
             self.loaded = True
 
     def __str__(self) -> str:
@@ -61,8 +61,8 @@ class PkScene(PkObject):
             f" loaded={self.loaded}>"
         )
 
-    def init(self) -> None:
-        """Initialize the scene fully. Should be called even if subclassed."""
+    def load(self) -> None:
+        """Load the scene."""
         self.surface.fill((255, 255, 255))
 
         if type(self) is PkScene:
