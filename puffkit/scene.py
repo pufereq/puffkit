@@ -52,10 +52,10 @@ class PkScene(PkObject):
             self.load()
             self.loaded = True
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         return f"{self.class_name} {self.id}"
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> str:  # pragma: no cover
         return (
             f"<{self.class_name} id={self.id} lazy={self.lazy}"
             f" loaded={self.loaded}>"
