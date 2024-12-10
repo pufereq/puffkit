@@ -61,8 +61,24 @@ class PkScene(PkObject):
             f" loaded={self.loaded}>"
         )
 
+    def on_load(self) -> None:
+        """Loading hook."""
+        pass
+
+    def on_update(self, delta: float) -> None:
+        """Update hook.
+
+        Args:
+            delta (float): The time passed since the last frame.
+        """
+        pass
+
+    def on_render(self) -> None:
+        """Render hook."""
+        pass
+
     def load(self) -> None:
-        """Load the scene."""
+        """Load the scene. NOTE: The method you should override is `on_load`."""
         self.surface.fill((255, 255, 255))
 
         if type(self) is PkScene:
@@ -77,26 +93,19 @@ class PkScene(PkObject):
                 font=self.app.fonts["default"],
             )
 
-    def input(
-        self,
-        *,
-        events: list[pg.event.Event],
-        keys: dict[int, bool],
-        mouse_pos: tuple[int, int],
-        mouse_buttons: tuple[bool, bool, bool],
-    ) -> None:
-        pass
+        self.on_load()
 
     def update(self, delta: float) -> None:
-        """Update the scene.
+        """Update the scene. NOTE: The method you should override is `on_update`.
 
         Args:
             delta (float): The time passed since the last frame.
         """
-        pass
+        self.on_update(delta)
 
     def render(self, dest: PkSurface) -> None:
-        """Render the scene."""
+        """Render the scene. NOTE: The method you should override is `on_render`."""
+        self.on_render()
         self.draw(dest)
 
     def draw(self, screen: PkSurface) -> None:
