@@ -31,13 +31,23 @@ class PkEventManager:
         self.handlers: dict[int, Any] = {}
 
     def add_handler(self, event_type: int, handler: Any) -> None:
-        """Add (or overwrite) a handler to the event manager."""
+        """Add (or overwrite) a handler to the event manager.
+
+        Args:
+            event_type (int): The event type to handle.
+            handler (Any): The handler to call when the event occurs. The handler
+                should take a single argument, the event to handle.
+        """
         if event_type in self.handlers:
             self.logger.warning(f"Overwriting handler for event type {event_type}...")
         self.handlers[event_type] = handler
 
     def remove_handler(self, event_type: int) -> None:
-        """Remove a handler from the event manager."""
+        """Remove a handler from the event manager.
+
+        Args:
+            event_type (int): The event type to remove the handler for.
+        """
         if event_type in self.handlers:
             del self.handlers[event_type]
             self.logger.info(f"Removed handler for event type {event_type}.")
@@ -45,13 +55,21 @@ class PkEventManager:
             self.logger.warning(f"No handler found for event type {event_type}.")
 
     def handle_events(self, event_list: list[PkEvent]) -> None:
-        """Handle the events in the event manager."""
+        """Handle the events in the event manager.
+
+        Args:
+            event_list (list[PkEvent]): The list of events to handle.
+        """
         for event in event_list:
             if event.type in self.handlers:
                 self.handlers[event.type](event)
 
     def update(self, dt: float) -> None:
-        """Update the event manager."""
+        """Update the event manager.
+
+        Args:
+            dt (float): The time since the last update.
+        """
         self.events = [PkEvent.from_pygame(e) for e in pg.event.get()]
         self.app.active_scene.input(
             events=self.events,
