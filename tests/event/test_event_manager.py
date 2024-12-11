@@ -1,3 +1,4 @@
+import pygame
 import pytest
 from unittest.mock import Mock
 from puffkit import PkApp
@@ -12,6 +13,7 @@ def mock_app() -> Mock:
 
 @pytest.fixture
 def event_manager(mock_app: Mock) -> PkEventManager:
+    pygame.init()
     return PkEventManager(mock_app)
 
 
