@@ -144,19 +144,6 @@ class PkApp(PkObject):
         self.logger.debug(f"Adding system font {name}...")
         self.fonts[name] = PkSysFont(name, size)
 
-    def handle_events(self) -> None:
-        """Handle events."""
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                self.running = False
-
-            self.active_scene.input(
-                events=pg.event.get(),
-                keys=pg.key.get_pressed(),
-                mouse_pos=pg.mouse.get_pos(),
-                mouse_buttons=pg.mouse.get_pressed(),
-            )
-
     def update(self, delta_time: float) -> None:
         """Run update hooks."""
         pg.display.set_caption(f"{self.title} - {round(self.clock.get_fps(), 2)} FPS")
