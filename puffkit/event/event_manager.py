@@ -6,10 +6,12 @@ from __future__ import annotations
 import logging as lg
 import pygame as pg
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
-from puffkit import PkApp
 from puffkit.event import PkEvent
+
+if TYPE_CHECKING:  # pragma: no cover
+    from puffkit.app import PkApp
 
 
 class PkEventManager:
