@@ -2,6 +2,67 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2024-12-11
+
+### Bug Fixes
+
+- [`bb8458b`](https://github.com/pufereq/template-repo/commit/bb8458b03a930d63f53609ae145c61743ca6da8d) **event_manager.py**: move `PkApp` import to `TYPE_CHECKING` to avoid circular import
+- [`135faae`](https://github.com/pufereq/template-repo/commit/135faae76def96ea9601f76f281c3b206883360d) **app.py**: fix no `internal_screen` scaling being applied in `PkApp.render()`
+
+### Documentation
+
+- [`60f8b02`](https://github.com/pufereq/template-repo/commit/60f8b029b05eef304526deb3b9c5073f4e0817f5) **event_manager.py**: improve docstrings
+- [`b56bc74`](https://github.com/pufereq/template-repo/commit/b56bc746f52f9a783d59efc090b93908dfd3c3ea) **app.py**: add missing arguments to `PkApp`'s docstring
+
+### Features
+
+- [`c3ac7d9`](https://github.com/pufereq/template-repo/commit/c3ac7d9a84f7f9d5fd9fcc602021cff6c4299d82) **event.py**: replace `PkEvent.type` attribute with `PkEvent.name` of type `str`
+- [`d354147`](https://github.com/pufereq/template-repo/commit/d354147e2657b1a9d46d21d949383f34acf32c5d) **app.py**: implement `PkEventManager` in PkApp
+- [`5de80af`](https://github.com/pufereq/template-repo/commit/5de80afd4deadfe720dc2a08fc52977beb62131d) **event_manager.py**: add the event manager `PkEventManager`
+- [`c1e1740`](https://github.com/pufereq/template-repo/commit/c1e1740d27ec700e1c74a16c4acf6a5da8f7cecc) **event.py**: add `PkEvent` class
+- [`4f340f8`](https://github.com/pufereq/template-repo/commit/4f340f801599656b6a890cad11e9309319a9023a) **event_constants.py**: add `PkEventConstants` class
+- [`367b1bd`](https://github.com/pufereq/template-repo/commit/367b1bd42a2f980b60661f5ff662ef446d84d6b8) **scene.py**: add `on_load()`, `on_update()`, `on_render()` hooks to PkScene
+- [`4cf4721`](https://github.com/pufereq/template-repo/commit/4cf4721934ee36f0c544075b262b5350028fbf72) **app.py**: set window title based on app name, version and FPS
+- [`35c0a71`](https://github.com/pufereq/template-repo/commit/35c0a71e1bb0d8c979863c87c885304ca4b88ae4) **timing.py**: add timing decorators
+- [`3e7f78a`](https://github.com/pufereq/template-repo/commit/3e7f78a2233e3807d41aa8368fedaaf50985b356) **coordinate.py**: add `PkCoordinate.tuple` property
+- [`80021a1`](https://github.com/pufereq/template-repo/commit/80021a1e19ede1e8fdd70b4a5c963db574a397fa) **size.py**: add `PkSize.tuple` property
+
+### Miscellaneous Tasks
+
+- [`4a0965b`](https://github.com/pufereq/template-repo/commit/4a0965b7e59c7f9ded8c9a8bd70aeb94fad3bef8) **event/__init__.py**: remove `PkEventConstants` import
+- [`320d37c`](https://github.com/pufereq/template-repo/commit/320d37cbb86901c565b358188a6858674da0f326) **event_constants.py**: remove unused `event_constants` module
+- [`020a20d`](https://github.com/pufereq/template-repo/commit/020a20db87065a7eb3ace68320d3aca2bb0e6201) **event_manager.py**: input received events to the active scene
+- [`0c9bd1c`](https://github.com/pufereq/template-repo/commit/0c9bd1ca51c543518b3a56fca2542c91619121dc) **app.py**: remove obsolete `PkApp.handle_events()` method
+- [`9d006de`](https://github.com/pufereq/template-repo/commit/9d006dec77c5ba767bce29f9cf8554e7b657f093) **event/__init__.py**: add __init__.py to event module
+- [`49597bb`](https://github.com/pufereq/template-repo/commit/49597bbad50ee793b2c120ba884f81905be2cf04) **scene.py**: exclude `__str__` and `__repr__` from coverage
+- [`6b34b83`](https://github.com/pufereq/template-repo/commit/6b34b83d309d92a32e70481b221c25edf7dd205f) **scene.py**: add str and repr method
+- [`bf4b92c`](https://github.com/pufereq/template-repo/commit/bf4b92c1149143fcfc3f9f575e3688d9258accc2) **app.py**: make `PkApp.scenes` a final (const)
+- [`6ead962`](https://github.com/pufereq/template-repo/commit/6ead9623a18d05dab2c36fbabdbf4b6fe39886db) **app.py**: use the `display_size.tuple` property instead of `tuple(display_size)`
+- [`5b511a3`](https://github.com/pufereq/template-repo/commit/5b511a3d8ebb54bb3437a8fc152ffc1d8429b01b) **surface.py**: add support for `SizeValue` and `CoordinateValue` in `PkSurface`
+- [`ab8806f`](https://github.com/pufereq/template-repo/commit/ab8806f0cc56297acef05201c71e2ab03ec18906) **coordinate.py**: add `CoordinateValue` type
+- [`96862fe`](https://github.com/pufereq/template-repo/commit/96862fe2f1db1c0f50e94461c02f9636d085d84d) **size.py**: add `SizeValue` type
+
+### Refactor
+
+- [`9e09884`](https://github.com/pufereq/template-repo/commit/9e098842fd1779bf1b9e3ad20debf5d20f875456) **event.py**: rename references to `PkEvent.type` to `PkEvent.name`
+- [`87960ba`](https://github.com/pufereq/template-repo/commit/87960bad097dd81f641ef57bc7a7ed58b36c5e12) **puffkit/__init__.py**: move imports to the top of the module
+- [`6b83da9`](https://github.com/pufereq/template-repo/commit/6b83da98ffae3214386ddde14e18b31df7dbe994) **app.py**: modify references to `PkScene.init()` and `PkScene.initialized` after rename
+- [`3fb8f91`](https://github.com/pufereq/template-repo/commit/3fb8f911dd632e1c66e1abb921f56098e33a1029) **scene.py**: rename `PkScene.init()` to `load()` as it shows the purpose better
+- [`8091071`](https://github.com/pufereq/template-repo/commit/8091071089f888f77766bf2a141b50becfa23e0f) **scene.py**: rename `PkScene.initialized` to `loaded`
+- [`aca19fe`](https://github.com/pufereq/template-repo/commit/aca19feeab5e429dff2bb2e5189cc1a77919f912) **app.py**: rename `PkApp.fps` to `fps_limit` for clarity
+
+### Testing
+
+- [`ebe6d3c`](https://github.com/pufereq/template-repo/commit/ebe6d3c853d6cb2844dcdbc22e08d552ecf01d55) **test_event_manager.py**: adapt tests to changes in `PkEventManager`
+- [`dd62d7b`](https://github.com/pufereq/template-repo/commit/dd62d7bbf44ce5efe07b54db6df90bd0bcd10a37) **test_event.py**: adapt tests to changes in `PkEvent`
+- [`aa604e8`](https://github.com/pufereq/template-repo/commit/aa604e8cb86b335d8ce65f22505350a6787856bb) **event.py**: exclude `__str__` and `__repr__` from coverage
+- [`26af623`](https://github.com/pufereq/template-repo/commit/26af623844094fa6c930adc33f2a0790b9084ea9) **test_app.py**: remove `PkApp.handle_events()`-specific tests as it is removed
+- [`61e234a`](https://github.com/pufereq/template-repo/commit/61e234a6ac38c37b70c12d975d7847c53e4bdd46) **test_event_manager.py**: initialize pygame before creating a event manager instance
+- [`d70837c`](https://github.com/pufereq/template-repo/commit/d70837cd095d2bd9e4390314f075e890f234a4ca) **test_event_manager.py**: add tests for the `PkEventManager` class
+- [`d3b6371`](https://github.com/pufereq/template-repo/commit/d3b6371c536413dfa95a9967cf57d93e6be5c79b) **test_event.py**: add tests for the `PkEvent` class
+- [`eac8cf2`](https://github.com/pufereq/template-repo/commit/eac8cf26ab6f293a0bf16b8339c8c96110f82e62) **test_app.py**: rename references to `PkScene.loaded` after rename
+- [`ed37bc6`](https://github.com/pufereq/template-repo/commit/ed37bc666d4577796305249baef8471655b140d8) **test_app.py**: refactor tests to reflect on `PkApp.fps_limit` rename
+
 ## [0.4.0] - 2024-10-29
 
 ### Features
