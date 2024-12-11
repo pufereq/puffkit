@@ -41,7 +41,7 @@ class PkEvent:
         """
         return cls(pg.event.event_name(event.type), event.dict)
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         """Return the string representation of the event.
 
         Returns:
@@ -49,7 +49,7 @@ class PkEvent:
         """
         return f"<PkEvent name={self.name} dict={self.dict}>"
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> str:  # pragma: no cover
         """Return the string representation of the event.
 
         Returns:
