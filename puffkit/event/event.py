@@ -5,6 +5,8 @@ from __future__ import annotations
 
 from typing import Any
 
+import pygame as pg
+
 
 class PkEvent:
     """Event class for puffkit.
@@ -12,15 +14,15 @@ class PkEvent:
     Represents an event in the event queue.
     """
 
-    def __init__(self, type: int, dict: dict[str, Any], **kwargs: Any) -> None:
+    def __init__(self, name: str, dict: dict[str, Any], **kwargs: Any) -> None:
         """Initialize the event class.
 
         Args:
-            type (int): The type of the event.
+            name (str): The name of the event.
             dict (dict[str, Any]): The event dictionary.
             **kwargs (Any): Additional arguments.
         """
-        self.type = type
+        self.name = name
         self.dict = dict
         self.__dict__.update(dict)
 
@@ -37,7 +39,7 @@ class PkEvent:
         Returns:
             PkEvent: The PkEvent.
         """
-        return cls(event.type, event.dict)
+        return cls(pg.event.event_name(event.type), event.dict)
 
     def __str__(self) -> str:
         """Return the string representation of the event.
@@ -45,7 +47,7 @@ class PkEvent:
         Returns:
             str: The string representation of the event.
         """
-        return f"<PkEvent type={self.type} dict={self.dict}>"
+        return f"<PkEvent name={self.name} dict={self.dict}>"
 
     def __repr__(self) -> str:
         """Return the string representation of the event.
@@ -53,7 +55,7 @@ class PkEvent:
         Returns:
             str: The string representation of the event.
         """
-        return f"<PkEvent type={self.type} dict={self.dict}>"
+        return f"<PkEvent name={self.name} dict={self.dict}>"
 
     def __getattribute__(self, name: str) -> Any:
         """Get an attribute from the event.
