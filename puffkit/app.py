@@ -7,6 +7,7 @@ import pygame as pg
 from typing import Final
 
 from puffkit.color.palettes import PkBasicPalette
+from puffkit.event import PkEventManager
 from puffkit.font.font import PkFont
 from puffkit.font.sysfont import PkSysFont
 from puffkit.geometry.size import PkSize
@@ -65,6 +66,9 @@ class PkApp(PkObject):
         # set up display
         self.display = pg.display.set_mode(self.display_size.tuple, **display_arguments)
         self.internal_screen = PkSurface(self.internal_screen_size)
+
+        # set up event manager
+        self.event_manager = PkEventManager(self)
 
         # set window title
         self.title: str = f"{self.app_name} {self.app_version}"
@@ -156,6 +160,7 @@ class PkApp(PkObject):
     def update(self, delta_time: float) -> None:
         """Run update hooks."""
         pg.display.set_caption(f"{self.title} - {round(self.clock.get_fps(), 2)} FPS")
+        self.event_manager.update(delta_time)
         self.active_scene.update(delta_time)
 
     def render(self) -> None:
@@ -177,7 +182,6 @@ class PkApp(PkObject):
         while self.running:
             if run_once:
                 self.quit()
-            self.handle_events()
             self.update(self.delta_time)
             self.render()
             self.delta_time = self.clock.tick(self.fps_limit) / 1000  # [seconds]
