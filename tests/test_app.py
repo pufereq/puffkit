@@ -99,15 +99,6 @@ def test_pkapp_add_sysfont(MockSysFont: mock.Mock, app: PkApp):
     MockSysFont.assert_called_once()
 
 
-@mock.patch("puffkit.app.PkApp.active_scene", spec=PkScene)
-def test_pkapp_handle_events(MockActiveScene: mock.Mock, app: PkApp):
-    """Test handling events."""
-
-    with mock.patch("pygame.event.get", return_value=[mock.Mock(type=pg.QUIT)]):
-        app.handle_events()
-        assert app.running is False
-
-
 def test_pkapp_update(app: PkApp):
     """Test updating the app."""
     scene = mock.Mock(spec=PkScene)
@@ -146,7 +137,6 @@ def test_pkapp_run(app: PkApp):
     with (
         mock.patch("puffkit.app.PkApp.update"),
         mock.patch("puffkit.app.PkApp.render"),
-        mock.patch("puffkit.app.PkApp.handle_events"),
     ):
         app.run(run_once=True)
 
