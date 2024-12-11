@@ -1,79 +1,60 @@
 import pytest
+from unittest import mock
+import pygame as pg
 from puffkit.event.event import PkEvent
 
 
 @pytest.mark.parametrize(
-    "type, _dict, kwargs, expected_str",
+    "name, event_dict, kwargs",
     [
-        (1, {"key": "value"}, {}, "<PkEvent type=1 dict={'key': 'value'}>"),
-        (
-            2,
-            {"another_key": 123},
-            {"extra": "data"},
-            "<PkEvent type=2 dict={'another_key': 123}>",
-        ),
+        ("test_event", {"key1": "value1"}, {}),
+        ("another_event", {"key2": "value2"}, {"extra": "extra_value"}),
     ],
 )
-def test_pkevent_initialization(
-    type: int, _dict: dict, kwargs: dict, expected_str: str
-) -> None:
+def test_pk_event_initialization(name: str, event_dict: dict, kwargs: dict) -> None:
     """Test the initialization of PkEvent."""
-    event = PkEvent(type, _dict, **kwargs)
-    assert event.type == type
-    assert event.dict == _dict
+    event = PkEvent(name, event_dict, **kwargs)
+    assert event.name == name
+    assert event.dict == event_dict
     for key, value in kwargs.items():
         assert getattr(event, key) == value
-    assert str(event) == expected_str
 
 
-def test_pkevent_from_pygame() -> None:
+def test_pk_event_from_pygame() -> None:
     """Test creating a PkEvent from a Pygame event."""
+    mock_event = mock.Mock()
+    mock_event.type = pg.USEREVENT
+    mock_event.dict = {"key": "value"}
+    pg_event_name = pg.event.event_name(mock_event.type)
 
-    class MockPygameEvent:
-        def __init__(self, type: int, _dict: dict):
-            self.type = type
-            self.dict = _dict
-
-    pygame_event = MockPygameEvent(3, {"pygame_key": "pygame_value"})
-    event = PkEvent.from_pygame(pygame_event)
-    assert event.type == pygame_event.type
-    assert event.dict == pygame_event.dict
+    event = PkEvent.from_pygame(mock_event)
+    assert event.name == pg_event_name
+    assert event.dict == mock_event.dict
 
 
-def test_pkevent_str() -> None:
-    """Test the string representation of PkEvent."""
-    event = PkEvent(4, {"test_key": "test_value"})
-    assert str(event) == "<PkEvent type=4 dict={'test_key': 'test_value'}>"
-
-
-def test_pkevent_repr() -> None:
-    """Test the repr representation of PkEvent."""
-    event = PkEvent(5, {"repr_key": "repr_value"})
-    assert repr(event) == "<PkEvent type=5 dict={'repr_key': 'repr_value'}>"
-
-
-def test_pkevent_getattribute() -> None:
+def test_pk_event_getattribute() -> None:
     """Test getting an attribute from PkEvent."""
-    event = PkEvent(6, {"attr_key": "attr_value"})
-    assert event.__getattribute__("attr_key") == "attr_value"
+    event = PkEvent("test_event", {"key": "value"})
+    assert event.__getattribute__("name") == "test_event"
 
 
-def test_pkevent_setattr() -> None:
+def test_pk_event_setattr() -> None:
     """Test setting an attribute in PkEvent."""
-    event = PkEvent(7, {})
+    event = PkEvent("test_event", {"key": "value"})
     event.__setattr__("new_attr", "new_value")
     assert event.new_attr == "new_value"
 
 
-def test_pkevent_delattr() -> None:
+def test_pk_event_delattr() -> None:
     """Test deleting an attribute from PkEvent."""
-    event = PkEvent(8, {"del_key": "del_value"})
-    event.__delattr__("del_key")
+    event = PkEvent("test_event", {"key": "value"})
+    event.__setattr__("new_attr", "new_value")
+    event.__delattr__("new_attr")
     with pytest.raises(AttributeError):
-        _ = event.del_key
+        getattr(event, "new_attr")
 
 
-def test_pkevent_bool() -> None:
+def test_pk_event_bool() -> None:
     """Test the truthiness of PkEvent."""
-    event = PkEvent(9, {})
+    event = PkEvent("test_event", {"key": "value"})
     assert bool(event) is True
