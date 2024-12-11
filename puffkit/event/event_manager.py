@@ -53,4 +53,10 @@ class PkEventManager:
     def update(self, dt: float) -> None:
         """Update the event manager."""
         self.events = [PkEvent.from_pygame(e) for e in pg.event.get()]
+        self.app.active_scene.input(
+            events=self.events,
+            keys=pg.key.get_pressed(),
+            mouse_pos=pg.mouse.get_pos(),
+            mouse_buttons=pg.mouse.get_pressed(),
+        )
         self.handle_events(self.events)
