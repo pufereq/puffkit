@@ -28,31 +28,31 @@ class PkEventManager:
         self.app = app
 
         self.events: list[PkEvent] = []
-        self.handlers: dict[int, Any] = {}
+        self.handlers: dict[str, Any] = {}
 
-    def add_handler(self, event_type: int, handler: Any) -> None:
+    def add_handler(self, event_name: str, handler: Any) -> None:
         """Add (or overwrite) a handler to the event manager.
 
         Args:
-            event_type (int): The event type to handle.
+            event_name (str): The name of the event to handle.
             handler (Any): The handler to call when the event occurs. The handler
                 should take a single argument, the event to handle.
         """
-        if event_type in self.handlers:
-            self.logger.warning(f"Overwriting handler for event type {event_type}...")
-        self.handlers[event_type] = handler
+        if event_name in self.handlers:
+            self.logger.warning(f"Overwriting handler for event type {event_name}...")
+        self.handlers[event_name] = handler
 
-    def remove_handler(self, event_type: int) -> None:
+    def remove_handler(self, event_name: str) -> None:
         """Remove a handler from the event manager.
 
         Args:
-            event_type (int): The event type to remove the handler for.
+            event_name (str): The name of the event to remove the handler for.
         """
-        if event_type in self.handlers:
-            del self.handlers[event_type]
-            self.logger.info(f"Removed handler for event type {event_type}.")
+        if event_name in self.handlers:
+            del self.handlers[event_name]
+            self.logger.info(f"Removed handler for event type {event_name}.")
         else:
-            self.logger.warning(f"No handler found for event type {event_type}.")
+            self.logger.warning(f"No handler found for event type {event_name}.")
 
     def handle_events(self, event_list: list[PkEvent]) -> None:
         """Handle the events in the event manager.
@@ -61,8 +61,8 @@ class PkEventManager:
             event_list (list[PkEvent]): The list of events to handle.
         """
         for event in event_list:
-            if event.type in self.handlers:
-                self.handlers[event.type](event)
+            if event.name in self.handlers:
+                self.handlers[event.name](event)
 
     def update(self, dt: float) -> None:
         """Update the event manager.
