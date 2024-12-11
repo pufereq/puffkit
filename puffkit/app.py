@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import pygame as pg
 
+from typing import Final
+
 from puffkit.color.palettes import PkBasicPalette
+from puffkit.event import PkEventManager
 from puffkit.font.font import PkFont
 from puffkit.font.sysfont import PkSysFont
 from puffkit.geometry.size import PkSize
@@ -29,15 +32,17 @@ class PkApp(PkObject):
         display_size: tuple[int, int],
         display_arguments: dict[str, bool],
         internal_screen_size: tuple[int, int],
-        fps: int = 60,
+        fps_limit: int = 60,
     ) -> None:
         """Initialize the app.
 
         Args:
             app_name (str): Name of the app.
+            app_version (str): Version of the app.
             display_size (tuple[int, int]): Size of the display window.
+            display_arguments (dict[str, bool]): Arguments for the display window.
             internal_screen_size (tuple[int, int]): Size of the internal screen.
-            fps (int, optional): Frames per second. Defaults to 60.
+            fps_limit (int, optional): Frame rate cap. Defaults to 60.
         """
         super().__init__()
 
@@ -50,7 +55,7 @@ class PkApp(PkObject):
         self.display_size: PkSize = PkSize(*display_size)
         self.internal_screen_size: PkSize = PkSize(*internal_screen_size)
 
-        self.fps: int = fps
+        self.fps_limit: int = fps_limit
         self.delta_time: float = 1
 
         self.logger.info(f"Initializing {self.app_name} {self.app_version}...")
@@ -59,10 +64,15 @@ class PkApp(PkObject):
         pg.init()
 
         # set up display
-        self.display = pg.display.set_mode(
-            tuple(self.display_size), **display_arguments
-        )
+        self.display = pg.display.set_mode(self.display_size.tuple, **display_arguments)
         self.internal_screen = PkSurface(self.internal_screen_size)
+
+        # set up event manager
+        self.event_manager = PkEventManager(self)
+
+        # set window title
+        self.title: str = f"{self.app_name} {self.app_version}"
+        pg.display.set_caption(self.title)
 
         # set up fonts
         pg.font.init()
@@ -70,7 +80,7 @@ class PkApp(PkObject):
         self.add_font("default", None, 12)
 
         # set up scenes
-        self.scenes: dict[str, PkScene] = {}
+        self.scenes: Final[dict[str, PkScene]] = {}
         self.active_scene_id: str = "fallback"
         self.add_scene(PkScene("fallback", self, lazy=True))
         self.set_scene("fallback")
@@ -110,8 +120,8 @@ class PkApp(PkObject):
 
         self.active_scene_id = scene_id
 
-        if not self.active_scene.initialized:
-            self.active_scene.init()
+        if not self.active_scene.loaded:
+            self.active_scene.load()
 
     def add_font(self, name: str, path: str | None, size: int) -> None:
         """Add a font to the app.
@@ -134,21 +144,10 @@ class PkApp(PkObject):
         self.logger.debug(f"Adding system font {name}...")
         self.fonts[name] = PkSysFont(name, size)
 
-    def handle_events(self) -> None:
-        """Handle events."""
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                self.running = False
-
-            self.active_scene.input(
-                events=pg.event.get(),
-                keys=pg.key.get_pressed(),
-                mouse_pos=pg.mouse.get_pos(),
-                mouse_buttons=pg.mouse.get_pressed(),
-            )
-
     def update(self, delta_time: float) -> None:
         """Run update hooks."""
+        pg.display.set_caption(f"{self.title} - {round(self.clock.get_fps(), 2)} FPS")
+        self.event_manager.update(delta_time)
         self.active_scene.update(delta_time)
 
     def render(self) -> None:
@@ -156,7 +155,10 @@ class PkApp(PkObject):
         self.internal_screen.fill(PkBasicPalette.WHITE)
         self.active_scene.render(self.internal_screen)
 
-        self.display.blit(self.internal_screen.internal_surface, (0, 0))
+        scaled = pg.transform.scale(
+            self.internal_screen.internal_surface, self.display_size.tuple
+        )
+        self.display.blit(scaled, (0, 0))
         pg.display.flip()
 
     def run(self, *, run_once: bool = False) -> None:
@@ -167,10 +169,9 @@ class PkApp(PkObject):
         while self.running:
             if run_once:
                 self.quit()
-            self.handle_events()
             self.update(self.delta_time)
             self.render()
-            self.delta_time = self.clock.tick(self.fps) / 1000  # [seconds]
+            self.delta_time = self.clock.tick(self.fps_limit) / 1000  # [seconds]
 
         pg.quit()
 

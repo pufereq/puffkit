@@ -11,6 +11,9 @@ from __future__ import annotations
 from typing import Iterable
 
 
+type SizeValue = tuple[int | float, int | float]
+
+
 class PkSize:
     """Class to represent a size in a 2D space.
 
@@ -36,6 +39,11 @@ class PkSize:
     def height(self) -> int | float:
         """Return the height of the size."""
         return self.h
+
+    @property
+    def tuple(self) -> tuple[int | float, int | float]:
+        """Return the size as a tuple."""
+        return (self.w, self.h)
 
     def __str__(self) -> str:
         """Return a human-friendly representation of the size."""
