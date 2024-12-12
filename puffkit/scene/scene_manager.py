@@ -112,6 +112,13 @@ class PkSceneManager(PkObject):
                 new_scene.load()
             self.logger.debug(f"Loaded scene {new_scene.id}. Took {t.elapsed} seconds.")
 
+        if self.current_scene.auto_unload:
+            self.logger.debug(f"Unloading scene {self.current_scene.id}...")
+            self.current_scene.unload()
+            self.logger.debug(
+                f"Unloaded scene {self.current_scene.id}. Loaded scenes: {self.loaded_scenes}"
+            )
+
         self.current_scene = new_scene
 
     def unload_scene(self, scene_id: str) -> None:
