@@ -4,10 +4,8 @@ from __future__ import annotations
 
 import logging as lg
 
-import pygame as pg
-
 from typing import TYPE_CHECKING
-from puffkit.font.sysfont import PkSysFont
+
 from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.object import PkObject
 from puffkit.surface import PkSurface
