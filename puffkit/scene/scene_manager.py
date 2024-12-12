@@ -29,7 +29,13 @@ class PkSceneManager(PkObject):
         super().__init__()
         self.app = app
         self.scenes: dict[str, PkScene] = {}
-        self.current_scene: PkScene | None = None
+
+        from puffkit.scene.fallback_scene import PkFallbackScene
+
+        self.fallback_scene: PkFallbackScene = PkFallbackScene(app)
+        self.add_scene(self.fallback_scene)
+        self.current_scene: PkScene = self.fallback_scene
+        self.set_scene("fallback")
 
     def __str__(self) -> str:  # pragma: no cover
         return (
