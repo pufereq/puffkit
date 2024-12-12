@@ -5,6 +5,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+import traceback
+
 from puffkit.object import PkObject
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -54,6 +56,15 @@ class PkSceneManager(PkObject):
         """Return a list of loaded scenes."""
         return [scene for scene in self.scenes if self.scenes[scene].loaded]
 
+    def show_error_on_fallback(self, message: str) -> None:
+        """Show an error message on the fallback scene.
+
+        Args:
+            message (str): Error message to show.
+        """
+        self.fallback_scene.set_message(message)
+        self.set_scene("fallback")
+
     def add_scene(self, scene: PkScene) -> None:
         """Add a scene to the scene manager.
 
@@ -65,7 +76,13 @@ class PkSceneManager(PkObject):
         """
         self.logger.debug(f"Adding scene {scene.id}...")
         if scene.id in self.scenes:
-            raise ValueError(f"Scene with ID '{scene.id}' already exists.")
+            try:
+                raise ValueError(f"Scene with ID '{scene.id}' already exists.")
+            except ValueError as e:
+                self.logger.exception(e)
+                self.show_error_on_fallback(
+                    f"Error adding scene: {e}\n\n{traceback.format_exc()}"
+                )
 
         if not scene.loaded and not scene.lazy:
             scene.load()
