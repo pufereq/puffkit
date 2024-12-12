@@ -77,7 +77,7 @@ class PkApp(PkObject):
         # set up fonts
         pg.font.init()
         self.fonts: dict[str, PkFont] = {}
-        self.add_font("default", None, 12)
+        self.add_font("default", None, 14)
 
         # set up scenes
         self.scenes: Final[dict[str, PkScene]] = {}
