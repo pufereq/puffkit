@@ -107,7 +107,8 @@ class PkScene(PkObject):
                 color="#ff0000",
                 font=self.app.fonts["default"],
             )
-        self.loaded = True
+        else:
+            self.loaded = True
 
     def unload(self) -> None:
         """Unload the scene. NOTE: The method you should override is `on_unload`."""
