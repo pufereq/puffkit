@@ -106,6 +106,7 @@ class PkScene(PkObject):
                 (20, 20),
                 color="#ff0000",
                 font=self.app.fonts["default"],
+                antialias=True,
             )
         else:
             self.loaded = True
