@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 import traceback
 
 from puffkit.object import PkObject
+from puffkit.decorators.timing import Timer
 
 if TYPE_CHECKING:  # pragma: no cover
     from puffkit import PkSurface, PkApp, PkScene
@@ -106,7 +107,9 @@ class PkSceneManager(PkObject):
 
         if not new_scene.loaded:
             self.logger.debug(f"Loading scene {scene_id}...")
-            new_scene.load()
+            with Timer() as t:
+                new_scene.load()
+            self.logger.debug(f"Loaded scene {new_scene.id}. Took {t.elapsed} seconds.")
 
         self.current_scene = new_scene
 
