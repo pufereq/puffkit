@@ -136,13 +136,12 @@ class PkSceneManager(PkObject):
             mouse_pos (tuple[int, int]): Current mouse position.
             mouse_buttons (tuple[bool, bool, bool]): Dictionary of mouse buttons and their states.
         """
-        if self.current_scene is not None:
-            self.current_scene.input(
-                events=events,
-                keys=keys,
-                mouse_pos=mouse_pos,
-                mouse_buttons=mouse_buttons,
-            )
+        self.current_scene.input(
+            events=events,
+            keys=keys,
+            mouse_pos=mouse_pos,
+            mouse_buttons=mouse_buttons,
+        )
 
     def update(self, dt: float) -> None:
         """Update the current scene.
@@ -150,10 +149,8 @@ class PkSceneManager(PkObject):
         Args:
             dt (float): Time since the last update.
         """
-        if self.current_scene is not None:
-            self.current_scene.update(dt)
+        self.current_scene.update(dt)
 
     def render(self, dest: PkSurface) -> None:
         """Render the current scene."""
-        if self.current_scene is not None:
-            self.current_scene.render(dest)
+        self.current_scene.render(dest)
