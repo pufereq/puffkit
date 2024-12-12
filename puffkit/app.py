@@ -12,7 +12,7 @@ from puffkit.font.font import PkFont
 from puffkit.font.sysfont import PkSysFont
 from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
-from puffkit.scene import PkScene
+from puffkit.scene import PkScene, PkSceneManager
 from puffkit.surface import PkSurface
 
 
@@ -80,48 +80,12 @@ class PkApp(PkObject):
         self.add_font("default", None, 14)
 
         # set up scenes
-        self.scenes: Final[dict[str, PkScene]] = {}
-        self.active_scene_id: str = "fallback"
-        self.add_scene(PkScene("fallback", self, lazy=True))
-        self.set_scene("fallback")
+        self.scene_manager = PkSceneManager(self)
 
         # set up clock
         self.clock = pg.time.Clock()
 
         self.running: bool = False
-
-    @property
-    def active_scene(self) -> PkScene:
-        """Get the active scene.
-
-        Returns:
-            PkScene: Active scene.
-        """
-        return self.scenes[self.active_scene_id]
-
-    def add_scene(self, scene: PkScene) -> None:
-        """Add a scene to the app.
-
-        Args:
-            scene (PkScene): Scene to add.
-        """
-        self.logger.debug(f"Adding scene {scene.id}...")
-        self.scenes[scene.id] = scene
-
-    def set_scene(self, scene_id: str) -> None:
-        """Change the active scene.
-
-        Args:
-            scene_id (str): ID of the scene to change to.
-        """
-        self.logger.info(f"Changing scene to {scene_id}...")
-        if scene_id not in self.scenes:
-            raise ValueError(f"Scene {scene_id} not found.")
-
-        self.active_scene_id = scene_id
-
-        if not self.active_scene.loaded:
-            self.active_scene.load()
 
     def add_font(self, name: str, path: str | None, size: int) -> None:
         """Add a font to the app.
@@ -148,12 +112,12 @@ class PkApp(PkObject):
         """Run update hooks."""
         pg.display.set_caption(f"{self.title} - {round(self.clock.get_fps(), 2)} FPS")
         self.event_manager.update(delta_time)
-        self.active_scene.update(delta_time)
+        self.scene_manager.current_scene.update(delta_time)
 
     def render(self) -> None:
         """Render the app."""
         self.internal_screen.fill(PkBasicPalette.WHITE)
-        self.active_scene.render(self.internal_screen)
+        self.scene_manager.current_scene.render(self.internal_screen)
 
         scaled = pg.transform.scale(
             self.internal_screen.internal_surface, self.display_size.tuple
