@@ -50,7 +50,6 @@ class PkScene(PkObject):
 
         if not self.lazy:
             self.load()
-            self.loaded = True
 
     def __str__(self) -> str:  # pragma: no cover
         return f"{self.class_name} {self.id}"
@@ -62,7 +61,11 @@ class PkScene(PkObject):
         )
 
     def on_load(self) -> None:
-        """Loading hook."""
+        """Loading hook. Load the scene here."""
+        pass
+
+    def on_unload(self) -> None:
+        """Unloading hook. Handle scene unloading here."""
         pass
 
     def on_update(self, delta: float) -> None:
@@ -79,6 +82,7 @@ class PkScene(PkObject):
 
     def load(self) -> None:
         """Load the scene. NOTE: The method you should override is `on_load`."""
+        self.logger.debug(f"Loading scene {self.id}...")
         self.surface.fill((255, 255, 255))
 
         if type(self) is PkScene:
@@ -93,7 +97,23 @@ class PkScene(PkObject):
                 font=self.app.fonts["default"],
             )
 
-        self.on_load()
+        try:
+            self.on_load()
+        except Exception as e:
+            self.logger.exception(f"Error loading scene {self.id}: {e}")
+            self.surface.blit_text(
+                "ERROR LOADING SCENE",
+                (20, 20),
+                color="#ff0000",
+                font=self.app.fonts["default"],
+            )
+        self.loaded = True
+
+    def unload(self) -> None:
+        """Unload the scene. NOTE: The method you should override is `on_unload`."""
+        self.logger.debug(f"Unloading scene {self.id}...")
+        self.on_unload()
+        self.loaded = False
 
     def update(self, delta: float) -> None:
         """Update the scene. NOTE: The method you should override is `on_update`.
