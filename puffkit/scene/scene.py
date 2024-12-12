@@ -46,9 +46,6 @@ class PkScene(PkObject):
 
         self.loaded: bool = False
 
-        if not self.lazy:
-            self.load()
-
     def __str__(self) -> str:  # pragma: no cover
         return f"{self.class_name} {self.id}"
 
