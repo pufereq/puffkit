@@ -77,34 +77,13 @@ class PkScene(PkObject):
 
     def load(self) -> None:
         """Load the scene. NOTE: The method you should override is `on_load`."""
-        self.logger.debug(f"Loading scene {self.id}...")
         self.surface.fill((255, 255, 255))
 
         if type(self) is PkScene:
             self.logger.warning("PkScene class should be subclassed.")
 
-        # draw fallback text
-        if self.id == "fallback":
-            self.surface.blit_text(
-                "FALLBACK SCENE",
-                (20, 20),
-                color="#ff0000",
-                font=self.app.fonts["default"],
-            )
-
-        try:
-            self.on_load()
-        except Exception as e:
-            self.logger.exception(f"Error loading scene {self.id}: {e}")
-            self.surface.blit_text(
-                "ERROR LOADING SCENE",
-                (20, 20),
-                color="#ff0000",
-                font=self.app.fonts["default"],
-                antialias=True,
-            )
-        else:
-            self.loaded = True
+        self.on_load()
+        self.loaded = True
 
     def unload(self) -> None:
         """Unload the scene. NOTE: The method you should override is `on_unload`."""
