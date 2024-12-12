@@ -89,6 +89,7 @@ class PkSceneManager(PkObject):
             scene.load()
 
         self.scenes[scene.id] = scene
+        self.logger.debug(f"Added scene {scene.id}. Scene count: {len(self.scenes)}")
 
     def set_scene(self, scene_id: str) -> None:
         """Set the current scene.
@@ -140,6 +141,7 @@ class PkSceneManager(PkObject):
         if scene_id not in self.scenes:
             raise ValueError(f"Scene with ID '{scene_id}' does not exist.")
         del self.scenes[scene_id]
+        self.logger.debug(f"Removed scene {scene_id}. Scene count: {len(self.scenes)}")
 
     def input(
         self,
