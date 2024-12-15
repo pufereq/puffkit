@@ -71,7 +71,7 @@ class PkEventManager:
             dt (float): The time since the last update.
         """
         self.events = [PkEvent.from_pygame(e) for e in pg.event.get()]
-        self.app.scene_manager.current_scene.input(
+        self.app.scene_manager.input(
             events=self.events,
             keys=pg.key.get_pressed(),
             mouse_pos=pg.mouse.get_pos(),
