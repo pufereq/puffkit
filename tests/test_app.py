@@ -21,7 +21,7 @@ class PkAppSubclass(PkApp):
         )
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture()
 def app() -> PkAppSubclass:
     """Fixture for creating a PkApp instance."""
     return PkAppSubclass()
@@ -50,39 +50,6 @@ def test_pkapp_exception():
         )
 
 
-def test_pkapp_add_scene(app: PkApp):
-    """Test adding a scene to the app."""
-    scene = mock.Mock(spec=PkScene)
-    scene.id = "test_pkapp_scene"
-    app.add_scene(scene)
-    assert "test_pkapp_scene" in app.scenes
-
-
-def test_pkapp_set_scene(app: PkApp):
-    """Test changing the active scene."""
-    scene = mock.Mock(spec=PkScene)
-    scene.id = "test_pkapp_scene"
-    app.add_scene(scene)
-    scene.loaded = False
-    app.set_scene("test_pkapp_scene")
-    assert app.active_scene_id == "test_pkapp_scene"
-
-
-def test_pkapp_set_scene_nonlazy(app: PkApp):
-    """Test changing the active scene non-lazily."""
-    scene = PkScene("test_pkapp_scene", app=app, lazy=False)
-    app.add_scene(scene)
-    assert app.scenes[scene.id].loaded is True
-    app.set_scene("test_pkapp_scene")
-    assert app.active_scene_id == "test_pkapp_scene"
-
-
-def test_pkapp_set_scene_nonexistent(app: PkApp):
-    """Test changing the active scene to a nonexistent scene."""
-    with pytest.raises(ValueError):
-        app.set_scene("nonexistent_scene")
-
-
 def test_pkapp_add_font(app: PkApp):
     """Test adding a font to the app."""
     with mock.patch("puffkit.font.font.PkFont", autospec=True) as MockFont:
@@ -103,9 +70,9 @@ def test_pkapp_update(app: PkApp):
     """Test updating the app."""
     scene = mock.Mock(spec=PkScene)
     scene.id = "test_pkapp_scene"
-    app.add_scene(scene)
-    scene.loaded = False
-    app.set_scene("test_pkapp_scene")
+    scene.loaded = True
+    app.scene_manager.add_scene(scene)
+    app.scene_manager.set_scene("test_pkapp_scene")
     app.update(0.016)
     scene.update.assert_called_once_with(0.016)
 
@@ -114,9 +81,10 @@ def test_pkapp_render(app: PkApp):
     """Test rendering the app."""
     scene = mock.Mock(spec=PkScene)
     scene.id = "test_pkapp_scene"
-    app.add_scene(scene)
-    scene.loaded = False
-    app.set_scene("test_pkapp_scene")
+    scene.loaded = True
+    scene.auto_unload = False
+    app.scene_manager.add_scene(scene)
+    app.scene_manager.set_scene("test_pkapp_scene")
     with (
         mock.patch("pygame.display.flip"),
         mock.patch("puffkit.surface.PkSurface.fill"),
