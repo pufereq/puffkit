@@ -10,7 +10,7 @@ from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.object import PkObject
 from puffkit.surface import PkSurface
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from puffkit.app import PkApp
 
 
