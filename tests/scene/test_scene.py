@@ -1,72 +1,60 @@
-import pygame
 import pytest
-from unittest import mock
-from puffkit.scene import PkScene
+from unittest.mock import Mock
+from puffkit.scene.scene import PkScene
 from puffkit.app import PkApp
+from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.surface import PkSurface
-from puffkit.font.sysfont import PkSysFont
 
 
-@pytest.fixture(scope="module")
-def mock_app() -> PkApp:
-    app = mock.Mock(spec=PkApp)
+@pytest.fixture
+def mock_app() -> Mock:
+    app = Mock(spec=PkApp)
     app.internal_screen_size = (800, 600)
     return app
 
 
 @pytest.fixture
-def scene(mock_app: PkApp) -> PkScene:
-    pygame.font.init()
-    return PkScene("mock_scene", mock_app, lazy=True)
+def scene(mock_app: Mock) -> PkScene:
+    return PkScene(_id="test_scene", app=mock_app, lazy=False, auto_unload=True)
 
 
-def test_scene_initialization(scene: PkScene, mock_app: PkApp) -> None:
-    """Test the initialization of the scene."""
-    assert scene.id == "mock_scene"
-    assert scene.size == mock_app.internal_screen_size
-    assert scene.pos == (0, 0)
+def test_scene_initialization(scene: PkScene, mock_app: Mock) -> None:
+    assert scene.id == "test_scene"
+    assert scene.lazy is False
+    assert scene.auto_unload is True
+    assert scene.app == mock_app
+    assert scene.size == (800, 600)
+    assert scene.pos == PkCoordinate(0, 0)
     assert isinstance(scene.surface, PkSurface)
+    assert scene.loaded is False
 
 
-def test_pkscene_input(scene: PkScene) -> None:
-    """Test the input method of the scene."""
-    scene.input(
-        events=[],
-        keys={},
-        mouse_pos=(0, 0),
-        mouse_buttons=(False, False, False),
-    )
-    # ensure error-free execution
+def test_scene_load(scene: PkScene) -> None:
+    scene.on_load = Mock()
+    scene.load()
+    scene.on_load.assert_called_once()
+    assert scene.loaded is True
 
 
-@pytest.mark.parametrize("delta", [0.0, 0.016, 1.0])
+def test_scene_unload(scene: PkScene) -> None:
+    scene.on_unload = Mock()
+    scene.load()
+    scene.unload()
+    scene.on_unload.assert_called_once()
+    assert scene.loaded is False
+
+
+@pytest.mark.parametrize("delta", [0.0, 0.1, 1.0])
 def test_scene_update(scene: PkScene, delta: float) -> None:
-    """Test the update method of the scene."""
+    scene.on_update = Mock()
     scene.update(delta)
-    # ensure error-free execution
+    scene.on_update.assert_called_once_with(delta)
 
 
 def test_scene_render(scene: PkScene) -> None:
-    """Test the render method of the scene."""
-    mock_dest = mock.Mock(spec=PkSurface)
-    with mock.patch.object(scene, "draw") as mock_draw:
-        scene.render(mock_dest)
-        mock_draw.assert_called_once_with(mock_dest)
-
-
-def test_scene_draw(scene: PkScene) -> None:
-    """Test the draw method of the scene."""
-    mock_screen = mock.Mock(spec=PkSurface)
-    scene.draw(mock_screen)
-    mock_screen.blit.assert_called_once_with(scene.surface, scene.surface.pos)
-
-
-def test_type_checking_imports():
-    """Test importing PkScene with TYPE_CHECKING."""
-    with mock.patch("typing.TYPE_CHECKING", True):
-        from puffkit import scene
-        import importlib
-
-        importlib.reload(scene)
-
-        assert PkScene
+    mock_surface = Mock(spec=PkSurface)
+    scene.on_render = Mock()
+    scene.draw = Mock()
+    scene.render(mock_surface)
+    scene.on_render.assert_called_once()
+    scene.draw.assert_called_once_with(mock_surface)
