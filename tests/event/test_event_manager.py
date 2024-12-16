@@ -93,4 +93,4 @@ def test_update(
     mock_get_mouse_pressed.return_value = []
 
     event_manager.update(0.1)
-    event_manager.app.active_scene.input.assert_called_once()
+    mock_input.assert_called_once()
