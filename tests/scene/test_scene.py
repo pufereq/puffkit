@@ -58,3 +58,24 @@ def test_scene_render(scene: PkScene) -> None:
     scene.render(mock_surface)
     scene.on_render.assert_called_once()
     scene.draw.assert_called_once_with(mock_surface)
+
+
+def test_scene_on_load(scene: PkScene) -> None:
+    # this is a no-op method, so it should not raise any exceptions
+    scene.on_load()
+
+
+def test_scene_on_unload(scene: PkScene) -> None:
+    # this is a no-op method, so it should not raise any exceptions
+    scene.on_unload()
+
+
+@pytest.mark.parametrize("delta", [0.0, 0.1, 1.0])
+def test_scene_on_update(scene: PkScene, delta: float) -> None:
+    # this is a no-op method, so it should not raise any exceptions
+    scene.on_update(delta)
+
+
+def test_scene_on_render(scene: PkScene) -> None:
+    # this is a no-op method, so it should not raise any exceptions
+    scene.on_render()
