@@ -5,9 +5,25 @@ from puffkit.event import PkEvent
 from puffkit.app import PkApp
 
 
-@pytest.fixture
-def mock_app():
-    return Mock(spec=PkApp)
+class PkAppSubclass(PkApp):
+    """Subclass of PkApp for testing."""
+
+    def __init__(self):
+        super().__init__(
+            app_name="TestApp",
+            app_version="1.0",
+            display_size=(800, 600),
+            display_arguments={},
+            internal_screen_size=(800, 600),
+            fps_limit=60,
+        )
+
+
+@pytest.fixture(scope="module")
+def app() -> PkAppSubclass:
+    """Fixture for creating a PkApp instance."""
+
+    return PkAppSubclass()
 
 
 @pytest.fixture
