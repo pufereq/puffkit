@@ -38,9 +38,9 @@ def mock_scene() -> PkScene:
 
 def test_loaded_scenes(scene_manager: PkSceneManager, mock_scene: PkScene) -> None:
     scene_manager.add_scene(mock_scene)
-    assert scene_manager.loaded_scenes == []
+    assert scene_manager.loaded_scenes == ["fallback"]
     mock_scene.loaded = True
-    assert scene_manager.loaded_scenes == ["test_scene"]
+    assert scene_manager.loaded_scenes == ["fallback", "test_scene"]
 
 
 def test_add_scene(scene_manager: PkSceneManager, mock_scene: PkScene) -> None:
