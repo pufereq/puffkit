@@ -5,9 +5,20 @@ from puffkit.event import PkEvent
 from puffkit.scene import PkSceneManager
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def mock_app() -> PkApp:
-    return Mock(spec=PkApp)
+    class PkAppSubclass(PkApp):
+        def __init__(self):
+            super().__init__(
+                app_name="TestApp",
+                app_version="1.0",
+                display_size=(10, 10),
+                display_arguments={},
+                internal_screen_size=(10, 10),
+                fps_limit=60,
+            )
+
+    return PkAppSubclass()
 
 
 @pytest.fixture
