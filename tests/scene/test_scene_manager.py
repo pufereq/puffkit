@@ -32,6 +32,7 @@ def mock_scene() -> PkScene:
     scene.id = "test_scene"
     scene.loaded = False
     scene.lazy = False
+    scene.auto_unload = False
     return scene
 
 
