@@ -27,8 +27,8 @@ def app() -> PkAppSubclass:
 
 
 @pytest.fixture
-def event_manager(mock_app):
-    return PkEventManager(mock_app)
+def event_manager(app: PkAppSubclass) -> PkEventManager:
+    return PkEventManager(app)
 
 
 def test_add_handler(event_manager):
