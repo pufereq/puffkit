@@ -31,14 +31,14 @@ def event_manager(app: PkAppSubclass) -> PkEventManager:
     return PkEventManager(app)
 
 
-def test_add_handler(event_manager):
+def test_add_handler(event_manager: PkEventManager):
     handler = Mock()
     event_manager.add_handler("test_event", handler)
     assert "test_event" in event_manager.handlers
     assert event_manager.handlers["test_event"] == handler
 
 
-def test_add_handler_overwrite(event_manager):
+def test_add_handler_overwrite(event_manager: PkEventManager):
     handler1 = Mock()
     handler2 = Mock()
     event_manager.add_handler("test_event", handler1)
@@ -46,19 +46,19 @@ def test_add_handler_overwrite(event_manager):
     assert event_manager.handlers["test_event"] == handler2
 
 
-def test_remove_handler(event_manager):
+def test_remove_handler(event_manager: PkEventManager):
     handler = Mock()
     event_manager.add_handler("test_event", handler)
     event_manager.remove_handler("test_event")
     assert "test_event" not in event_manager.handlers
 
 
-def test_remove_nonexistent_handler(event_manager):
+def test_remove_nonexistent_handler(event_manager: PkEventManager):
     event_manager.remove_handler("nonexistent_event")
     assert "nonexistent_event" not in event_manager.handlers
 
 
-def test_handle_events(event_manager):
+def test_handle_events(event_manager: PkEventManager):
     handler = Mock()
     event_manager.add_handler("test_event", handler)
     event = Mock(spec=PkEvent)
@@ -67,7 +67,7 @@ def test_handle_events(event_manager):
     handler.assert_called_once_with(event)
 
 
-def test_handle_events_no_handler(event_manager):
+def test_handle_events_no_handler(event_manager: PkEventManager):
     event = Mock(spec=PkEvent)
     event.name = "test_event"
     event_manager.handle_events([event])
@@ -78,12 +78,14 @@ def test_handle_events_no_handler(event_manager):
 @patch("puffkit.event.event_manager.pg.key.get_pressed")
 @patch("puffkit.event.event_manager.pg.mouse.get_pos")
 @patch("puffkit.event.event_manager.pg.mouse.get_pressed")
+@patch("puffkit.scene.scene_manager.PkSceneManager.input")
 def test_update(
-    mock_get_pressed,
-    mock_get_pos,
-    mock_get_mouse_pressed,
-    mock_pg_event_get,
-    event_manager,
+    mock_get_pressed: Mock,
+    mock_get_pos: Mock,
+    mock_get_mouse_pressed: Mock,
+    mock_pg_event_get: Mock,
+    mock_input: Mock,
+    event_manager: PkEventManager,
 ):
     mock_pg_event_get.return_value = []
     mock_get_pressed.return_value = []
