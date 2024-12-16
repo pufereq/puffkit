@@ -52,8 +52,13 @@ def test_add_scene_existing_id(
     scene_manager: PkSceneManager, mock_scene: PkScene
 ) -> None:
     scene_manager.add_scene(mock_scene)
-    with pytest.raises(ValueError, match="Scene with ID 'test_scene' already exists."):
-        scene_manager.add_scene(mock_scene)
+    scene_manager.set_scene("test_scene")
+
+    # add duplicate scene
+    scene_manager.add_scene(mock_scene)
+
+    # scene manager should change to fallback scene and display a warning
+    assert scene_manager.current_scene.id == "fallback"
 
 
 def test_set_scene(scene_manager: PkSceneManager, mock_scene: PkScene) -> None:
