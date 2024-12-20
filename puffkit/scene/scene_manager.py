@@ -108,19 +108,7 @@ class PkSceneManager(PkObject):
         new_scene: PkScene = self.scenes[scene_id]
 
         if not new_scene.loaded:
-            self.logger.debug(f"Loading scene {scene_id}...")
-
-            try:
-                with Timer() as t:
-                    new_scene.load()
-            except Exception as e:
-                self.logger.exception(e)
-                self.show_error_on_fallback(
-                    f"Error loading scene: {e}\n\n{traceback.format_exc()}"
-                )
-                return
-
-            self.logger.debug(f"Loaded scene {new_scene.id}. Took {t.elapsed} seconds.")
+            self.load_scene(scene_id, supress_error=True)
 
         if self.current_scene.auto_unload:
             self.logger.debug(f"Unloading scene {self.current_scene.id}...")
