@@ -36,6 +36,20 @@ def mock_scene() -> PkScene:
     return scene
 
 
+@pytest.fixture
+def scene(mock_app: PkApp) -> PkScene:
+    class PkSceneSubclass(PkScene):
+        def __init__(self):
+            super().__init__(
+                app=mock_app,
+                _id="test_scene",
+                lazy=False,
+                auto_unload=False,
+            )
+
+    return PkSceneSubclass()
+
+
 def test_loaded_scenes(scene_manager: PkSceneManager, mock_scene: PkScene) -> None:
     scene_manager.add_scene(mock_scene)
     assert scene_manager.loaded_scenes == ["fallback"]
