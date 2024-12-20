@@ -86,6 +86,32 @@ def test_set_scene_nonexistent_id(scene_manager: PkSceneManager) -> None:
         scene_manager.set_scene("nonexistent")
 
 
+def test_set_scene_load_error(
+    scene_manager: PkSceneManager, mock_scene: PkScene
+) -> None:
+    mock_scene.load.side_effect = ValueError("Test error")
+    scene_manager.add_scene(mock_scene)
+    scene_manager.set_scene("test_scene")
+    assert scene_manager.current_scene.id == "fallback"
+
+
+def test_set_scene_lazy(scene_manager: PkSceneManager, scene: PkScene) -> None:
+    scene.lazy = True
+    scene_manager.add_scene(scene)
+    assert not scene_manager.scenes["test_scene"].loaded
+    scene_manager.set_scene("test_scene")
+    assert scene_manager.scenes["test_scene"].loaded
+
+
+def test_set_scene_auto_unload(scene_manager: PkSceneManager, scene: PkScene) -> None:
+    scene.auto_unload = True
+    scene_manager.add_scene(scene)
+    scene_manager.set_scene("test_scene")
+    assert scene_manager.scenes["test_scene"].loaded
+    scene_manager.set_scene("fallback")
+    assert not scene_manager.scenes["test_scene"].loaded
+
+
 def test_unload_scene(scene_manager: PkSceneManager, mock_scene: PkScene) -> None:
     scene_manager.add_scene(mock_scene)
     scene_manager.unload_scene("test_scene")
