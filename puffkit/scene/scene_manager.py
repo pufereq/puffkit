@@ -111,11 +111,7 @@ class PkSceneManager(PkObject):
             self.load_scene(scene_id, supress_error=True)
 
         if self.current_scene.auto_unload:
-            self.logger.debug(f"Unloading scene {self.current_scene.id}...")
-            self.current_scene.unload()
-            self.logger.debug(
-                f"Unloaded scene {self.current_scene.id}. Loaded scenes: {self.loaded_scenes}"
-            )
+            self.unload_scene(self.current_scene.id)
 
         self.current_scene = new_scene
 
