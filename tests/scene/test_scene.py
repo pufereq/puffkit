@@ -60,6 +60,12 @@ def test_scene_render(scene: PkScene) -> None:
     scene.draw.assert_called_once_with(mock_surface)
 
 
+def test_scene_draw(scene: PkScene) -> None:
+    mock_surface = Mock(spec=PkSurface)
+    scene.draw(mock_surface)
+    mock_surface.blit.assert_called_once_with(scene.surface, scene.pos)
+
+
 def test_scene_on_load(scene: PkScene) -> None:
     # this is a no-op method, so it should not raise any exceptions
     scene.on_load()
