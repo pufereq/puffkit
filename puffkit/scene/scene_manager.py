@@ -159,7 +159,12 @@ class PkSceneManager(PkObject):
         self.logger.debug(f"Unloading scene {scene_id}...")
         if scene_id not in self.scenes:
             raise ValueError(f"Scene with ID '{scene_id}' does not exist.")
+
         self.scenes[scene_id].unload()
+
+        self.logger.debug(
+            f"Unloaded scene {self.current_scene.id}. Loaded scenes: {self.loaded_scenes}"
+        )
 
     def remove_scene(self, scene_id: str) -> None:
         """Remove a scene from the scene manager.
