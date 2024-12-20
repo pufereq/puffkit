@@ -130,6 +130,34 @@ class PkSceneManager(PkObject):
 
         self.current_scene = new_scene
 
+    def load_scene(self, scene_id: str, *, supress_error: bool = False) -> None:
+        """Load a scene.
+
+        Args:
+            scene_id (str): ID of the scene to load.
+            supress_error (bool): Whether to suppress errors. Defaults to False.
+
+        Raises:
+            ValueError: If the scene ID does not exist.
+            Exception: If an error occurs while loading the scene.
+        """
+        self.logger.debug(f"Loading scene {scene_id}...")
+        if scene_id not in self.scenes:
+            raise ValueError(f"Scene with ID '{scene_id}' does not exist.")
+
+        try:
+            with Timer() as t:
+                self.scenes[scene_id].load()
+        except Exception as e:
+            self.logger.exception(e)
+            self.show_error_on_fallback(
+                f"Error loading scene: {e}\n\n{traceback.format_exc()}"
+            )
+            if not supress_error:
+                raise e
+        else:
+            self.logger.debug(f"Loaded scene {scene_id}. Took {t.elapsed} seconds.")
+
     def unload_scene(self, scene_id: str) -> None:
         """Unload a scene.
 
