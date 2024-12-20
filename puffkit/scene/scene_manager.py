@@ -85,10 +85,11 @@ class PkSceneManager(PkObject):
                     f"Error adding scene: {e}\n\n{traceback.format_exc()}"
                 )
 
-        if not scene.loaded and not scene.lazy:
-            scene.load()
-
         self.scenes[scene.id] = scene
+
+        if not scene.loaded and not scene.lazy:
+            self.load_scene(scene.id)
+
         self.logger.debug(f"Added scene {scene.id}. Scene count: {len(self.scenes)}")
 
     def set_scene(self, scene_id: str) -> None:
