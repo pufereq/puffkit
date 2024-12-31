@@ -113,6 +113,17 @@ def test_set_scene_auto_unload(scene_manager: PkSceneManager, scene: PkScene) ->
     assert not scene_manager.scenes["test_scene"].loaded
 
 
+def test_load_scene(scene_manager: PkSceneManager, mock_scene: PkScene) -> None:
+    scene_manager.add_scene(mock_scene)
+    scene_manager.load_scene("test_scene")
+    mock_scene.load.assert_called_once()
+
+
+def test_load_scene_nonexistent_id(scene_manager: PkSceneManager) -> None:
+    with pytest.raises(ValueError, match="Scene with ID 'nonexistent' does not exist."):
+        scene_manager.load_scene("nonexistent")
+
+
 def test_unload_scene(scene_manager: PkSceneManager, mock_scene: PkScene) -> None:
     scene_manager.add_scene(mock_scene)
     scene_manager.unload_scene("test_scene")
