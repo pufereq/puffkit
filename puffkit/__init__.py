@@ -11,6 +11,6 @@ from puffkit.subsurface import PkSubSurface
 from puffkit.surface import PkSurface
 from puffkit.textures import get_texture
 
-__version__ = "0.5.0"
+__version__ = "0.6.0"
 
 print(f"puffkit {__version__}")
