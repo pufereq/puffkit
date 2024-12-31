@@ -31,7 +31,7 @@ def mock_scene() -> PkScene:
     scene = Mock(spec=PkScene)
     scene.id = "test_scene"
     scene.loaded = False
-    scene.lazy = False
+    scene.lazy = True
     scene.auto_unload = False
     return scene
 
@@ -43,7 +43,7 @@ def scene(mock_app: PkApp) -> PkScene:
             super().__init__(
                 app=mock_app,
                 _id="test_scene",
-                lazy=False,
+                lazy=True,
                 auto_unload=False,
             )
 
@@ -86,12 +86,13 @@ def test_set_scene_nonexistent_id(scene_manager: PkSceneManager) -> None:
         scene_manager.set_scene("nonexistent")
 
 
-def test_set_scene_load_error(
-    scene_manager: PkSceneManager, mock_scene: PkScene
-) -> None:
-    mock_scene.load.side_effect = ValueError("Test error")
-    scene_manager.add_scene(mock_scene)
-    scene_manager.set_scene("test_scene")
+def test_set_scene_load_error(scene_manager: PkSceneManager, scene: PkScene) -> None:
+    scene.on_load = Mock(side_effect=Exception)
+    scene_manager.add_scene(scene)
+
+    with pytest.raises(Exception):
+        scene_manager.set_scene("test_scene")
+
     assert scene_manager.current_scene.id == "fallback"
 
 
@@ -110,6 +111,17 @@ def test_set_scene_auto_unload(scene_manager: PkSceneManager, scene: PkScene) ->
     assert scene_manager.scenes["test_scene"].loaded
     scene_manager.set_scene("fallback")
     assert not scene_manager.scenes["test_scene"].loaded
+
+
+def test_load_scene(scene_manager: PkSceneManager, mock_scene: PkScene) -> None:
+    scene_manager.add_scene(mock_scene)
+    scene_manager.load_scene("test_scene")
+    mock_scene.load.assert_called_once()
+
+
+def test_load_scene_nonexistent_id(scene_manager: PkSceneManager) -> None:
+    with pytest.raises(ValueError, match="Scene with ID 'nonexistent' does not exist."):
+        scene_manager.load_scene("nonexistent")
 
 
 def test_unload_scene(scene_manager: PkSceneManager, mock_scene: PkScene) -> None:

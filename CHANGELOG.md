@@ -2,6 +2,76 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2024-12-31
+
+### Bug Fixes
+
+- [`1d5e311`](https://github.com/pufereq/template-repo/commit/1d5e31174803ce70caa2285d450c336099a9e5f5) **scene_manager.py**: do not supress errors on scene loading in `set_scene()`
+- [`712d31b`](https://github.com/pufereq/template-repo/commit/712d31bb24b7a160f973c4230b7f92fae9178780) **event_manager.py**: fix wrong `input()` call, now points to `self.app.scene_manager.input()`
+- [`bd15b2f`](https://github.com/pufereq/template-repo/commit/bd15b2f5bff1c3b7511f89918f3e4c4b6a41a340) **scene.py**: fix `loaded` being set even if loading failed
+
+### Features
+
+- [`47b0ed0`](https://github.com/pufereq/template-repo/commit/47b0ed0198a2b7098f579851fae10e0a8b7c2e74) **scene_manager.py**: add `PkSceneManager.load_scene()` method to avoid redundancy in scene loading
+- [`4af00af`](https://github.com/pufereq/template-repo/commit/4af00af0066d7ac04e7f0a3cd6a5538286875e2d) **scene_manager.py**: implement scene load error handling in `PkSceneManager.set_scene()`
+- [`37d9ea3`](https://github.com/pufereq/template-repo/commit/37d9ea3a2d83ca1b78b0da8af2c14bc5b29d6a20) **scene.py**: add `PkScene.auto_unload` attribute which will determine if the scene will be unloaded when changing the current scene
+- [`5f780e7`](https://github.com/pufereq/template-repo/commit/5f780e72992319a6795e200771e89df0749fe179) **scene_manager.py**: add a timer on `PkScene.load()` and display time taken
+- [`8466ae2`](https://github.com/pufereq/template-repo/commit/8466ae29bff51ea4040f9560d6ff325aac7f2624) **scene_manager.py**: handle duplicate scenes by showing the exception on fallback scene
+- [`d0df5db`](https://github.com/pufereq/template-repo/commit/d0df5db470275594d5147e30a7d7e45d190b492a) **scene_manager.py**: add `PkFallbackScene` to Scene Manager
+- [`04c38df`](https://github.com/pufereq/template-repo/commit/04c38dfad21b59c3a3ad908fe235f036e1da11e8) **fallback_scene.py**: add `PkFallbackScene` class
+- [`34361eb`](https://github.com/pufereq/template-repo/commit/34361ebe3fc0664e9a9c1149195d2a72d524a427) **app.py**: implement `PkSceneManager` and remove scene management from `PkApp`
+- [`297adb5`](https://github.com/pufereq/template-repo/commit/297adb5917181c2b338cef1fbd8e676ee5ad4bf7) **scene_manager.py**: add `PkSceneManager`
+
+### Miscellaneous Tasks
+
+- [`3eec703`](https://github.com/pufereq/template-repo/commit/3eec7036a5e3a08a7d34e4482172103acec3c7f6) **scene_manager.py**: log unload success in `PkSceneManager.unload_scene()`
+- [`52f41eb`](https://github.com/pufereq/template-repo/commit/52f41eb9543bb1908d7cf67f2379159cd2f75c79) **pyproject.toml**: update depedencies
+- [`ad8591a`](https://github.com/pufereq/template-repo/commit/ad8591a442923e74fd188a8b3bf615fbdf8c4f3f) **scene.py**: exclude type imports from coverage
+- [`3fbc5a3`](https://github.com/pufereq/template-repo/commit/3fbc5a3c0e62a5d7b6d7858cdc32085aaa6ae06f) **scene_manager.py**: add auto unloading support to `PkSceneManager.set_scene()`
+- [`c26c4a4`](https://github.com/pufereq/template-repo/commit/c26c4a4022e3d1c314c771bfed7496663922cfa5) **scene.py**: remove error handling from `PkScene.load()` as they will be handled in manager
+- [`2227b38`](https://github.com/pufereq/template-repo/commit/2227b38f51045d61eb4d720ea3b643713a972e81) **scene.py**: remove call to `PkScene.load()` from `__init__()`
+- [`d81ee47`](https://github.com/pufereq/template-repo/commit/d81ee476f0a5c6468992480f5748644daac6bc5c) **scene_manager.py**: log scene count after `add_scene()` and `remove_scene()` methods
+- [`248dd45`](https://github.com/pufereq/template-repo/commit/248dd45721b4b782498c97d11494aaf7cc8a62fc) **scene/__init__.py**: add `__init__.py` to `scene` module
+- [`eafc97b`](https://github.com/pufereq/template-repo/commit/eafc97be8da3408777d03223d5657d175a55525e) **scene.py**: turn on antialiasing for scene loading error text
+- [`85191ac`](https://github.com/pufereq/template-repo/commit/85191acece967e30fb0013c36afe16a3c64b7d9f) **app.py**: change the `default` font size to 14px
+- [`622aaae`](https://github.com/pufereq/template-repo/commit/622aaae68a0e3b0cc7a8c57bb70d7a4376ffaa2c) **scene.py**: move `scene.py` to `puffkit/scene/scene.py`
+- [`4652820`](https://github.com/pufereq/template-repo/commit/46528206a80b3f284fe8010104571272efe0b8d0) **release.yaml**: recurse submodules on checkout
+
+### Refactor
+
+- [`46d2ce3`](https://github.com/pufereq/template-repo/commit/46d2ce36e804b4ab3f6365c1d316a26e39ec0a01) **scene_manager.py**: call `PkSceneManager.unload_scene()` instead of unloading manually in `set_scene()`
+- [`aab9e65`](https://github.com/pufereq/template-repo/commit/aab9e6560230c85aaa8d4280e19289791d2a9078) **scene_manager.py**: use the `PkSceneManager.load_scene()` method in `set_scene()`
+- [`dbcb13d`](https://github.com/pufereq/template-repo/commit/dbcb13dc76a8b20080cef47cb9a670ab2072395d) **scene_manager.py**: use the `PkSceneManager.load_scene()` method in `add_scene()`
+- [`dc46e57`](https://github.com/pufereq/template-repo/commit/dc46e57d085bb281fd25ea57370ca3cc38c8bed0) **scene_manager.py**: remove unnecesarry if statements in input, update and render methods
+- [`e6f5cca`](https://github.com/pufereq/template-repo/commit/e6f5cca3caf5cb4cb5139c3b8b109f17db42d0e6) **event_manager.py**: modify `PkEventManager.update()` method to reference scene manager
+
+### Styling
+
+- [`d51b12a`](https://github.com/pufereq/template-repo/commit/d51b12a486497ab926416897f10952fe027877f5) **scene.py**: remove unnecesarry imports
+
+### Testing
+
+- [`8e36052`](https://github.com/pufereq/template-repo/commit/8e36052947f2609b923dbf94c4abc8c2f0ce7f1a) **test_scene_manager.py**: add tests for `PkSceneManager.load_scene()` method
+- [`ccf6a50`](https://github.com/pufereq/template-repo/commit/ccf6a50fd8a34740b238df4399014a4b7957e656) **test_scene_manager.py**: make mock_scene lazy
+- [`201ba25`](https://github.com/pufereq/template-repo/commit/201ba25eb3338080a234ab8c8e911999765a50c7) **test_scene_manager.py**: fix badly written `test_set_scene_load_error()` test
+- [`9748a34`](https://github.com/pufereq/template-repo/commit/9748a341a8f70ff179d5c6e5a16d1547c9a93585) **test_scene.py**: add test for `PkScene.draw()`
+- [`a254c72`](https://github.com/pufereq/template-repo/commit/a254c72b047c564094a47df373f91c2e21859e9b) **test_scene_manager.py**: add tests for errors, lazy and auto-unload scenes
+- [`503aaf0`](https://github.com/pufereq/template-repo/commit/503aaf032b8cf0c7db253323d6987cb4b4f889bd) **test_scene_manager.py**: add a `PkScene()` fixture
+- [`5d8064f`](https://github.com/pufereq/template-repo/commit/5d8064f142b40fea0e8af33c665a3670cb10af87) **test_timing.py**: add tests for the `timing.py` module (`Timer` class, `measure_execution_time` decorator)
+- [`fe93f6e`](https://github.com/pufereq/template-repo/commit/fe93f6e61d0f27f4dc2f88a377014d5172a691b3) **test_scene.py**: add tests for `on_load`, `on_unload`, `on_update` and `on_render` methods
+- [`8e3f648`](https://github.com/pufereq/template-repo/commit/8e3f6482908141efbae654a747db64689318967a) **test_event_manager.py**: fix incorrect assert in `test_update()`
+- [`764791d`](https://github.com/pufereq/template-repo/commit/764791de6814f85b94ea0d75107e5e8cecbccc2f) **test_event_manager.py**: add type hints in tests
+- [`4cfa128`](https://github.com/pufereq/template-repo/commit/4cfa1283e03a43d80040dc3599c7c171ad8f7a0c) **test_event_manager.py**: replace `app` (argument)'s type to PkAppSubclass from Mock in `event_manager` fixture
+- [`7a68967`](https://github.com/pufereq/template-repo/commit/7a6896711a5feb5e48b53459387855eb1a3549a7) **test_event_manager.py**: replace PkApp's mock with a real PkApp
+- [`6bd72a4`](https://github.com/pufereq/template-repo/commit/6bd72a40754e58158fde3e396d18d9b307fcb9b0) **test_scene_manager.py**: check for `fallback` scene being loaded when a duplicate scene is added instead of exception
+- [`4bc4cbd`](https://github.com/pufereq/template-repo/commit/4bc4cbd7d6e5f97b0398b09b9f3f462300b42b29) **test_scene_manager.py**: add `"fallback"` to loaded scenes assertion in `test_loaded_scenes()`
+- [`92c39d2`](https://github.com/pufereq/template-repo/commit/92c39d2112c4b64e8af1b35409ce3d8a77c2153a) **test_scene_manager.py**: add `auto_unload` attribute to `mock_scene()`
+- [`055a445`](https://github.com/pufereq/template-repo/commit/055a445da7a7b02b08b4964abf1003ebecba29cc) **test_scene_manager.py**: replace PkApp's mock with a real PkApp
+- [`b2856c9`](https://github.com/pufereq/template-repo/commit/b2856c9cd502703a0cd3b7bfaa1fd0be09373c9a) **test_scene.py**: refactor tests for `PkScene` after `PkSceneManager`'s addition
+- [`1bd0c16`](https://github.com/pufereq/template-repo/commit/1bd0c1600f0d5e4cdf649df4b3ebe0d8d9b8f2f6) **test_app.py**: remove non-existent methods' tests
+- [`fd4aa9e`](https://github.com/pufereq/template-repo/commit/fd4aa9ebb17db55c755b2fd021fb7f5f88aa5b6d) **test_scene_manager.py**: add tests for `PkSceneManager` class
+- [`77d91e6`](https://github.com/pufereq/template-repo/commit/77d91e6328380f9d6db9373bb90437f5921b33ae) **test_scene.py**: move `tests/scene.py` to `tests/scene/scene.py`
+
 ## [0.5.0] - 2024-12-11
 
 ### Bug Fixes
