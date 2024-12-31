@@ -4,15 +4,13 @@ from __future__ import annotations
 
 import logging as lg
 
-import pygame as pg
-
 from typing import TYPE_CHECKING
-from puffkit.font.sysfont import PkSysFont
+
 from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.object import PkObject
 from puffkit.surface import PkSurface
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from puffkit.app import PkApp
 
 
@@ -25,17 +23,19 @@ class PkScene(PkObject):
     A scene takes up the whole screen (minus the topbar).
     """
 
-    def __init__(self, _id: str, app: PkApp, *, lazy: bool) -> None:
+    def __init__(self, _id: str, app: PkApp, *, lazy: bool, auto_unload: bool) -> None:
         """Initialize the scene class.
 
         Args:
             _id (str): The ID of the scene.
             app (PkApp): The app instance.
             lazy (bool): Whether to initialize the scene lazily.
+            auto_unload (bool): Whether to automatically unload the scene.
         """
         super().__init__()
         self.id = _id
         self.lazy = lazy
+        self.auto_unload = auto_unload
 
         self.logger = lg.getLogger(f"{__name__}.{self.id}")
 
@@ -48,10 +48,6 @@ class PkScene(PkObject):
 
         self.loaded: bool = False
 
-        if not self.lazy:
-            self.load()
-            self.loaded = True
-
     def __str__(self) -> str:  # pragma: no cover
         return f"{self.class_name} {self.id}"
 
@@ -62,7 +58,11 @@ class PkScene(PkObject):
         )
 
     def on_load(self) -> None:
-        """Loading hook."""
+        """Loading hook. Load the scene here."""
+        pass
+
+    def on_unload(self) -> None:
+        """Unloading hook. Handle scene unloading here."""
         pass
 
     def on_update(self, delta: float) -> None:
@@ -84,16 +84,14 @@ class PkScene(PkObject):
         if type(self) is PkScene:
             self.logger.warning("PkScene class should be subclassed.")
 
-        # draw fallback text
-        if self.id == "fallback":
-            self.surface.blit_text(
-                "FALLBACK SCENE",
-                (20, 20),
-                color="#ff0000",
-                font=self.app.fonts["default"],
-            )
-
         self.on_load()
+        self.loaded = True
+
+    def unload(self) -> None:
+        """Unload the scene. NOTE: The method you should override is `on_unload`."""
+        self.logger.debug(f"Unloading scene {self.id}...")
+        self.on_unload()
+        self.loaded = False
 
     def update(self, delta: float) -> None:
         """Update the scene. NOTE: The method you should override is `on_update`.
