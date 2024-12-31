@@ -31,7 +31,7 @@ def mock_scene() -> PkScene:
     scene = Mock(spec=PkScene)
     scene.id = "test_scene"
     scene.loaded = False
-    scene.lazy = False
+    scene.lazy = True
     scene.auto_unload = False
     return scene
 
