@@ -10,7 +10,7 @@ from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
 
-type RectValue = tuple[float, float, float, float]
+type RectValue = tuple[int | float, int | float, int | float, int | float]
 
 
 class PkRect(PkObject):
