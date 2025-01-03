@@ -57,12 +57,12 @@ class PkRect(PkObject):
 
     def __eq__(self, other: PkRect | RectValue) -> bool:
         if not isinstance(other, PkRect):
-            other = PkRect.from_rectvalue(other)
+            other = PkRect.from_tuple(other)
         return self.topleft == other.topleft and self.size == other.size
 
     def __ne__(self, other: PkRect | RectValue) -> bool:
         if not isinstance(other, PkRect):
-            other = PkRect.from_rectvalue(other)
+            other = PkRect.from_tuple(other)
         return not self == other
 
     @classmethod
@@ -70,7 +70,7 @@ class PkRect(PkObject):
         return cls((rect.x, rect.y), (rect.w, rect.h))
 
     @classmethod
-    def from_rectvalue(cls, rect: RectValue) -> PkRect:
+    def from_tuple(cls, rect: RectValue) -> PkRect:
         return cls((rect[0], rect[1]), (rect[2], rect[3]))
 
     @property
