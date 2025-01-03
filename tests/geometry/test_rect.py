@@ -503,9 +503,9 @@ def test_pkrect_copy(
         ((-10, -10, 20, 20), PkRect((-10, -10), (20, 20))),
     ],
 )
-def test_pkrect_from_rectvalue(rect_value: RectValue, expected_rect: PkRect) -> None:
-    """Test the from_rectvalue method of PkRect."""
-    rect = PkRect.from_rectvalue(rect_value)
+def test_pkrect_from_tuple(rect_value: RectValue, expected_rect: PkRect) -> None:
+    """Test the from_tuple method of PkRect."""
+    rect = PkRect.from_tuple(rect_value)
     assert rect == expected_rect
 
 
