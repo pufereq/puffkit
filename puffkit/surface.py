@@ -576,6 +576,49 @@ class PkSurface(PkObject):
         """
         return self.from_pygame(pygame.transform.scale(self.internal_surface, size))
 
+    def draw_rect(
+        self,
+        rect: PkRect | RectValue,
+        color: PkColor | ColorValue,
+        width: int = 0,
+        border_radius: int = -1,
+        border_top_left_radius: int = -1,
+        border_top_right_radius: int = -1,
+        border_bottom_left_radius: int = -1,
+        border_bottom_right_radius: int = -1,
+    ) -> None:
+        """Draw a rectangle on the surface.
+
+        Args:
+            rect (PkRect | RectValue): Rectangle to draw.
+            color (PkColor | ColorValue): Color of the rectangle.
+            width (int, optional): Stroke width of the rectangle.
+                Defaults to 0 (filled).
+            border_radius (int, optional): Radius of the rectangle border.
+                Defaults to -1 (no border radius).
+            border_top_left_radius (int, optional): Radius of the top-left corner.
+                Defaults to -1 (no border radius).
+            border_top_right_radius (int, optional): Radius of the top-right corner.
+                Defaults to -1 (no border radius).
+            border_bottom_left_radius (int, optional): Radius of the bottom-left corner.
+                Defaults to -1 (no border radius).
+            border_bottom_right_radius (int, optional): Radius of the bottom-right corner.
+                Defaults to -1 (no border radius).
+        """
+        if not isinstance(color, PkColor):
+            color = PkColor.from_value(color)
+        pygame.draw.rect(
+            self.internal_surface,
+            tuple(color),
+            tuple(rect),
+            width,
+            border_radius,
+            border_top_left_radius,
+            border_top_right_radius,
+            border_bottom_left_radius,
+            border_bottom_right_radius,
+        )
+
     def blit_text(
         self,
         text: str,
