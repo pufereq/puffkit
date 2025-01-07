@@ -31,6 +31,7 @@ class PkSurface(PkObject):
         self,
         size: PkSize | SizeValue,
         pos: PkCoordinate | CoordinateValue = PkCoordinate(0, 0),
+        transparent: bool = False,
         *,
         flags: int = 0,
         depth: int = 32,
@@ -42,6 +43,8 @@ class PkSurface(PkObject):
             size (PkSize): Size of the surface.
             pos (PkCoordinate, optional): Position of the surface.
                 Defaults to PkCoordinate(0, 0).
+            transparent (bool, optional): Whether the surface supports
+                transparency.
             flags (int, optional): Flags for the surface. Defaults to 0.
             depth (int, optional): Depth of the surface. Defaults to 32.
             masks (tuple[int, int, int, int], optional): Masks for the surface.
@@ -53,6 +56,9 @@ class PkSurface(PkObject):
             pos = PkCoordinate(*pos)
 
         super().__init__()
+
+        if transparent:
+            flags |= pygame.SRCALPHA
 
         self.pos = pos
         self.masks = masks
