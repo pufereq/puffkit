@@ -95,6 +95,17 @@ class PkApp(PkObject):
         self.running: bool = False
         PkApp._instance = self
 
+    @classmethod
+    def get_instance(cls) -> PkApp:
+        """Get the instance of the app.
+
+        Returns:
+            PkApp: The instance of the app.
+        """
+        if cls._instance is None:
+            raise RuntimeError("PkApp instance does not exist.")
+        return cls._instance
+
     def add_font(self, name: str, path: str | None, size: int) -> None:
         """Add a font to the app.
 
