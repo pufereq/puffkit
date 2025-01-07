@@ -22,8 +22,12 @@ class PkApp(PkObject):
     The app is the main object of an application. It is responsible for
     initializing the app, running the main loop, and handling events.
 
+    There should only be one instance of the app in an application.
+
     The class has to be subclassed to create custom apps.
     """
+
+    _instance: PkApp | None = None
 
     def __init__(
         self,
@@ -45,6 +49,9 @@ class PkApp(PkObject):
             fps_limit (int, optional): Frame rate cap. Defaults to 60.
         """
         super().__init__()
+
+        if PkApp._instance is not None:
+            raise RuntimeError("PkApp instance already exists.")
 
         if type(self) is PkApp:
             raise TypeError("PkApp class must be subclassed.")
@@ -86,6 +93,7 @@ class PkApp(PkObject):
         self.clock = pg.time.Clock()
 
         self.running: bool = False
+        PkApp._instance = self
 
     def add_font(self, name: str, path: str | None, size: int) -> None:
         """Add a font to the app.
