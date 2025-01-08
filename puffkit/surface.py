@@ -35,7 +35,7 @@ class PkSurface(PkObject):
         *,
         flags: int = 0,
         depth: int = 32,
-        masks: tuple[int, int, int, int] = (0, 0, 0, 0),
+        masks: tuple[int, int, int, int] | None = None,
     ):
         """Initialize the surface.
 
@@ -47,8 +47,8 @@ class PkSurface(PkObject):
                 transparency.
             flags (int, optional): Flags for the surface. Defaults to 0.
             depth (int, optional): Depth of the surface. Defaults to 32.
-            masks (tuple[int, int, int, int], optional): Masks for the surface.
-                Defaults to (0, 0, 0, 0).
+            masks (tuple[int, int, int, int] | None, optional): Masks for the
+                surface. Defaults to None.
         """
         if not isinstance(size, PkSize):
             size = PkSize(*size)
@@ -62,7 +62,11 @@ class PkSurface(PkObject):
 
         self.pos = pos
         self.masks = masks
-        self.internal_surface = pygame.Surface(size.tuple, flags, depth, masks)
+
+        if masks is None:
+            self.internal_surface = pygame.Surface(size.tuple, flags, depth)
+        else:
+            self.internal_surface = pygame.Surface(size.tuple, flags, depth, masks)
 
     @classmethod
     def from_pygame(cls, surface: pygame.Surface) -> Self:
