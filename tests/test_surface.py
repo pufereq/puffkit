@@ -47,6 +47,13 @@ def test_pksurface_initialization(
     assert surface.pos == expected_pos
 
 
+def test_pksurface_transparent() -> None:
+    """Test creating a transparent surface."""
+    surface = PkSurface(size=(100, 100), transparent=True)
+    surface.fill(PkColor(10, 0, 0, 10))
+    assert surface.get_at((0, 0)) == (10, 0, 0, 10)
+
+
 def test_pksurface_size(surface: PkSurface) -> None:
     """Test getting the size of the surface."""
     assert surface.size == (100, 100)
