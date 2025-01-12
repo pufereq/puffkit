@@ -626,7 +626,7 @@ class PkSurface(PkObject):
     def blit_text(
         self,
         text: str,
-        pos: tuple[int | str, int | str],
+        rect: PkRect | RectValue,
         *,
         max_width: int | None = None,
         text_align: str = "left",
@@ -641,9 +641,8 @@ class PkSurface(PkObject):
 
         Args:
             text (str): Text to add.
-            pos (tuple[int | str, int | str]): Position of the text.
-                Can be a number (int) or "left", "center", "right" for horizontal
-                position and "top", "center", "bottom" for vertical position.
+            rect (PkRect | RectValue): Rectangle specifying the position and size
+                of the text.
             max_width (int | None, optional): Maximum width of the text
                 before wrapping. `0` means no wrapping. Defaults to None
                 (surface width).
@@ -664,26 +663,11 @@ class PkSurface(PkObject):
         if not isinstance(bg_color, PkColor):
             bg_color = PkColor.from_value(bg_color) if bg_color is not None else None
 
-        # position conversion
-        if isinstance(pos[0], str):
-            if pos[0] == "center":
-                x_pos = self.width // 2
-            elif pos[0] == "right":
-                x_pos = self.width
-            else:  # left
-                x_pos = 0
-        else:
-            x_pos = pos[0]
+        # rect conversion
+        if not isinstance(rect, PkRect):
+            rect = PkRect.from_tuple(rect)
 
-        if isinstance(pos[1], str):
-            if pos[1] == "center":
-                y_pos = self.height // 2
-            elif pos[1] == "bottom":
-                y_pos = self.height
-            else:
-                y_pos = 0
-        else:
-            y_pos = pos[1]
+        text_surface: PkSurface = PkSurface(rect.size, transparent=True)
 
         max_width = max_width if max_width is not None else self.width - x_pos
 
@@ -696,9 +680,7 @@ class PkSurface(PkObject):
             "right": pygame.FONT_RIGHT,
         }
 
-        font.align = align_map[text_align]
-
-        text_surface = font.render(
+        rendered_text = font.render(
             text,
             antialias,
             color,
@@ -708,11 +690,12 @@ class PkSurface(PkObject):
 
         # vertical alignment
         if vertical_align == "middle":
-            y_pos = self.height // 2 - text_surface.get_height() // 2
+            y_pos = text_surface.height // 2 - rendered_text.get_height() // 2
         elif vertical_align == "bottom":
-            y_pos = self.height - text_surface.get_height()
+            y_pos = text_surface.height - rendered_text.get_height()
+        else:
+            y_pos = 0
 
-        self.blit(text_surface, (x_pos, y_pos))
+        text_surface.blit(rendered_text, (0, y_pos))
 
-        # reset alignment
-        font.align = pygame.FONT_LEFT
+        self.blit(text_surface, rect.pos)
