@@ -635,7 +635,7 @@ class PkSurface(PkObject):
         font: PkFont | PkSysFont,
         color: PkColor | ColorValue = PkBasicPalette.WHITE,
         bg_color: PkColor | ColorValue | None = None,
-        antialias: bool = False,
+        antialias: bool = True,
     ) -> None:
         """Add text to the surface.
 
@@ -655,7 +655,7 @@ class PkSurface(PkObject):
             bg_color (PkColor | ColorValue | None, optional): Background color of the text. Defaults to None (transparent).
             font (PkFont, optional): Font to use. Defaults to "main".
             antialias (bool, optional): Whether to use font antialiasing.
-                Defaults to False.
+                Defaults to True.
         """
 
         # color conversion
