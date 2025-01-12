@@ -67,7 +67,6 @@ class PkFont(PkObject):
         Returns:
             PkSurface: Surface with the rendered text.
         """
-        self.logger.debug(f"Rendering text: {text}")
 
         max_width = max_width if max_width is not None else 0
 
