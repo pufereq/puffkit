@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 """Font module for puffkit."""
 from __future__ import annotations
+from typing import TYPE_CHECKING
 
 import pygame as pg
 
 from puffkit.color.color import PkColor
 from puffkit.object import PkObject
+
+if TYPE_CHECKING:  # pragma: no cover
+    # PkSurface is still called, imported in PkFont.render()
+    from puffkit import PkSurface
 
 
 class PkFont(PkObject):
