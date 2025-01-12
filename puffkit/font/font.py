@@ -50,6 +50,7 @@ class PkFont(PkObject):
         color: PkColor = PkColor(255, 255, 255),
         bgcolor: PkColor | None = None,
         max_width: int | None = None,
+        align: int = 0,
     ) -> PkSurface:
         from puffkit.surface import PkSurface
 
@@ -61,6 +62,7 @@ class PkFont(PkObject):
             color (PkColor): Text color.
             bg_color (PkColor, optional): Background color. Defaults to None.
             max_width (int, optional): Maximum width of the text. Defaults to None.
+            align (int, optional): Text alignment. Defaults to 0.
 
         Returns:
             PkSurface: Surface with the rendered text.
@@ -69,6 +71,7 @@ class PkFont(PkObject):
 
         max_width = max_width if max_width is not None else 0
 
+        self.align = align
         text_surface = self.font.render(
             text,
             antialias,
@@ -76,5 +79,6 @@ class PkFont(PkObject):
             tuple(bgcolor) if bgcolor is not None else None,
             max_width,
         )
+        self.align = pg.FONT_LEFT
 
         return PkSurface.from_pygame(text_surface)
