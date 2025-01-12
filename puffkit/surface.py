@@ -628,7 +628,7 @@ class PkSurface(PkObject):
         text: str,
         rect: PkRect | RectValue,
         *,
-        max_width: int | None = None,
+        wrap: bool = True,
         text_align: str = "left",
         vertical_align: str = "top",
         tab_size: int = 4,
@@ -643,9 +643,9 @@ class PkSurface(PkObject):
             text (str): Text to add.
             rect (PkRect | RectValue): Rectangle specifying the position and size
                 of the text.
-            max_width (int | None, optional): Maximum width of the text
-                before wrapping. `0` means no wrapping. Defaults to None
-                (surface width).
+
+        Keyword Args:
+            wrap (bool, optional): Whether to wrap the text. Defaults to True.
             text_align (str, optional): Horizontal alignment of the text.
                 Avaliable values: "left", "center", "right". Defaults to "left".
             vertical_align (str, optional): Vertical alignment of the text.
@@ -669,7 +669,7 @@ class PkSurface(PkObject):
 
         text_surface: PkSurface = PkSurface(rect.size, transparent=True)
 
-        max_width = max_width if max_width is not None else self.width - x_pos
+        max_width = int(rect.width) if wrap else 0
 
         # text preparation
         text = text.replace("\t", " " * tab_size)
@@ -686,6 +686,7 @@ class PkSurface(PkObject):
             color,
             bg_color,
             max_width,
+            align_map[text_align],
         )
 
         # vertical alignment
