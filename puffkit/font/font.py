@@ -60,6 +60,7 @@ class PkFont(PkObject):
             antialias (bool): Whether to use antialiasing.
             color (PkColor): Text color.
             bg_color (PkColor, optional): Background color. Defaults to None.
+            max_width (int, optional): Maximum width of the text. Defaults to None.
 
         Returns:
             PkSurface: Surface with the rendered text.
