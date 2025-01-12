@@ -33,6 +33,16 @@ class PkFont(PkObject):
 
         self.font = pg.font.Font(self.path, self.size)
 
+    @property
+    def align(self) -> int:
+        """Get the text alignment."""
+        return self.font.align
+
+    @align.setter
+    def align(self, align: int) -> None:
+        """Set the text alignment."""
+        self.font.align = align
+
     def render(
         self,
         text: str,
