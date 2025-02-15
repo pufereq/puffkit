@@ -30,8 +30,8 @@ class PkFallbackScene(PkScene):
         self.message = message
         self.on_load()
 
-    def on_load(self) -> None:
-        """Load the scene."""
+    def on_render(self) -> None:
+        """Render the scene."""
         self.surface.fill("#ffffff")
 
         text: str = (
