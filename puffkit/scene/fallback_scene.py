@@ -46,7 +46,7 @@ class PkFallbackScene(PkScene):
 
         self.surface.blit_text(
             text,
-            (10, 10),
+            (10, 10, self.size[0] - 20, self.size[1] - 20),
             font=self.app.fonts["default"],
             color="#ff0000",
             antialias=True,
