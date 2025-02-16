@@ -82,7 +82,7 @@ class PkContainer(PkObject):
                 self.rect.size, transparent=True
             )
             self.outline_surface.draw_rect(
-                PkRect((0, 0), (self.rect.width, self.rect.height)),
+                PkRect(0, 0, self.rect.width, self.rect.height),
                 (rnd.randint(0, 255), rnd.randint(0, 255), rnd.randint(0, 255), 128),
                 4,
             )
