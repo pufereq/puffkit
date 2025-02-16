@@ -89,14 +89,14 @@ class PkContainer(PkObject):
 
         self.children: list[PkWidget] = []
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         """Return a human-friendly representation of the container."""
         return (
             f"PkContainer({self.name} on {self.parent_surface},"
             f" {len(self.children)} children, {self.rect})"
         )
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> str:  # pragma: no cover
         """Return a string representation of the container."""
         return (
             f"PkContainer({self.app}, {self.parent_surface},"
