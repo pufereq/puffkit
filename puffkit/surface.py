@@ -70,7 +70,7 @@ class PkSurface(PkObject):
         else:
             self.internal_surface = pygame.Surface(size.tuple, flags, depth, masks)
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         """Return the string representation of the surface."""
 
         return (
@@ -78,7 +78,7 @@ class PkSurface(PkObject):
             f" transparent={self.transparent})"
         )
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> str:  # pragma: no cover
         """Return the string representation of the surface."""
         return (
             f"PkSurface({self.size}, {self.pos}, {self.transparent},"
