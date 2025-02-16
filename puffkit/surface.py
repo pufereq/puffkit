@@ -386,13 +386,16 @@ class PkSurface(PkObject):
         """
         return PkColor.from_pygame(self.internal_surface.unmap_rgb(color))
 
-    def set_clip(self, rect: PkRect | None) -> None:
+    def set_clip(self, rect: PkRect | RectValue | None) -> None:
         """Set the clipping area of the surface.
 
         Args:
-            rect (PkRect | None): Clipping area.
+            rect (PkRect | RectValue | None): Clipping area.
         """
-        self.internal_surface.set_clip(tuple(rect) if rect is not None else None)
+        if rect is not None:
+            if isinstance(rect, PkRect):
+                rect = rect.tuple
+        self.internal_surface.set_clip(rect)
 
     def get_clip(self) -> PkRect:
         """Get the clipping area of the surface.
