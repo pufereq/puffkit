@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Self, TYPE_CHECKING
+from typing import Any, Final, Self, TYPE_CHECKING
 
 import pygame
 
@@ -57,7 +57,9 @@ class PkSurface(PkObject):
 
         super().__init__()
 
-        if transparent:
+        self.transparent: Final[bool] = transparent
+
+        if self.transparent:
             flags |= pygame.SRCALPHA
 
         self.pos = pos
