@@ -70,6 +70,22 @@ class PkSurface(PkObject):
         else:
             self.internal_surface = pygame.Surface(size.tuple, flags, depth, masks)
 
+    def __str__(self) -> str:
+        """Return the string representation of the surface."""
+
+        return (
+            f"PkSurface({self.size.w}x{self.size.h} at {self.pos},"
+            f" transparent={self.transparent})"
+        )
+
+    def __repr__(self) -> str:
+        """Return the string representation of the surface."""
+        return (
+            f"PkSurface({self.size}, {self.pos}, {self.transparent},"
+            f" flags={self.get_flags()}, depth={self.get_bitsize()},"
+            f" masks={self.get_masks()})"
+        )
+
     @classmethod
     def from_pygame(cls, surface: pygame.Surface) -> Self:
         """Create a surface from a pygame surface.
