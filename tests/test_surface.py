@@ -4,6 +4,7 @@ import pytest
 
 from puffkit.color.color import ColorValue, PkColor
 from puffkit.font.font import PkFont
+from puffkit.geometry import RectValue
 from puffkit.geometry.rect import PkRect
 from puffkit.surface import PkSurface
 
@@ -407,29 +408,41 @@ def test_pksurface_scale(surface: PkSurface) -> None:
 
 
 @pytest.mark.parametrize(
-    "position, vertical_align",
+    "text, rect, wrap, text_align, vertical_align, tab_size, font_size, color, bg_color, antialias",
     [
-        ((0, 0), "top"),
-        ((10, 10), "top"),
-        (("left", "top"), "top"),
-        (("center", "center"), "top"),
-        (("right", "bottom"), "top"),
-        ((10, 10), "center"),
-        (("left", "top"), "middle"),
-        (("center", "center"), "middle"),
-        (("right", "bottom"), "middle"),
-        ((10, 10), "bottom"),
-        (("left", "top"), "bottom"),
-        (("center", "center"), "bottom"),
-        (("right", "bottom"), "bottom"),
+        ("Hello, World!", (10, 10, 50, 50), False, "left", "top", 4, 12, PkColor(255, 0, 0), PkColor(0, 255, 0), True),  # fmt: skip
+        ("Hello, World!", (10, 10, 50, 50), True, "center", "middle", 4, 12, (0, 255, 0), PkColor(255, 0, 0), False),  # fmt: skip
+        ("Hello, World!", (10, 10, 50, 50), False, "right", "bottom", 4, 12, PkColor(0, 0, 255), (255, 255, 0), True),  # fmt: skip
+        ("Hello, World!", (10, 10, 50, 50), True, "left", "top", 4, 16, PkColor(255, 255, 0), PkColor(0, 0, 255), False),  # fmt: skip
+        ("Hello, World!", (10, 10, 50, 50), False, "center", "middle", 4, 16, (0, 255, 255), PkColor(255, 0, 255), True),  # fmt: skip
+        ("Hello, World!", (10, 10, 50, 50), True, "right", "bottom", 4, 16, PkColor(255, 0, 255), PkColor(255, 255, 255), False),  # fmt: skip
     ],
 )
 def test_pksurface_blit_text(
-    surface: PkSurface, position: tuple[int | str, int | str], vertical_align: str
+    surface: PkSurface,
+    text: str,
+    rect: PkRect | RectValue,
+    wrap: bool,
+    text_align: str,
+    vertical_align: str,
+    tab_size: int,
+    font_size: int,
+    color: PkColor | ColorValue,
+    bg_color: PkColor | ColorValue,
+    antialias: bool,
 ) -> None:
     """Test blitting text onto the surface."""
     surface.blit_text(
-        "Hello, World!", position, vertical_align=vertical_align, font=PkFont(None, 12)
+        text=text,
+        rect=rect,
+        wrap=wrap,
+        text_align=text_align,
+        vertical_align=vertical_align,
+        tab_size=tab_size,
+        font=PkFont(None, font_size),
+        color=color,
+        bg_color=bg_color,
+        antialias=antialias,
     )
 
 
