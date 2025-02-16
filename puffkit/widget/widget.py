@@ -66,16 +66,15 @@ class PkWidget(PkObject):
 
         # calculate the absolute rectangle
         self.abs_rect: PkRect = PkRect(
-            (
-                self.rect.x + self.container.rect.x,
-                self.rect.y + self.container.rect.y,
-            ),
-            self.rect.size,
+            self.rect.x + self.container.rect.x,
+            self.rect.y + self.container.rect.y,
+            self.rect.w,
+            self.rect.h,
         )
 
         self.surface: PkSurface = PkSurface(self.rect.size, transparent=True)
 
-    def on_update(self, delta: float) -> None:
+    def on_update(self, delta: float) -> None:  # pragma: no cover
         """Update the widget.
 
         This method is called every frame to update the widget.
@@ -85,7 +84,7 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_render(self) -> None:
+    def on_render(self) -> None:  # pragma: no cover
         """Render the widget.
 
         This method is called every frame to render the widget.
