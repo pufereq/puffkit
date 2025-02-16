@@ -408,6 +408,23 @@ def test_pksurface_scale(surface: PkSurface) -> None:
 
 
 @pytest.mark.parametrize(
+    "rect, color, width",
+    [
+        (PkRect((10, 10), (50, 50)), PkColor(255, 0, 0), 1),
+        ((10, 10, 50, 50), (0, 255, 0), 2),
+    ],
+)
+def test_pksurface_draw_rect(
+    surface: PkSurface,
+    rect: PkRect | RectValue,
+    color: PkColor | ColorValue,
+    width: int,
+) -> None:
+    """Test drawing a rectangle on the surface."""
+    surface.draw_rect(rect, color, width)
+
+
+@pytest.mark.parametrize(
     "text, rect, wrap, text_align, vertical_align, tab_size, font_size, color, bg_color, antialias",
     [
         ("Hello, World!", (10, 10, 50, 50), False, "left", "top", 4, 12, PkColor(255, 0, 0), PkColor(0, 255, 0), True),  # fmt: skip
