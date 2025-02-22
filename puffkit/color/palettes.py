@@ -9,6 +9,7 @@ from puffkit.color.color import PkColor
 class PkBasicPalette:
     """A class containing basic color definitions."""
 
+    TRANSPARENT: Final[PkColor] = PkColor(0, 0, 0, 0)
     BLACK: Final[PkColor] = PkColor.from_hex("#000000")
     WHITE: Final[PkColor] = PkColor.from_hex("#ffffff")
     RED: Final[PkColor] = PkColor.from_hex("#ff0000")

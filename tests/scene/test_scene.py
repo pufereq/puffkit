@@ -1,5 +1,6 @@
 import pytest
 from unittest.mock import Mock
+from puffkit.geometry import PkSize
 from puffkit.scene.scene import PkScene
 from puffkit.app import PkApp
 from puffkit.geometry.coordinate import PkCoordinate
@@ -9,7 +10,7 @@ from puffkit.surface import PkSurface
 @pytest.fixture
 def mock_app() -> Mock:
     app = Mock(spec=PkApp)
-    app.internal_screen_size = (800, 600)
+    app.internal_screen_size = PkSize(800, 600)
     return app
 
 

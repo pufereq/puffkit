@@ -31,7 +31,7 @@ class PkCoordinate:
         self.y = y
 
     @property
-    def tuple(self) -> tuple[int | float, int | float]:
+    def tuple(self) -> CoordinateValue:
         """Return the coordinate as a tuple.
 
         Returns:
@@ -128,11 +128,11 @@ class PkCoordinate:
         return (self.x, self.y)[index]
 
     @classmethod
-    def from_tuple(cls, coord: tuple[int, int]) -> PkCoordinate:
+    def from_tuple(cls, coord: CoordinateValue) -> PkCoordinate:
         """Create a `PkCoordinate` from a tuple.
 
         Args:
-            coord (tuple[int, int]): The tuple to create the coordinate from.
+            coord (CoordinateValue): The tuple to create the coordinate from.
 
         Returns:
             PkCoordinate: The created coordinate.

@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Self, TYPE_CHECKING
+from typing import Any, Final, Self, TYPE_CHECKING
 
 import pygame
 
@@ -31,10 +31,11 @@ class PkSurface(PkObject):
         self,
         size: PkSize | SizeValue,
         pos: PkCoordinate | CoordinateValue = PkCoordinate(0, 0),
+        transparent: bool = False,
         *,
         flags: int = 0,
         depth: int = 32,
-        masks: tuple[int, int, int, int] = (0, 0, 0, 0),
+        masks: tuple[int, int, int, int] | None = None,
     ):
         """Initialize the surface.
 
@@ -42,10 +43,12 @@ class PkSurface(PkObject):
             size (PkSize): Size of the surface.
             pos (PkCoordinate, optional): Position of the surface.
                 Defaults to PkCoordinate(0, 0).
+            transparent (bool, optional): Whether the surface supports
+                transparency.
             flags (int, optional): Flags for the surface. Defaults to 0.
             depth (int, optional): Depth of the surface. Defaults to 32.
-            masks (tuple[int, int, int, int], optional): Masks for the surface.
-                Defaults to (0, 0, 0, 0).
+            masks (tuple[int, int, int, int] | None, optional): Masks for the
+                surface. Defaults to None.
         """
         if not isinstance(size, PkSize):
             size = PkSize(*size)
@@ -54,9 +57,34 @@ class PkSurface(PkObject):
 
         super().__init__()
 
+        self.transparent: Final[bool] = transparent
+
+        if self.transparent:
+            flags |= pygame.SRCALPHA
+
         self.pos = pos
         self.masks = masks
-        self.internal_surface = pygame.Surface(size.tuple, flags, depth, masks)
+
+        if masks is None:
+            self.internal_surface = pygame.Surface(size.tuple, flags, depth)
+        else:
+            self.internal_surface = pygame.Surface(size.tuple, flags, depth, masks)
+
+    def __str__(self) -> str:  # pragma: no cover
+        """Return the string representation of the surface."""
+
+        return (
+            f"PkSurface({self.size.w}x{self.size.h} at {self.pos},"
+            f" transparent={self.transparent})"
+        )
+
+    def __repr__(self) -> str:  # pragma: no cover
+        """Return the string representation of the surface."""
+        return (
+            f"PkSurface({self.size}, {self.pos}, {self.transparent},"
+            f" flags={self.get_flags()}, depth={self.get_bitsize()},"
+            f" masks={self.get_masks()})"
+        )
 
     @classmethod
     def from_pygame(cls, surface: pygame.Surface) -> Self:
@@ -358,13 +386,16 @@ class PkSurface(PkObject):
         """
         return PkColor.from_pygame(self.internal_surface.unmap_rgb(color))
 
-    def set_clip(self, rect: PkRect | None) -> None:
+    def set_clip(self, rect: PkRect | RectValue | None) -> None:
         """Set the clipping area of the surface.
 
         Args:
-            rect (PkRect | None): Clipping area.
+            rect (PkRect | RectValue | None): Clipping area.
         """
-        self.internal_surface.set_clip(tuple(rect) if rect is not None else None)
+        if rect is not None:
+            if isinstance(rect, PkRect):
+                rect = rect.tuple
+        self.internal_surface.set_clip(rect)
 
     def get_clip(self) -> PkRect:
         """Get the clipping area of the surface.
@@ -570,30 +601,72 @@ class PkSurface(PkObject):
         """
         return self.from_pygame(pygame.transform.scale(self.internal_surface, size))
 
+    def draw_rect(
+        self,
+        rect: PkRect | RectValue,
+        color: PkColor | ColorValue,
+        width: int = 0,
+        border_radius: int = -1,
+        border_top_left_radius: int = -1,
+        border_top_right_radius: int = -1,
+        border_bottom_left_radius: int = -1,
+        border_bottom_right_radius: int = -1,
+    ) -> None:
+        """Draw a rectangle on the surface.
+
+        Args:
+            rect (PkRect | RectValue): Rectangle to draw.
+            color (PkColor | ColorValue): Color of the rectangle.
+            width (int, optional): Stroke width of the rectangle.
+                Defaults to 0 (filled).
+            border_radius (int, optional): Radius of the rectangle border.
+                Defaults to -1 (no border radius).
+            border_top_left_radius (int, optional): Radius of the top-left corner.
+                Defaults to -1 (no border radius).
+            border_top_right_radius (int, optional): Radius of the top-right corner.
+                Defaults to -1 (no border radius).
+            border_bottom_left_radius (int, optional): Radius of the bottom-left corner.
+                Defaults to -1 (no border radius).
+            border_bottom_right_radius (int, optional): Radius of the bottom-right corner.
+                Defaults to -1 (no border radius).
+        """
+        if not isinstance(color, PkColor):
+            color = PkColor.from_value(color)
+        pygame.draw.rect(
+            self.internal_surface,
+            tuple(color),
+            tuple(rect),
+            width,
+            border_radius,
+            border_top_left_radius,
+            border_top_right_radius,
+            border_bottom_left_radius,
+            border_bottom_right_radius,
+        )
+
     def blit_text(
         self,
         text: str,
-        pos: tuple[int | str, int | str],
+        rect: PkRect | RectValue,
         *,
-        max_width: int | None = None,
+        wrap: bool = True,
         text_align: str = "left",
         vertical_align: str = "top",
         tab_size: int = 4,
         font: PkFont | PkSysFont,
         color: PkColor | ColorValue = PkBasicPalette.WHITE,
         bg_color: PkColor | ColorValue | None = None,
-        antialias: bool = False,
+        antialias: bool = True,
     ) -> None:
         """Add text to the surface.
 
         Args:
             text (str): Text to add.
-            pos (tuple[int | str, int | str]): Position of the text.
-                Can be a number (int) or "left", "center", "right" for horizontal
-                position and "top", "center", "bottom" for vertical position.
-            max_width (int | None, optional): Maximum width of the text
-                before wrapping. `0` means no wrapping. Defaults to None
-                (surface width).
+            rect (PkRect | RectValue): Rectangle specifying the position and size
+                of the text.
+
+        Keyword Args:
+            wrap (bool, optional): Whether to wrap the text. Defaults to True.
             text_align (str, optional): Horizontal alignment of the text.
                 Avaliable values: "left", "center", "right". Defaults to "left".
             vertical_align (str, optional): Vertical alignment of the text.
@@ -602,7 +675,7 @@ class PkSurface(PkObject):
             bg_color (PkColor | ColorValue | None, optional): Background color of the text. Defaults to None (transparent).
             font (PkFont, optional): Font to use. Defaults to "main".
             antialias (bool, optional): Whether to use font antialiasing.
-                Defaults to False.
+                Defaults to True.
         """
 
         # color conversion
@@ -611,28 +684,13 @@ class PkSurface(PkObject):
         if not isinstance(bg_color, PkColor):
             bg_color = PkColor.from_value(bg_color) if bg_color is not None else None
 
-        # position conversion
-        if isinstance(pos[0], str):
-            if pos[0] == "center":
-                x_pos = self.width // 2
-            elif pos[0] == "right":
-                x_pos = self.width
-            else:  # left
-                x_pos = 0
-        else:
-            x_pos = pos[0]
+        # rect conversion
+        if not isinstance(rect, PkRect):
+            rect = PkRect.from_tuple(rect)
 
-        if isinstance(pos[1], str):
-            if pos[1] == "center":
-                y_pos = self.height // 2
-            elif pos[1] == "bottom":
-                y_pos = self.height
-            else:
-                y_pos = 0
-        else:
-            y_pos = pos[1]
+        text_surface: PkSurface = PkSurface(rect.size, transparent=True)
 
-        max_width = max_width if max_width is not None else self.width - x_pos
+        max_width = int(rect.width) if wrap else 0
 
         # text preparation
         text = text.replace("\t", " " * tab_size)
@@ -643,23 +701,23 @@ class PkSurface(PkObject):
             "right": pygame.FONT_RIGHT,
         }
 
-        font.align = align_map[text_align]
-
-        text_surface = font.render(
+        rendered_text = font.render(
             text,
             antialias,
             color,
             bg_color,
             max_width,
+            align_map[text_align],
         )
 
         # vertical alignment
         if vertical_align == "middle":
-            y_pos = self.height // 2 - text_surface.get_height() // 2
+            y_pos = text_surface.height // 2 - rendered_text.get_height() // 2
         elif vertical_align == "bottom":
-            y_pos = self.height - text_surface.get_height()
+            y_pos = text_surface.height - rendered_text.get_height()
+        else:
+            y_pos = 0
 
-        self.blit(text_surface, (x_pos, y_pos))
+        text_surface.blit(rendered_text, (0, y_pos))
 
-        # reset alignment
-        font.align = pygame.FONT_LEFT
+        self.blit(text_surface, rect.pos)

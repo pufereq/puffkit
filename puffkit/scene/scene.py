@@ -6,6 +6,7 @@ import logging as lg
 
 from typing import TYPE_CHECKING
 
+from puffkit.color import PkBasicPalette
 from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.object import PkObject
 from puffkit.surface import PkSurface
@@ -103,6 +104,17 @@ class PkScene(PkObject):
 
     def render(self, dest: PkSurface) -> None:
         """Render the scene. NOTE: The method you should override is `on_render`."""
+        # draw a checkerboard pattern
+        _checkerboard_rect_size: int = 16
+        self.surface.fill(PkBasicPalette.WHITE)
+        for x in range(0, int(self.size.width), _checkerboard_rect_size):
+            for y in range(0, int(self.size.height), _checkerboard_rect_size):
+                if (x + y) % (_checkerboard_rect_size * 2) == 0:
+                    self.surface.fill(
+                        PkBasicPalette.DARK_GREY,
+                        (x, y, _checkerboard_rect_size, _checkerboard_rect_size),
+                    )
+
         self.on_render()
         self.draw(dest)
 

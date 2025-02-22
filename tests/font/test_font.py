@@ -65,3 +65,26 @@ def test_pkfont_render(
         )
         mock_from_pygame.assert_called_once_with(mock_surface)
         assert result == mock_surface
+
+
+def test_pkfont_align_getter(mock_pygame_font) -> None:
+    """Test the align property getter of PkFont."""
+    font = PkFont(None, 12)
+    assert font.align == font.font.align
+
+
+def test_pkfont_align_setter(mock_pygame_font) -> None:
+    """Test the align property setter of PkFont."""
+    font = PkFont(None, 12)
+    font.align = 1
+    assert font.align == 1
+    assert font.font.align == 1
+    font.font.align = 2
+    assert font.align == 2
+    assert font.font.align == 2
+
+
+def test_pkfont_label(mock_pygame_font) -> None:
+    """Test the label property of PkFont."""
+    font = PkFont(None, 12)
+    assert font.label == font.font.name

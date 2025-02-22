@@ -3,6 +3,13 @@ import pytest
 from puffkit.geometry.size import PkSize
 
 
+def test_pksize_from_tuple() -> None:
+    """Test the from_tuple method of PkSize."""
+    size = PkSize.from_tuple((10, 20))
+    assert size.w == 10
+    assert size.h == 20
+
+
 @pytest.mark.parametrize(
     "w, h, expected_str",
     [

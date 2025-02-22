@@ -30,6 +30,18 @@ class PkSize:
         self.w = w
         self.h = h
 
+    @classmethod
+    def from_tuple(cls, size: SizeValue) -> PkSize:
+        """Create a size from a tuple.
+
+        Args:
+            size (tuple[int | float, int | float]): The size as a tuple.
+
+        Returns:
+            PkSize: The size object.
+        """
+        return cls(*size)
+
     @property
     def width(self) -> int | float:
         """Return the width of the size."""
