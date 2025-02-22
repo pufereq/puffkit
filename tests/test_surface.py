@@ -279,7 +279,7 @@ def test_pksurface_unmap_rgb(surface: PkSurface) -> None:
 
 def test_pksurface_set_clip(surface: PkSurface) -> None:
     """Test setting the clipping rectangle of the surface."""
-    surface.set_clip(PkRect((10, 10), (50, 50)))
+    surface.set_clip(PkRect(10, 10, 50, 50))
     assert surface.get_clip() == (10, 10, 50, 50)
 
 
@@ -290,7 +290,7 @@ def test_pksurface_get_clip(surface: PkSurface) -> None:
 
 def test_pksurface_subsurface(surface: PkSurface) -> None:
     """Test creating a subsurface from the surface."""
-    subsurface = surface.subsurface(PkRect((10, 10), (50, 50)))
+    subsurface = surface.subsurface(PkRect(10, 10, 50, 50))
     assert subsurface.size == (50, 50)
 
 
@@ -327,7 +327,7 @@ def test_pksurface_get_height(surface: PkSurface) -> None:
 def test_pksurface_get_rect(surface: PkSurface) -> None:
     """Test getting the rect of the surface."""
     assert surface.get_rect() == (0, 0, 100, 100)
-    assert surface.get_rect() == PkRect((0, 0), (100, 100))
+    assert surface.get_rect() == PkRect(0, 0, 100, 100)
 
 
 def test_pksurface_get_bitsize(surface: PkSurface) -> None:
@@ -410,7 +410,7 @@ def test_pksurface_scale(surface: PkSurface) -> None:
 @pytest.mark.parametrize(
     "rect, color, width",
     [
-        (PkRect((10, 10), (50, 50)), PkColor(255, 0, 0), 1),
+        (PkRect(10, 10, 50, 50), PkColor(255, 0, 0), 1),
         ((10, 10, 50, 50), (0, 255, 0), 2),
     ],
 )
