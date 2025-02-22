@@ -19,7 +19,7 @@ from puffkit.geometry import PkRect, RectValue
             True,
         ),  # bottom would be 110, out of bounds if parent height is 100
         ((0, 0, 50, 50), False),
-        (PkRect((10, 10), (20, 20)), False),
+        (PkRect(10, 10, 20, 20), False),
     ],
 )
 def test_pkcontainer_init_edge_cases(
