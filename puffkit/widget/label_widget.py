@@ -76,7 +76,7 @@ class PkLabelWidget(PkWidget):
 
         self.needs_redraw: bool = True
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         """Return a string representation of the label widget.
 
         Returns:
@@ -89,7 +89,7 @@ class PkLabelWidget(PkWidget):
             f" text_wrap: {self.text_wrap}, text_align: {self.text_align}"
         )
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> str:  # pragma: no cover
         """Return a string representation of the label widget.
 
         Returns:
