@@ -82,3 +82,9 @@ def test_pkfont_align_setter(mock_pygame_font) -> None:
     font.font.align = 2
     assert font.align == 2
     assert font.font.align == 2
+
+
+def test_pkfont_label(mock_pygame_font) -> None:
+    """Test the label property of PkFont."""
+    font = PkFont(None, 12)
+    assert font.label == font.font.name
