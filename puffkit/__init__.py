@@ -10,6 +10,7 @@ from puffkit.scene import PkScene
 from puffkit.subsurface import PkSubSurface
 from puffkit.surface import PkSurface
 from puffkit.textures import get_texture
+from puffkit.container import PkContainer
 
 __version__ = "0.6.0"
 

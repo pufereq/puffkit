@@ -10,7 +10,7 @@ from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
 
-type RectValue = tuple[float, float, float, float]
+type RectValue = tuple[int | float, int | float, int | float, int | float]
 
 
 class PkRect(PkObject):
@@ -25,8 +25,10 @@ class PkRect(PkObject):
 
     def __init__(
         self,
-        pos: tuple[float, float] | PkCoordinate,
-        size: tuple[float, float] | PkSize,
+        x: float,
+        y: float,
+        w: float,
+        h: float,
     ) -> None:
         """Initialize the rectangle.
 
@@ -38,10 +40,18 @@ class PkRect(PkObject):
         """
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
-        self.x: float = pos[0]
-        self.y: float = pos[1]
-        self.w: float = size[0]
-        self.h: float = size[1]
+        self.x: float = x
+        self.y: float = y
+        self.w: float = w
+        self.h: float = h
+
+    @classmethod
+    def from_tuple(cls, rect: RectValue) -> PkRect:
+        return cls(*rect)
+
+    @property
+    def tuple(self) -> RectValue:
+        return (self.x, self.y, self.w, self.h)
 
     def __iter__(self):
         return iter((self.x, self.y, self.w, self.h))
@@ -49,29 +59,25 @@ class PkRect(PkObject):
     def __getitem__(self, index: int) -> float:
         return (self.x, self.y, self.w, self.h)[index]
 
-    def __repr__(self) -> str:
-        return f"PkRect({self.topleft}, {self.size})"
+    def __repr__(self) -> str:  # pragma: no cover
+        return f"PkRect({self.x}, {self.y}, {self.w}, {self.h})"
 
-    def __str__(self) -> str:
-        return f"PkRect({self.topleft}, {self.size})"
+    def __str__(self) -> str:  # pragma: no cover
+        return f"PkRect(x={self.x}, y={self.y}, w={self.w}, h={self.h})"
 
     def __eq__(self, other: PkRect | RectValue) -> bool:
         if not isinstance(other, PkRect):
-            other = PkRect.from_rectvalue(other)
-        return self.topleft == other.topleft and self.size == other.size
-
-    def __ne__(self, other: PkRect | RectValue) -> bool:
-        if not isinstance(other, PkRect):
-            other = PkRect.from_rectvalue(other)
-        return not self == other
+            other = PkRect(*other)
+        return (
+            self.x == other.x
+            and self.y == other.y
+            and self.w == other.w
+            and self.h == other.h
+        )
 
     @classmethod
     def from_pygame(cls, rect: pygame.Rect) -> PkRect:
-        return cls((rect.x, rect.y), (rect.w, rect.h))
-
-    @classmethod
-    def from_rectvalue(cls, rect: RectValue) -> PkRect:
-        return cls((rect[0], rect[1]), (rect[2], rect[3]))
+        return cls(rect.x, rect.y, rect.w, rect.h)
 
     @property
     def pos(self) -> tuple[float, float]:
@@ -223,4 +229,4 @@ class PkRect(PkObject):
         )
 
     def copy(self) -> PkRect:
-        return PkRect((self.x, self.y), (self.w, self.h))
+        return PkRect(self.x, self.y, self.w, self.h)
