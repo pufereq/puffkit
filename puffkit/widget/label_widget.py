@@ -32,7 +32,7 @@ class PkLabelWidget(PkWidget):
         text: str,
         rect: PkRect | RectValue,
         *,
-        font_name: str = "default",
+        font_id: str = "default",
         text_color: PkColor | ColorValue = PkBasicPalette.BLACK,
         background_color: PkColor | ColorValue | None = None,
         text_wrap: bool = True,
@@ -46,7 +46,7 @@ class PkLabelWidget(PkWidget):
             rect (PkRect | RectValue): The rectangle of the widget.
 
         Keyword Args:
-            font_name (str): The name of the font to use. Defaults to "default".
+            font_id (str): The ID of the font to use. Defaults to "default".
             text_color (PkColor | ColorValue): The color of the text. Defaults to black.
             background_color (PkColor | ColorValue | None): The background color of the widget.
                 Defaults to None.
@@ -63,10 +63,10 @@ class PkLabelWidget(PkWidget):
 
         self._text: str = text
 
-        self.font_name: str = font_name
+        self.font_id: str = font_id
         self.text_color: PkColor = text_color
 
-        self.font: PkFont = self._find_font(font_name)
+        self.font: PkFont = self._find_font(font_id)
 
         self.background_color: PkColor | None = background_color
         self.background_surface: PkSurface = PkSurface(self.rect.size, transparent=True)
@@ -84,7 +84,7 @@ class PkLabelWidget(PkWidget):
         """
         return (
             f"PkLabelWidget(in {self.container} at {self.rect},"
-            f" text: {repr(self._text)}, font: {self.font_name},"
+            f" text: {repr(self._text)}, font: {self.font_id} ({self.font.label}),"
             f" text_color: {self.text_color}, background_color: {self.background_color},"
             f" text_wrap: {self.text_wrap}, text_align: {self.text_align}"
         )
@@ -97,7 +97,7 @@ class PkLabelWidget(PkWidget):
         """
         return (
             f"PkLabelWidget({self.container}, {self._text}, {self.rect},"
-            f" font_name={self.font_name}, text_color={self.text_color},"
+            f" font_name={self.font_id}, text_color={self.text_color},"
             f" background_color={self.background_color}, text_wrap={self.text_wrap},"
             f" text_align={self.text_align})"
         )
