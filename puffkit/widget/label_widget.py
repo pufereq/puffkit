@@ -119,13 +119,7 @@ class PkLabelWidget(PkWidget):
             self.logger.warning(
                 f"Font '{font_name}' not found. Looking for a system font..."
             )
-            try:
-                return PkSysFont(font_name, 12)
-            except FileNotFoundError:
-                self.logger.error(
-                    f"System font '{font_name}' not found. Using default font."
-                )
-                return PkSysFont("default", 12)
+            return PkSysFont(font_name, 12)
 
     def get_text(self) -> str:
         """Get the text of the label.
