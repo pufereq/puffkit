@@ -2,6 +2,96 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0] - 2025-02-22
+
+### Bug Fixes
+
+- [`088fa82`](https://github.com/pufereq/template-repo/commit/088fa82db11590579eb3409686937a5a5290473e) **fallback_scene.py**: correct rect supplied to `surface.blit_text()`
+- [`21f7442`](https://github.com/pufereq/template-repo/commit/21f744236bb02474f58e68da99050192d6a2dfc0) **surface.py**: fix masks messing with transparency
+
+### Documentation
+
+- [`38c524c`](https://github.com/pufereq/template-repo/commit/38c524c43008fe57a942215920f6908ca2cf0ffd) **font.py**: update `PkFont.render()`'s docstring to include `max_width`
+
+### Features
+
+- [`a24659b`](https://github.com/pufereq/template-repo/commit/a24659b03a6f9a25f4187a8ffd2665b9958099fc) **font.py**: add `label` property
+- [`c6f608a`](https://github.com/pufereq/template-repo/commit/c6f608a96f93d559eea5f9dd8375d185e3133a73) **surface.py**: add string and repr representations of `PkSurface`
+- [`b90a2ba`](https://github.com/pufereq/template-repo/commit/b90a2ba8b18f10d4f24a32466bca7247c60cf9a8) **surface.py**: add `PkSurface.transparent` attribute
+- [`41cfe02`](https://github.com/pufereq/template-repo/commit/41cfe02d883440d61a81b6d1d15dbebcb999eab2) **label_widget.py**: add `PkLabelWidget` class
+- [`43cc35b`](https://github.com/pufereq/template-repo/commit/43cc35b6c7c575386a9c0ac3b2cb934430a7f38f) **surface.py**: replace `max_width` argument to `PkSurface.blit_text()` with `wrap` (bool) as max width is specified by `rect`
+- [`59378d1`](https://github.com/pufereq/template-repo/commit/59378d14ab69bbb5996b877b5bc547130dac5193) **surface.py**: add `rect` argument instead of `pos`
+- [`85b12c4`](https://github.com/pufereq/template-repo/commit/85b12c4bdd4d84ab851a07308ce5330ea6e252ab) **font.py**: add `align` argument to `PkFont.render()` method
+- [`84e7fbd`](https://github.com/pufereq/template-repo/commit/84e7fbdaa7de217cb5cee8deadc608a1ecfbc016) **font.py**: add `PkFont.align` property
+- [`1965716`](https://github.com/pufereq/template-repo/commit/196571627d9cb7be64a13369691d6629ba4cb790) **widget.py**: add the `PkWidget ` class
+- [`f70b1a5`](https://github.com/pufereq/template-repo/commit/f70b1a5f6272ecb9c55bc4b2e9996f65d00d48cd) **container.py**: add `PkContainer` class
+- [`44a4690`](https://github.com/pufereq/template-repo/commit/44a469035dc240004cac64215111f1bc78fe9e29) **scene.py**: fill the scene with a checkerboard on `render()` to ensure proper rendering
+- [`eecd8cc`](https://github.com/pufereq/template-repo/commit/eecd8ccb165f8c6f0d5ba06e6373137d30229c7e) **surface.py**: add `PkSurface.draw_rect()` method
+- [`7aa5555`](https://github.com/pufereq/template-repo/commit/7aa5555c76c6e9bb423e4c9f496308ed7c01cc38) **surface.py**: add transparency support in `PkSurface`
+- [`e130d22`](https://github.com/pufereq/template-repo/commit/e130d22bae06b77692714853e9d401fb63b50c73) **app.py**: add `PkApp.get_instance()` class method to get the PkApp instance
+- [`5ef90ba`](https://github.com/pufereq/template-repo/commit/5ef90baaabf1685bd1aac0851f3e75e6213a06e6) **app.py**: make PkApp a singleton (only one instance)
+- [`ee5134c`](https://github.com/pufereq/template-repo/commit/ee5134cd51b98b0a8bab91075b288610ee632076) **palletes.py**: add `TRANSPARENT` color
+- [`96fad1b`](https://github.com/pufereq/template-repo/commit/96fad1b171578e2a7a78543f960b0d527ed6d63b) **size.py**: add from_tuple method
+
+### Miscellaneous Tasks
+
+- [`67e3e60`](https://github.com/pufereq/template-repo/commit/67e3e603ff0815958029ce5a9534233bfcef8a53) **label_widget.py**: remove try/except clause in `PkLabelWidget._find_font()` as `PkSysFont` already defaults to fallback font
+- [`33986f3`](https://github.com/pufereq/template-repo/commit/33986f344de2cee167c18f615f8481ef366e0200) **label_widget.py**: exclude `__str__` and `__repr__` from coverage
+- [`bb36dce`](https://github.com/pufereq/template-repo/commit/bb36dce9dcc943ad9b84d5ecfee4ae185bd17513) **container.py**: exclude `__str__` and `__repr__` from coverage
+- [`598cccd`](https://github.com/pufereq/template-repo/commit/598cccdbdbfd52d0b66d24bb37ef9a6318e209ad) **app.py**: remove unused `PkApp.get_instance()` method
+- [`1f74f0a`](https://github.com/pufereq/template-repo/commit/1f74f0a074cafe28f8dcbab9935cf35fc272e8f1) **surface.py**: exclude `__str__` and `__repr__` from coverage
+- [`32b4859`](https://github.com/pufereq/template-repo/commit/32b4859a3a66eb9c05d96d50c8a63c0272a9c31d) **fallback_scene.py**: show message every `on_render()` call
+- [`bd505eb`](https://github.com/pufereq/template-repo/commit/bd505ebc48fc97eca5a709e4a6f84381fb69a3f6) **widget/__init__.py**: import `PkLabelWidget`
+- [`6af5451`](https://github.com/pufereq/template-repo/commit/6af545153c69dc98757a34c84967bf9cb7188d43) **font.py**: remove PkFont's `render()` log as it will spam the logs if text is updated quickly
+- [`c973afa`](https://github.com/pufereq/template-repo/commit/c973afa9ca3a59785205e631c3dbf401bbfad58d) **surface.py**: enable antialiashing by default in `PkSurface.blit_text()`
+- [`72c6f27`](https://github.com/pufereq/template-repo/commit/72c6f279e95e28636d78c76447658a9972892d98) **color/__init__.py**: import `ColorValue`
+- [`4cd941e`](https://github.com/pufereq/template-repo/commit/4cd941eba90342962caedc70b16127bef5faced5) **puffkit/__init__.py**: add `PkContainer` import
+- [`aebbd48`](https://github.com/pufereq/template-repo/commit/aebbd4892b40f7eb6e79b11f9526835b827de703) **widget/__init__.py**: add PkWidget import
+- [`ff0cfa8`](https://github.com/pufereq/template-repo/commit/ff0cfa8adfb86c8d2b3c614ea432035008fe9f47) **color/__init__.py**: add `PkColor` and `PkBasicPalette` imports
+- [`637f738`](https://github.com/pufereq/template-repo/commit/637f738823c2b3c509b7120f156a7241e4f00e7c) **font/__init__.py**: add `PkFont` and `PkSysFont` imports
+- [`a6c37ad`](https://github.com/pufereq/template-repo/commit/a6c37addc6dca87e4611062846ec2423ef07d5ea) **geometry/__init__.py**: import PkSize, PkRect, PkCoordinate and corresponding value types
+- [`1c9fdd9`](https://github.com/pufereq/template-repo/commit/1c9fdd9740ee489cab20ab9876ea758d34241c1f) **rect.py**: make `RectValue` also accept ints
+
+### Refactor
+
+- [`c2d52ad`](https://github.com/pufereq/template-repo/commit/c2d52ad68441eb43c839420d8c87aac178ee6fd7) **label_widget.py**: rename `font_name` -> `font_id` for clarity
+- [`c5e602e`](https://github.com/pufereq/template-repo/commit/c5e602e035d0fab1bb82f951ec190bd50ba715f9) **widget.py**: correct all `PkRect` constructor calls after refactor
+- [`4cbdde5`](https://github.com/pufereq/template-repo/commit/4cbdde56738163d545e8097a2f26a9b0c0662fb2) **surface.py**: correct all `PkRect` constructor calls after refactor
+- [`2169f54`](https://github.com/pufereq/template-repo/commit/2169f54501d813b458efdb7a0c62805ccdc6c8f7) **container.py**: correct all `PkRect` constructor calls after refactor
+- [`d28fb1d`](https://github.com/pufereq/template-repo/commit/d28fb1dbb7a631037cfa8e13d0e5286a78afa90a) **rect.py**: refactor `PkRect`'s constructor to take `x`, `y`, `w`, `h` as arguments
+- [`9a7af3b`](https://github.com/pufereq/template-repo/commit/9a7af3b3f6790fd606995aed206b321d65f926bd) **rect.py**: rename `PkRect.from_rectvalue()` to `from_tuple()` for consistency with PkSize and PkCoordinate
+
+### Revert
+
+- [`ea07dd7`](https://github.com/pufereq/template-repo/commit/ea07dd7672a53f03929953d761d7ea989d53791c) **app.py**: "feat(app.py): make PkApp a singleton (only one instance)"
+
+### Styling
+
+- [`690d045`](https://github.com/pufereq/template-repo/commit/690d0455aac56a8584487d00c73cd25eb06de2a3) **font.py**: add `PkSurface` import as TYPE_CHECKING to fix hinting
+- [`fe948a7`](https://github.com/pufereq/template-repo/commit/fe948a751a1ab0df9879c0916eca0c91cc386abc) **coordinate.py**: replace `tuple[int, int]` types with  `CoordinateValue`
+
+### Testing
+
+- [`ea99ff5`](https://github.com/pufereq/template-repo/commit/ea99ff5f428de843e095353579bf3c5b3f1531ae) **test_label_widget.py**: add tests for `PkLabelWidget` class
+- [`000f9e3`](https://github.com/pufereq/template-repo/commit/000f9e34600cc9f216d5bb4c29bbc3860a8cfe8c) **test_widget.py**: add tests for `PkWidget` class
+- [`bae0d05`](https://github.com/pufereq/template-repo/commit/bae0d05db391c6b64838b6036b87399cd131f6e9) **test_container.py**: modify tests to call PkRect with `x, y, w, h` instead of `pos, size`
+- [`b929870`](https://github.com/pufereq/template-repo/commit/b9298709e3cc90f2977875a9fa79d37262546d50) **test_surface.py**: modify tests to call PkRect with `x, y, w, h` instead of `pos, size`
+- [`cfe7f5f`](https://github.com/pufereq/template-repo/commit/cfe7f5f68ddfccd29445be7c239a1881789f3d6d) **test_rect.py**: modify tests to use `x, y, w, h` instead of `pos, size`
+- [`6916dc2`](https://github.com/pufereq/template-repo/commit/6916dc2bf2b8e04c5a974ec7730f677fa125cabf) **test_font.py**: add test for `PkFont.label` property
+- [`e613d3c`](https://github.com/pufereq/template-repo/commit/e613d3cc4d729283a6f7333fc0edb2b0508a9f49) **test_container.py**: add tests for `PkContainer`
+- [`c7a4fa3`](https://github.com/pufereq/template-repo/commit/c7a4fa357b2fadff109329fb9049e8734c311cf2) **test_fallback_scene.py**: add tests for `PkFallbackScene`
+- [`563d247`](https://github.com/pufereq/template-repo/commit/563d2473bb7c534756e239a0272e39f01f25e0b8) **test_surface.py**: add test for `PkSurface.draw_rect()` method
+- [`2e06a92`](https://github.com/pufereq/template-repo/commit/2e06a92b6591cb170f24b6d2732bed522f294cf2) **test_surface.py**: modify test for `PkSurface.blit_text()` after new functionality added
+- [`64e1b89`](https://github.com/pufereq/template-repo/commit/64e1b899dc3e6c4cddd059ed82840b7be92b9bf0) **test_container.py**: add tests for `PkContainer.align` property
+- [`d427340`](https://github.com/pufereq/template-repo/commit/d427340a3bacb5d25bf17f8006e5bcebf7b2e0c5) **test_size.py**: add test for `PkSize.from_tuple()` class method
+- [`e21dbef`](https://github.com/pufereq/template-repo/commit/e21dbefad3875b52938ae6d71c7ba65bc027f516) **test_scene.py**: make `mock_app.internal_screen_size` a PkSize to reproduce PkApp's behavior correctly
+- [`119689d`](https://github.com/pufereq/template-repo/commit/119689daa9ce673031417fbd30beab6faf266803) **test_surface.py**: add a test of transparency
+- [`25a1ccf`](https://github.com/pufereq/template-repo/commit/25a1ccf6f677eb228a0ac7805c45ea890ad3c9f2) **test_rect.py**: alter `PkRect.from_tuple()` tests after rename
+
+### Build
+
+- [`bcb9107`](https://github.com/pufereq/template-repo/commit/bcb9107fbe91df1700bba408dd14697028cb87b8) **.vscode/settings.json**: change mode from 755 to 644
+
 ## [0.6.0] - 2024-12-31
 
 ### Bug Fixes
