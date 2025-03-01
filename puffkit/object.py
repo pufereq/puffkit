@@ -13,12 +13,19 @@ class PkObject:
     Base class for all puffkit's objects.
     """
 
-    def __init__(self) -> None:
-        """Initialize the object."""
+    def __init__(self, suppress_init_log: bool = False) -> None:
+        """Initialize the object.
+
+        Args:
+            suppress_init_log (bool, optional): If True, do not log initialization message.
+                Defaults to False.
+        """
         self.class_name: str = type(self).__name__
         self.full_class_name: str = f"{__name__}.{self.class_name}"
         self.logger = lg.getLogger(self.full_class_name)
-        self.logger.debug(f"Initializing object {self.class_name}...")
+
+        if not suppress_init_log:
+            self.logger.debug(f"Initializing object {self.class_name}...")
 
         self._input: dict[str, Any] = {
             "events": [],
