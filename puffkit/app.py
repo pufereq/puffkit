@@ -112,6 +112,12 @@ class PkApp(PkObject):
         """Run update hooks."""
         pg.display.set_caption(f"{self.title} - {round(self.clock.get_fps(), 2)} FPS")
         self.event_manager.update(delta_time)
+        self.scene_manager.input(
+            self.event_manager.events,
+            pg.key.get_pressed(),
+            pg.mouse.get_pos(),
+            pg.mouse.get_pressed(),
+        )
         self.scene_manager.current_scene.update(delta_time)
 
     def render(self) -> None:
