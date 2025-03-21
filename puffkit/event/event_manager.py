@@ -70,7 +70,20 @@ class PkEventManager:
         Args:
             dt (float): The time since the last update.
         """
-        self.events = [PkEvent.from_pygame(e) for e in pg.event.get()]
+        pygame_events: list[pg.event.Event] = pg.event.get()
+        # scale mouse position to internal screen size
+        for e in pygame_events:
+            if e.type in (pg.MOUSEMOTION, pg.MOUSEBUTTONDOWN, pg.MOUSEBUTTONUP):
+                e.pos = (
+                    e.pos[0]
+                    * self.app.internal_screen_size.width
+                    / self.app.display_size.width,
+                    e.pos[1]
+                    * self.app.internal_screen_size.height
+                    / self.app.display_size.height,
+                )
+
+        self.events = [PkEvent.from_pygame(e) for e in pygame_events]
         self.app.scene_manager.input(
             events=self.events,
             keys=pg.key.get_pressed(),
