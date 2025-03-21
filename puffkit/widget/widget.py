@@ -9,6 +9,7 @@ from puffkit.geometry import PkRect, RectValue
 
 if TYPE_CHECKING:  # pragma: no cover
     from puffkit.container import PkContainer
+    from puffkit.event import PkEvent
 
 
 class PkWidget(PkObject):
@@ -74,6 +75,90 @@ class PkWidget(PkObject):
 
         self.surface: PkSurface = PkSurface(self.rect.size, transparent=True)
 
+        self._last_mouse_pos: tuple[int, int] = (0, 0)
+        self.hovered: bool = False
+
+    def on_key_down(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the key down event.
+
+        This method is called when a key is pressed.
+
+        Args:
+            event (PkEvent): The key down event.
+        """
+        pass
+
+    def on_key_up(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the key up event.
+
+        This method is called when a key is released.
+
+        Args:
+            event (PkEvent): The key up event.
+        """
+        pass
+
+    def on_hover(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the hover event.
+
+        This method is called when the mouse over the widget.
+
+        Args:
+            event (PkEvent): The mouse move event.
+        """
+        pass
+
+    def on_mouse_motion(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the mouse motion event.
+
+        This method is called when the mouse is moved over the widget.
+
+        Args:
+            event (PkEvent): The mouse move event.
+        """
+        # self.logger.debug("Mouse motion")
+        pass
+
+    def on_mouse_enter(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the mouse enter event.
+
+        This method is called when the mouse enters the widget.
+
+        Args:
+            event (PkEvent): The mouse move event.
+        """
+        pass
+
+    def on_mouse_leave(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the mouse leave event.
+
+        This method is called when the mouse leaves the widget.
+
+        Args:
+            event (PkEvent): The mouse move event.
+        """
+        pass
+
+    def on_mouse_down(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the mouse down event.
+
+        This method is called when the mouse button is pressed over the widget.
+
+        Args:
+            event (PkEvent): The mouse down event.
+        """
+        pass
+
+    def on_mouse_up(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the mouse up event.
+
+        This method is called when the mouse button is released over the widget.
+
+        Args:
+            event (PkEvent): The mouse up event.
+        """
+        pass
+
     def on_update(self, delta: float) -> None:  # pragma: no cover
         """Update the widget.
 
@@ -100,6 +185,30 @@ class PkWidget(PkObject):
         Args:
             delta (float): The time in seconds since the last frame.
         """
+        events: list[PkEvent] = self._input["events"]
+
+        for event in events:
+            if event.name == "KEYDOWN":
+                self.on_key_down(event)
+            elif event.name == "KEYUP":
+                self.on_key_up(event)
+            elif event.name == "MOUSEMOTION":
+                self.on_mouse_motion(event)
+                if self.abs_rect.collidepoint(event.pos):
+                    if not self.abs_rect.collidepoint(self._last_mouse_pos):
+                        self.on_mouse_enter(event)
+                    self.hovered = True
+                    self.on_hover(event)
+                else:
+                    if self.abs_rect.collidepoint(self._last_mouse_pos):
+                        self.on_mouse_leave(event)
+                    self.hovered = False
+                self._last_mouse_pos = event.pos
+            elif event.name == "MOUSEBUTTONDOWN":
+                self.on_mouse_down(event)
+            elif event.name == "MOUSEBUTTONUP":
+                self.on_mouse_up(event)
+
         self.on_update(delta)
 
     def render(self) -> None:
