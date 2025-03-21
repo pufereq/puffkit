@@ -71,6 +71,62 @@ def test_widget_update_calls_on_update(mock_container: MagicMock) -> None:
     widget.on_update.assert_called_once_with(0.016)
 
 
+def test_widget_update_event_handling(mock_container: MagicMock) -> None:
+    """Test update method handles events by calling specific `on` methods."""
+    widget = PkWidget(mock_container, PkRect(0, 0, 10, 10))
+    widget.on_key_down = MagicMock()
+    widget.on_key_up = MagicMock()
+    widget.on_mouse_motion = MagicMock()
+    widget.on_mouse_down = MagicMock()
+    widget.on_mouse_up = MagicMock()
+    widget.on_hover = MagicMock()
+    widget.on_mouse_enter = MagicMock()
+    widget.on_mouse_leave = MagicMock()
+
+    KEYDOWN = MagicMock()
+    KEYUP = MagicMock()
+    MOUSEMOTION_IN = MagicMock()
+    MOUSEMOTION_OUT = MagicMock()
+    MOUSEBUTTONDOWN = MagicMock()
+    MOUSEBUTTONUP = MagicMock()
+
+    KEYDOWN.name = "KEYDOWN"
+    KEYUP.name = "KEYUP"
+
+    MOUSEMOTION_IN.name = "MOUSEMOTION"
+    MOUSEMOTION_IN.pos = (5, 5)
+    MOUSEMOTION_OUT.name = "MOUSEMOTION"
+    MOUSEMOTION_OUT.pos = (15, 15)
+
+    MOUSEBUTTONDOWN.name = "MOUSEBUTTONDOWN"
+    MOUSEMOTION_IN.pos = (5, 5)
+    MOUSEBUTTONUP.name = "MOUSEBUTTONUP"
+    MOUSEMOTION_IN.pos = (5, 5)
+
+    widget.input(
+        events=[
+            KEYDOWN,
+            KEYUP,
+            MOUSEMOTION_IN,
+            MOUSEMOTION_OUT,
+            MOUSEBUTTONDOWN,
+            MOUSEBUTTONUP,
+        ],
+        keys={},
+        mouse_pos=(0, 0),
+        mouse_buttons=(False, False, False),
+    )
+    widget.update(0.016)
+
+    widget.on_key_down.assert_called_once()
+    widget.on_key_up.assert_called_once()
+    widget.on_mouse_motion.assert_called()
+    widget.on_mouse_enter.assert_called_once()
+    widget.on_mouse_leave.assert_called_once()
+    widget.on_mouse_down.assert_called_once()
+    widget.on_mouse_up.assert_called_once()
+
+
 def test_widget_render_calls_on_render_and_blit(mock_container: MagicMock) -> None:
     """
     Test that render method calls on_render and then blits the widget onto the parent surface.
