@@ -73,7 +73,11 @@ class PkEventManager:
         pygame_events: list[pg.event.Event] = pg.event.get()
         # scale mouse position to internal screen size
         for e in pygame_events:
-            if e.type in (pg.MOUSEMOTION, pg.MOUSEBUTTONDOWN, pg.MOUSEBUTTONUP):
+            if e.type in (
+                pg.MOUSEMOTION,
+                pg.MOUSEBUTTONDOWN,
+                pg.MOUSEBUTTONUP,
+            ):  # pragma: no cover
                 e.pos = (
                     e.pos[0]
                     * self.app.internal_screen_size.width
