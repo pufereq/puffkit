@@ -238,4 +238,4 @@ class PkWidget(PkObject):
         NOTE: Do not override this method. Instead, override `on_render`.
         """
         self.on_render()
-        self.container.parent_surface.blit(self.surface, self.abs_rect.pos)
+        self.container.surface.blit(self.surface, self.rect.pos)
