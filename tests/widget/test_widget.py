@@ -98,10 +98,21 @@ def test_widget_update_event_handling(mock_container: MagicMock) -> None:
     MOUSEMOTION_OUT.name = "MOUSEMOTION"
     MOUSEMOTION_OUT.pos = (15, 15)
 
-    MOUSEBUTTONDOWN.name = "MOUSEBUTTONDOWN"
-    MOUSEMOTION_IN.pos = (5, 5)
-    MOUSEBUTTONUP.name = "MOUSEBUTTONUP"
-    MOUSEMOTION_IN.pos = (5, 5)
+    MOUSEBUTTONDOWN_IN = MagicMock()
+    MOUSEBUTTONDOWN_IN.name = "MOUSEBUTTONDOWN"
+    MOUSEBUTTONDOWN_IN.pos = (5, 5)
+
+    MOUSEBUTTONDOWN_OUT = MagicMock()
+    MOUSEBUTTONDOWN_OUT.name = "MOUSEBUTTONDOWN"
+    MOUSEBUTTONDOWN_OUT.pos = (15, 15)
+
+    MOUSEBUTTONUP_IN = MagicMock()
+    MOUSEBUTTONUP_IN.name = "MOUSEBUTTONUP"
+    MOUSEBUTTONUP_IN.pos = (5, 5)
+
+    MOUSEBUTTONUP_OUT = MagicMock()
+    MOUSEBUTTONUP_OUT.name = "MOUSEBUTTONUP"
+    MOUSEBUTTONUP_OUT.pos = (15, 15)
 
     widget.input(
         events=[
@@ -109,8 +120,10 @@ def test_widget_update_event_handling(mock_container: MagicMock) -> None:
             KEYUP,
             MOUSEMOTION_IN,
             MOUSEMOTION_OUT,
-            MOUSEBUTTONDOWN,
-            MOUSEBUTTONUP,
+            MOUSEBUTTONDOWN_IN,
+            MOUSEBUTTONDOWN_OUT,
+            MOUSEBUTTONUP_IN,
+            MOUSEBUTTONUP_OUT,
         ],
         keys={},
         mouse_pos=(0, 0),
@@ -135,6 +148,13 @@ def test_widget_render_calls_on_render_and_blit(mock_container: MagicMock) -> No
     widget.on_render = MagicMock()
     widget.render()
     widget.on_render.assert_called_once()
-    mock_container.parent_surface.blit.assert_called_once_with(
-        widget.surface, widget.abs_rect.pos
-    )
+    mock_container.surface.blit.assert_called_once_with(widget.surface, widget.rect.pos)
+
+
+def test_widget_disabled(mock_container: MagicMock) -> None:
+    """Test that setting disabled property disables the widget."""
+    widget = PkWidget(mock_container, PkRect(0, 0, 10, 10))
+    assert not widget.disabled
+    widget.disabled = True
+    assert widget.disabled
+    assert widget._disabled
