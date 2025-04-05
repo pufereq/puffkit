@@ -76,7 +76,19 @@ class PkWidget(PkObject):
         self.surface: PkSurface = PkSurface(self.rect.size, transparent=True)
 
         self._last_mouse_pos: tuple[int, int] = (0, 0)
-        self.hovered: bool = False
+        self._disabled: bool = False
+        self._hovered: bool = False
+        self._pressed: bool = False
+
+    @property
+    def disabled(self) -> bool:
+        return self._disabled
+
+    @disabled.setter
+    def disabled(self, value: bool) -> None:
+        self._disabled = value
+        self._hovered = False
+        self._pressed = False
 
     def on_key_down(self, event: PkEvent) -> None:  # pragma: no cover
         """Handle the key down event.
@@ -197,17 +209,25 @@ class PkWidget(PkObject):
                 if self.abs_rect.collidepoint(event.pos):
                     if not self.abs_rect.collidepoint(self._last_mouse_pos):
                         self.on_mouse_enter(event)
-                    self.hovered = True
+                    self._hovered = True
                     self.on_hover(event)
                 else:
                     if self.abs_rect.collidepoint(self._last_mouse_pos):
                         self.on_mouse_leave(event)
-                    self.hovered = False
+                    self._hovered = False
                 self._last_mouse_pos = event.pos
             elif event.name == "MOUSEBUTTONDOWN":
-                self.on_mouse_down(event)
+                if self.abs_rect.collidepoint(event.pos):
+                    self._pressed = True
+                    self.on_mouse_down(event)
+                else:
+                    self._pressed = False
             elif event.name == "MOUSEBUTTONUP":
-                self.on_mouse_up(event)
+                if self.abs_rect.collidepoint(event.pos):
+                    self._pressed = False
+                    self.on_mouse_up(event)
+                else:
+                    self._pressed = False
 
         self.on_update(delta)
 
