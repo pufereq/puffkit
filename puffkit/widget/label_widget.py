@@ -37,6 +37,7 @@ class PkLabelWidget(PkWidget):
         background_color: PkColor | ColorValue | None = None,
         text_wrap: bool = True,
         text_align: str = "left",
+        vertical_align: str = "top",
     ):
         """Initialize the label widget.
 
@@ -52,6 +53,7 @@ class PkLabelWidget(PkWidget):
                 Defaults to None.
             text_wrap (bool): Whether to wrap the text. Defaults to True.
             text_align (str): The alignment of the text. Defaults to "left".
+            vertical_align (str): The vertical alignment of the text. Defaults to "top".
         """
         super().__init__(container, rect)
 
@@ -73,6 +75,7 @@ class PkLabelWidget(PkWidget):
 
         self.text_wrap: bool = text_wrap
         self.text_align: str = text_align
+        self.vertical_align: str = vertical_align
 
         self.needs_redraw: bool = True
 
@@ -153,6 +156,7 @@ class PkLabelWidget(PkWidget):
             font=self.font,
             color=self.text_color,
             text_align=self.text_align,
+            vertical_align=self.vertical_align,
             wrap=self.text_wrap,
         )
 
