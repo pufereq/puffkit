@@ -218,14 +218,14 @@ class PkWidget(PkObject):
                 self._last_mouse_pos = event.pos
             elif event.name == "MOUSEBUTTONDOWN":
                 if self.abs_rect.collidepoint(event.pos):
-                    self._pressed = True
                     self.on_mouse_down(event)
+                    self._pressed = True
                 else:
                     self._pressed = False
             elif event.name == "MOUSEBUTTONUP":
                 if self.abs_rect.collidepoint(event.pos):
-                    self._pressed = False
                     self.on_mouse_up(event)
+                    self._pressed = False
                 else:
                     self._pressed = False
 
