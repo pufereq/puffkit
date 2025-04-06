@@ -78,6 +78,9 @@ def test_initialization(
         text_wrap=text_wrap,
         text_align=text_align,
     )
+    if background_color is None:
+        background_color = PkColor(0, 0, 0, 0)
+
     assert label_widget.get_text() == text
     assert label_widget.font_id == font_id
     assert label_widget.text_color == text_color
