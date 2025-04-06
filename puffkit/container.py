@@ -105,17 +105,18 @@ class PkContainer(PkObject):
             f" {self.name}, {self.rect})"
         )
 
-    def add_widget(self, _id: str, widget: PkWidget) -> None:
+    def add_widget(self, widget: PkWidget) -> None:
         """Add a widget to the container.
 
         Args:
-            _id (str): The ID of the widget.
             widget (PkWidget): The widget to add.
         """
-        self.logger.debug(f"Adding widget {_id}: {widget} to container {self}")
-        if _id in self.widgets:
-            raise ValueError(f"Widget with ID '{_id}' already exists in the container.")
-        self.widgets[_id] = widget
+        self.logger.debug(f"Adding widget {widget.id}: {widget} to container {self}")
+        if widget.id in self.widgets:
+            raise ValueError(
+                f"Widget with ID '{widget.id}' already exists in the container."
+            )
+        self.widgets[widget.id] = widget
 
     def remove_widget(self, id_: str) -> None:
         """Remove a widget from the container.
