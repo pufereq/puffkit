@@ -23,6 +23,7 @@ def container() -> PkContainer:
 @pytest.fixture
 def label_widget(container: PkContainer) -> PkLabelWidget:
     return PkLabelWidget(
+        id_="label_widget",
         container=container,
         text="Test Label",
         rect=PkRect(0, 0, 100, 30),
@@ -69,6 +70,7 @@ def test_initialization(
     text_align: str,
 ):
     label_widget = PkLabelWidget(
+        "label_widget",
         container,
         text,
         rect,
@@ -99,6 +101,7 @@ def test_set_text(label_widget: PkLabelWidget):
 def test_find_font_existing(container: Mock):
     container.app.fonts["existing"] = Mock()
     label_widget = PkLabelWidget(
+        id_="label_widget",
         container=container,
         text="Test Label",
         rect=PkRect(0, 0, 100, 30),
@@ -109,6 +112,7 @@ def test_find_font_existing(container: Mock):
 
 def test_find_font_non_existing(container: Mock):
     label_widget = PkLabelWidget(
+        id_="label_widget",
         container=container,
         text="Test Label",
         rect=PkRect(0, 0, 100, 30),
