@@ -70,8 +70,7 @@ class PkLabelWidget(PkWidget):
 
         self.font: PkFont = self._find_font(font_id)
 
-        self.background_color: PkColor | None = background_color
-        self.background_surface: PkSurface = PkSurface(self.rect.size, transparent=True)
+        self.background_color: PkColor = background_color or PkBasicPalette.TRANSPARENT
 
         self.text_wrap: bool = text_wrap
         self.text_align: str = text_align
@@ -146,9 +145,7 @@ class PkLabelWidget(PkWidget):
         if not self.needs_redraw:
             return
 
-        if self.background_color:
-            self.background_surface.fill(self.background_color)
-        self.surface.blit(self.background_surface, (0, 0))
+        self.surface.fill(self.background_color)
 
         self.surface.blit_text(
             self._text,
