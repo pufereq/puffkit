@@ -29,7 +29,7 @@ def test_widget_init_in_bounds(
     """
     Test that PkWidget initializes properly when coordinates are in bounds.
     """
-    widget = PkWidget(mock_container, rect)
+    widget = PkWidget("test", mock_container, rect)
     assert widget.rect == rect
     assert widget.abs_rect.x == rect[0] + mock_container.rect.x
     assert widget.abs_rect.y == rect[1] + mock_container.rect.y
@@ -57,7 +57,7 @@ def test_widget_init_out_of_bounds(
     """
     rect = PkRect(x, y, width, height)
     with pytest.raises(ValueError) as exc_info:
-        PkWidget(mock_container, rect)
+        PkWidget("test", mock_container, rect)
     assert expected_err in str(exc_info.value)
 
 
@@ -65,7 +65,7 @@ def test_widget_update_calls_on_update(mock_container: MagicMock) -> None:
     """
     Test that update method calls on_update with the provided delta.
     """
-    widget = PkWidget(mock_container, PkRect(0, 0, 10, 10))
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
     widget.on_update = MagicMock()
     widget.update(0.016)
     widget.on_update.assert_called_once_with(0.016)
@@ -73,7 +73,7 @@ def test_widget_update_calls_on_update(mock_container: MagicMock) -> None:
 
 def test_widget_update_event_handling(mock_container: MagicMock) -> None:
     """Test update method handles events by calling specific `on` methods."""
-    widget = PkWidget(mock_container, PkRect(0, 0, 10, 10))
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
     widget.on_key_down = MagicMock()
     widget.on_key_up = MagicMock()
     widget.on_mouse_motion = MagicMock()
@@ -87,8 +87,6 @@ def test_widget_update_event_handling(mock_container: MagicMock) -> None:
     KEYUP = MagicMock()
     MOUSEMOTION_IN = MagicMock()
     MOUSEMOTION_OUT = MagicMock()
-    MOUSEBUTTONDOWN = MagicMock()
-    MOUSEBUTTONUP = MagicMock()
 
     KEYDOWN.name = "KEYDOWN"
     KEYUP.name = "KEYUP"
@@ -144,7 +142,7 @@ def test_widget_render_calls_on_render_and_blit(mock_container: MagicMock) -> No
     """
     Test that render method calls on_render and then blits the widget onto the parent surface.
     """
-    widget = PkWidget(mock_container, PkRect(0, 0, 10, 10))
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
     widget.on_render = MagicMock()
     widget.render()
     widget.on_render.assert_called_once()
@@ -153,7 +151,7 @@ def test_widget_render_calls_on_render_and_blit(mock_container: MagicMock) -> No
 
 def test_widget_disabled(mock_container: MagicMock) -> None:
     """Test that setting disabled property disables the widget."""
-    widget = PkWidget(mock_container, PkRect(0, 0, 10, 10))
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
     assert not widget.disabled
     widget.disabled = True
     assert widget.disabled
