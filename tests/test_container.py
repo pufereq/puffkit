@@ -75,9 +75,9 @@ def test_pkcontainer_add_remove_widget() -> None:
     mock_widget = MagicMock()
     container = PkContainer(mock_app, mock_surface, "widget_test", (0, 0, 50, 50))
     container.add_widget(mock_widget)
-    assert len(container.children) == 1
+    assert len(container.widgets) == 1
     container.remove_widget(mock_widget)
-    assert len(container.children) == 0
+    assert len(container.widgets) == 0
 
 
 def test_pkcontainer_update() -> None:
