@@ -40,6 +40,7 @@ def mock_container(app: PkApp) -> Mock:
 def button_widget(mock_container: Mock):
     """Fixture to create a PkButtonWidget instance."""
     return PkButtonWidget(
+        id_="test_button",
         container=mock_container,
         rect=PkRect(0, 0, 100, 50),
         label="Click Me",
@@ -127,6 +128,7 @@ def test_button_initialization(
 ):
     """Test the initialization of the button widget."""
     button_widget = PkButtonWidget(
+        id_="test_button",
         container=mock_container,
         rect=rect,
         label=label,
