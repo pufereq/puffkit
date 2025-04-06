@@ -2,7 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.7.0] - 2025-02-22
+## [0.8.0] - 2025-04-06
+
+### Bug Fixes
+
+- [`34aea56`](https://github.com/pufereq/template-repo/commit/34aea56f37830988e4f0cdb8c30ae39f8ebe2373) **widget.py**: update `_pressed` state after calling hooks
+- [`6ed64d6`](https://github.com/pufereq/template-repo/commit/6ed64d6b825b2259298724237a8c6d5f0adc70d7) **app.py**: call `scene_manager.input()` to provide events
+
+### Features
+
+- [`5b746b5`](https://github.com/pufereq/template-repo/commit/5b746b595b83277d2f1993296442e739f75081e6) **button_widget.py**: add the `PkButtonWidget` widget
+- [`d94ea7f`](https://github.com/pufereq/template-repo/commit/d94ea7f89e038431bc84d9f52d912be0c772b931) **label_widget.py**: add `vertical_align` attribute to `PkLabelWidget`
+- [`98017fb`](https://github.com/pufereq/template-repo/commit/98017fb8f7991cec2e11cb284bbc03c0f43c1a56) **widget.py**: add state attributes `_hovered`, `_pressed` and `disabled` to `PkWidget`
+- [`bff18b2`](https://github.com/pufereq/template-repo/commit/bff18b253afee32ec97562d44be74a857ad52abe) **container.py**: make `PkContainer` surface-based
+- [`d0774d9`](https://github.com/pufereq/template-repo/commit/d0774d9de1ebc8674cdffd6c742e517e506976bc) **widget.py**: add event handling methods
+- [`23ad287`](https://github.com/pufereq/template-repo/commit/23ad287452dcad9e5b51d214512ae597af63c5f3) **event_manager.py**: add mouse position scaling to `internal_screen_size`
+- [`0fc6e34`](https://github.com/pufereq/template-repo/commit/0fc6e349570685f043096ee63757ea60a4757c55) **object.py**: add `suppress_init_log` argument to PkObject's constructor
+
+### Miscellaneous Tasks
+
+- [`0805d4b`](https://github.com/pufereq/template-repo/commit/0805d4b693bfee461f9d25e56e3980a019061276) **widget/__init__.py**: add `PkButtonWidget` to `__init__.py`
+- [`b9d6ad6`](https://github.com/pufereq/template-repo/commit/b9d6ad6d3e837bddab47ccee00c7f3d74aa7675a) **surface.py**: suppress init message for PkSurface
+
+### Refactor
+
+- [`57cab93`](https://github.com/pufereq/template-repo/commit/57cab933bb1e7e9398cf34bcbd4810c3a376c2dc) **widget.py**: blit the widget to container's surface
+- [`df03b4f`](https://github.com/pufereq/template-repo/commit/df03b4fa109854292f60ff7e8576e23b145c3edf) **event.py**: convert event name to uppercase for compatibility
+
+### Testing
+
+- [`296d16d`](https://github.com/pufereq/template-repo/commit/296d16d178568349e3d96e1d5ca3d8cd32f3c235) **test_button_widget.py**: add tests for `PkButtonWidget` class
+- [`aea40f3`](https://github.com/pufereq/template-repo/commit/aea40f39958851e6d18b89d98938684f19d87e47) **event_manager.py**: exclude mouse pos scaling from coverae
+- [`3f53bdc`](https://github.com/pufereq/template-repo/commit/3f53bdc2e31b4e015227c8911976e42e2670f3e1) **test_event_manager.py**: modify test for `PkEventManager.update()` to test mouse pos scaling
+- [`47a8ae6`](https://github.com/pufereq/template-repo/commit/47a8ae668512c014825a572f6b6382c202b64ad6) **test_widget.py**: adjust tests after refactors
+- [`5078e81`](https://github.com/pufereq/template-repo/commit/5078e81338b9507329173c1e8c339715697c31a4) **test_widget.py**: add test for event handling methods
+- [`db47b5d`](https://github.com/pufereq/template-repo/commit/db47b5d71182a571ac95ee0b630fe4d524b67258) **test_event.py**: correct event name to uppercase in `test_pk_event_from_pygame`
+
+## [0.7.0] - 2025-02-23
 
 ### Bug Fixes
 
