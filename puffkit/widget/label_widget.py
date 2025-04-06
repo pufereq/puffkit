@@ -28,6 +28,7 @@ class PkLabelWidget(PkWidget):
 
     def __init__(
         self,
+        id_: str,
         container: PkContainer,
         text: str,
         rect: PkRect | RectValue,
@@ -42,6 +43,7 @@ class PkLabelWidget(PkWidget):
         """Initialize the label widget.
 
         Args:
+            id_ (str): The ID of the label widget.
             container (PkContainer): The container of the widget.
             text (str): The text to display.
             rect (PkRect | RectValue): The rectangle of the widget.
@@ -55,7 +57,7 @@ class PkLabelWidget(PkWidget):
             text_align (str): The alignment of the text. Defaults to "left".
             vertical_align (str): The vertical alignment of the text. Defaults to "top".
         """
-        super().__init__(container, rect)
+        super().__init__(id_, container, rect)
 
         if not isinstance(text_color, PkColor):
             text_color = PkColor.from_value(text_color)
