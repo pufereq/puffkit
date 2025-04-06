@@ -236,8 +236,6 @@ class PkColor:
         elif isinstance(color, str):
             if color.startswith("#"):
                 return cls.from_hex(color)
-            else:
-                raise ValueError(f"Invalid color value: {color}")
         elif isinstance(color, PkColor):
             return cls(color.r, color.g, color.b, color.a)
         else:
