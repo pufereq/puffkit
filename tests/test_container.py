@@ -1,6 +1,5 @@
 import pytest
 from unittest.mock import MagicMock
-from typing import Union
 from puffkit import PkContainer
 from puffkit.geometry import PkRect, RectValue
 
