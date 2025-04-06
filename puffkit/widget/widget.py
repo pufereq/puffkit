@@ -284,6 +284,6 @@ class PkWidget(PkObject):
         NOTE: Do not override this method. Instead, override `on_render`.
         """
         self.on_render()
-        if self.focused:
+        if self.focused:  # pragma: no cover
             self.surface.fill("#0000FF")
         self.container.surface.blit(self.surface, self.rect.pos)
