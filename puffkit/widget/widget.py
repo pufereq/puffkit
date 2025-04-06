@@ -82,6 +82,7 @@ class PkWidget(PkObject):
         self._disabled: bool = False
         self._hovered: bool = False
         self._pressed: bool = False
+        self._focused: bool = False
 
     @property
     def disabled(self) -> bool:
@@ -92,6 +93,14 @@ class PkWidget(PkObject):
         self._disabled = value
         self._hovered = False
         self._pressed = False
+
+    @property
+    def focused(self) -> bool:
+        return self._focused
+
+    @focused.setter
+    def focused(self, value: bool) -> None:
+        self._focused = value
 
     def on_key_down(self, event: PkEvent) -> None:  # pragma: no cover
         """Handle the key down event.
@@ -174,6 +183,36 @@ class PkWidget(PkObject):
         """
         pass
 
+    def on_focus(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the focus event.
+
+        This method is called when the widget is focused.
+
+        Args:
+            event (PkEvent): The focus event.
+        """
+        pass
+
+    def on_unfocus(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the unfocus event.
+
+        This method is called when the widget is unfocused.
+
+        Args:
+            event (PkEvent): The unfocus event.
+        """
+        pass
+
+    def on_change(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the change event.
+
+        This method is called when the widget's state changes.
+
+        Args:
+            event (PkEvent): The change event.
+        """
+        pass
+
     def on_update(self, delta: float) -> None:  # pragma: no cover
         """Update the widget.
 
@@ -222,8 +261,12 @@ class PkWidget(PkObject):
             elif event.name == "MOUSEBUTTONDOWN":
                 if self.abs_rect.collidepoint(event.pos):
                     self.on_mouse_down(event)
+                    self.on_focus(event)
+                    self._focused = True
                     self._pressed = True
                 else:
+                    self.on_unfocus(event)
+                    self._focused = False
                     self._pressed = False
             elif event.name == "MOUSEBUTTONUP":
                 if self.abs_rect.collidepoint(event.pos):
@@ -241,4 +284,6 @@ class PkWidget(PkObject):
         NOTE: Do not override this method. Instead, override `on_render`.
         """
         self.on_render()
+        if self.focused:
+            self.surface.fill("#0000FF")
         self.container.surface.blit(self.surface, self.rect.pos)
