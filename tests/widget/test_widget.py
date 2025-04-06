@@ -82,6 +82,8 @@ def test_widget_update_event_handling(mock_container: MagicMock) -> None:
     widget.on_hover = MagicMock()
     widget.on_mouse_enter = MagicMock()
     widget.on_mouse_leave = MagicMock()
+    widget.on_focus = MagicMock()
+    widget.on_unfocus = MagicMock()
 
     KEYDOWN = MagicMock()
     KEYUP = MagicMock()
@@ -136,6 +138,9 @@ def test_widget_update_event_handling(mock_container: MagicMock) -> None:
     widget.on_mouse_leave.assert_called_once()
     widget.on_mouse_down.assert_called_once()
     widget.on_mouse_up.assert_called_once()
+    widget.on_focus.assert_called_once()
+    widget.on_unfocus.assert_called_once()
+    widget.on_hover.assert_called_once()
 
 
 def test_widget_render_calls_on_render_and_blit(mock_container: MagicMock) -> None:
