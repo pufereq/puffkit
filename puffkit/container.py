@@ -45,7 +45,7 @@ class PkContainer(PkObject):
         self.draw_outline: bool = draw_outline
         self.parent_surface: PkSurface = parent_surface
 
-        self.children: list[PkWidget] = []
+        self.widgets: dict[str, PkWidget] = {}
 
         if isinstance(rect, PkRect):
             self.rect: PkRect = rect
@@ -95,7 +95,7 @@ class PkContainer(PkObject):
         """Return a human-friendly representation of the container."""
         return (
             f"PkContainer({self.name} on {self.parent_surface},"
-            f" {len(self.children)} children, {self.rect})"
+            f" {len(self.widgets)} widgets, {self.rect})"
         )
 
     def __repr__(self) -> str:  # pragma: no cover
@@ -111,17 +111,23 @@ class PkContainer(PkObject):
         Args:
             widget (PkWidget): The widget to add.
         """
-        self.logger.debug(f"Adding widget {widget} to container {self}")
-        self.children.append(widget)
+        self.logger.debug(f"Adding widget {widget.id}: {widget} to container {self}")
+        if widget.id in self.widgets:
+            raise ValueError(
+                f"Widget with ID '{widget.id}' already exists in the container."
+            )
+        self.widgets[widget.id] = widget
 
-    def remove_widget(self, widget: PkWidget) -> None:
+    def remove_widget(self, id_: str) -> None:
         """Remove a widget from the container.
 
         Args:
-            widget (PkWidget): The widget to remove.
+            id_ (str): The ID of the widget to remove.
         """
-        self.logger.debug(f"Removing widget {widget} from container {self}")
-        self.children.remove(widget)
+        self.logger.debug(f"Removing widget ID {id_} from container {self}")
+        if id_ not in self.widgets:
+            raise ValueError(f"Widget with ID '{id_}' does not exist in the container.")
+        del self.widgets[id_]
 
     def update(self, delta: float) -> None:
         """Update the container.
@@ -129,14 +135,14 @@ class PkContainer(PkObject):
         Args:
             delta (float): The time delta.
         """
-        for child in self.children:
-            child.input(
+        for widget in self.widgets.values():
+            widget.input(
                 self._input["events"],
                 self._input["keys"],
                 self._input["mouse_pos"],
                 self._input["mouse_buttons"],
             )
-            child.update(delta)
+            widget.update(delta)
 
     def render(self) -> None:
         """Render the container."""
@@ -145,7 +151,7 @@ class PkContainer(PkObject):
         if self.draw_outline:
             self.surface.blit(self.outline_surface, (0, 0))
 
-        for child in self.children:
-            child.render()
+        for widget in self.widgets.values():
+            widget.render()
 
         self.parent_surface.blit(self.surface, self.rect.pos)

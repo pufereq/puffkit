@@ -22,6 +22,16 @@ class PkColor:
             b (int): Blue value.
             a (int, optional): Alpha value. Defaults to 255.
         """
+        if not isinstance(r, int) or not isinstance(g, int) or not isinstance(b, int):
+            raise TypeError("RGB values must be integers.")
+        if not isinstance(a, int):
+            raise TypeError("Alpha value must be an integer.")
+
+        if (r < 0 or r > 255) or (g < 0 or g > 255) or (b < 0 or b > 255):
+            raise ValueError(f"Invalid RGB color: ({r}, {g}, {b})")
+        if a < 0 or a > 255:
+            raise ValueError(f"Invalid alpha value: {a}")
+
         self.r: int = r
         self.g: int = g
         self.b: int = b
@@ -212,18 +222,24 @@ class PkColor:
         return cls(*cls.hsla_to_rgba(h, s, l, a))
 
     @classmethod
-    def from_value(cls, color: ColorValue) -> PkColor:
+    def from_value(cls, color: PkColor | ColorValue) -> PkColor:
         """Create a color from a color value.
 
         Args:
-            color (ColorValue): Color value.
+            color (PkColor | ColorValue): Color value.
 
         Returns:
             PkColor: Color object.
         """
         if isinstance(color, tuple):
             return cls(*color)
-        return cls.from_hex(color)
+        elif isinstance(color, str):
+            if color.startswith("#"):
+                return cls.from_hex(color)
+        elif isinstance(color, PkColor):
+            return cls(color.r, color.g, color.b, color.a)
+        else:
+            raise ValueError(f"Invalid color value: {color}")
 
     @property
     def hex(self) -> str:

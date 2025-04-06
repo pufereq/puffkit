@@ -149,13 +149,38 @@ def test_pkcolor_from_hsla(
         ((255, 255, 255, 255), PkColor(255, 255, 255, 255)),
         ((18, 52, 86, 255), PkColor(18, 52, 86, 255)),
         ((18, 52, 86, 120), PkColor(18, 52, 86, 120)),
-        ((170, 187, 204, 255), PkColor(170, 187, 204, 255)),
+        ((170, 187, 204), PkColor(170, 187, 204, 255)),
         ("#000", PkColor(0, 0, 0, 255)),
         ("#fff", PkColor(255, 255, 255, 255)),
+        (PkColor(18, 52, 86, 255), PkColor(18, 52, 86, 255)),
     ],
 )
 def test_pkcolor_from_value(color_value: ColorValue, expected: PkColor):
     assert PkColor.from_value(color_value) == expected
+
+
+@pytest.mark.parametrize(
+    "invalid_value",
+    [
+        (256, 0, 0, 255),  # Invalid red value
+        (0, -1, 0, 255),  # Invalid green value
+        (0, 0, 300, 255),  # Invalid blue value
+        (0, 0, 0, -1),  # Invalid alpha value
+        (0.5, 0, 0, 255),  # Invalid red value type
+        (0, 0.5, 0, 255),  # Invalid green value type
+        (0, 0, 0.5, 255),  # Invalid blue value type
+        (0, 0, 0, 0.5),  # Invalid alpha value type
+        (0, "a", 0, 255),  # Invalid green value type
+        ("xyz",),  # Invalid hex color
+        None,  # None value
+        (0, 0, 0, 255, 255),  # Extra value
+        (0, 0, 0, 255, "extra"),  # Extra value with string
+        (0, 0),  # Too few values
+    ],
+)
+def test_pkcolor_from_value_invalid(invalid_value: ColorValue):
+    with pytest.raises((ValueError, TypeError)):
+        PkColor.from_value(invalid_value)
 
 
 @pytest.mark.parametrize(

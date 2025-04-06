@@ -1,6 +1,5 @@
 import pytest
 from unittest.mock import MagicMock
-from typing import Union
 from puffkit import PkContainer
 from puffkit.geometry import PkRect, RectValue
 
@@ -73,11 +72,21 @@ def test_pkcontainer_add_remove_widget() -> None:
     mock_surface.get_width.return_value = 100
     mock_surface.get_height.return_value = 100
     mock_widget = MagicMock()
+    mock_widget.id = "widget"
     container = PkContainer(mock_app, mock_surface, "widget_test", (0, 0, 50, 50))
     container.add_widget(mock_widget)
-    assert len(container.children) == 1
-    container.remove_widget(mock_widget)
-    assert len(container.children) == 0
+    assert len(container.widgets) == 1
+
+    with pytest.raises(ValueError):
+        container.add_widget(mock_widget)
+    assert len(container.widgets) == 1
+
+    container.remove_widget("widget")
+    assert len(container.widgets) == 0
+
+    with pytest.raises(ValueError):
+        container.remove_widget("widget")
+    assert len(container.widgets) == 0
 
 
 def test_pkcontainer_update() -> None:

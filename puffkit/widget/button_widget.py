@@ -24,9 +24,10 @@ class PkButtonWidget(PkWidget):
 
     def __init__(
         self,
+        id_: str,
         container: PkContainer,
-        rect: PkRect | RectValue,
         label: str,
+        rect: PkRect | RectValue,
         *,
         on_click: Any | None = None,
         on_hover: Any | None = None,
@@ -43,10 +44,11 @@ class PkButtonWidget(PkWidget):
         """Initialize the button widget.
 
         Args:
+            id_ (str): The ID of the button widget.
             container (PkContainer): The container that the button belongs to.
+            label (str): The label of the button.
             rect (PkRect | RectValue): The rectangle that the button occupies.
                 Relative to the container.
-            label (str): The label of the button.
             on_click (Any | None, optional): The action to perform when the
                 button is clicked. Defaults to None.
             on_hover (Any | None, optional): The action to perform when the
@@ -73,7 +75,7 @@ class PkButtonWidget(PkWidget):
             border_radius (int, optional): The border radius of the button.
                 Defaults to 0.
         """
-        super().__init__(container, rect)
+        super().__init__(id_, container, rect)
 
         if not isinstance(background_color, PkColor):
             background_color = PkColor.from_value(background_color)
@@ -113,6 +115,7 @@ class PkButtonWidget(PkWidget):
 
         self.inner_container.add_widget(
             PkLabelWidget(
+                "label",
                 self.inner_container,
                 self.label,
                 PkRect(0, 0, self.rect.width, self.rect.height),
@@ -121,7 +124,21 @@ class PkButtonWidget(PkWidget):
                 background_color=None,
                 text_align=self.text_align,
                 vertical_align="middle",
-            )
+            ),
+        )
+
+    def __str__(self) -> str:  # pragma: no cover
+        return (
+            f"PkButtonWidget(container={self.container} label={self.label}, "
+            f"disabled={self.disabled}, "
+            f"on_click={self.action_on_click}, on_hover={self.action_on_hover})"
+        )
+
+    def __repr__(self) -> str:  # pragma: no cover
+        return (
+            f"PkButtonWidget(container={self.container}, label={self.label}, "
+            f"disabled={self.disabled}, "
+            f"on_click={self.action_on_click}, on_hover={self.action_on_hover})"
         )
 
     def on_update(self, delta: float) -> None:

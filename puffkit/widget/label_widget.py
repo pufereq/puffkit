@@ -28,6 +28,7 @@ class PkLabelWidget(PkWidget):
 
     def __init__(
         self,
+        id_: str,
         container: PkContainer,
         text: str,
         rect: PkRect | RectValue,
@@ -42,6 +43,7 @@ class PkLabelWidget(PkWidget):
         """Initialize the label widget.
 
         Args:
+            id_ (str): The ID of the label widget.
             container (PkContainer): The container of the widget.
             text (str): The text to display.
             rect (PkRect | RectValue): The rectangle of the widget.
@@ -55,7 +57,7 @@ class PkLabelWidget(PkWidget):
             text_align (str): The alignment of the text. Defaults to "left".
             vertical_align (str): The vertical alignment of the text. Defaults to "top".
         """
-        super().__init__(container, rect)
+        super().__init__(id_, container, rect)
 
         if not isinstance(text_color, PkColor):
             text_color = PkColor.from_value(text_color)
@@ -70,8 +72,7 @@ class PkLabelWidget(PkWidget):
 
         self.font: PkFont = self._find_font(font_id)
 
-        self.background_color: PkColor | None = background_color
-        self.background_surface: PkSurface = PkSurface(self.rect.size, transparent=True)
+        self.background_color: PkColor = background_color or PkBasicPalette.TRANSPARENT
 
         self.text_wrap: bool = text_wrap
         self.text_align: str = text_align
@@ -146,9 +147,7 @@ class PkLabelWidget(PkWidget):
         if not self.needs_redraw:
             return
 
-        if self.background_color:
-            self.background_surface.fill(self.background_color)
-        self.surface.blit(self.background_surface, (0, 0))
+        self.surface.fill(self.background_color)
 
         self.surface.blit_text(
             self._text,
