@@ -21,17 +21,20 @@ class PkWidget(PkObject):
 
     def __init__(
         self,
+        id_: str,
         container: PkContainer,
         rect: PkRect | RectValue,
     ):
         """Initialize the widget.
 
         Args:
+            id_ (str): The ID of the widget.
             container (PkContainer): The container that the widget belongs to.
             rect (PkRect | RectValue): The rectangle that the widget occupies.
                 Relative to the container.
         """
         super().__init__()
+        self.id: str = id_
         self.container: PkContainer = container
 
         if isinstance(rect, PkRect):
