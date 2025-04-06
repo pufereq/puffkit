@@ -24,6 +24,7 @@ class PkButtonWidget(PkWidget):
 
     def __init__(
         self,
+        id_: str,
         container: PkContainer,
         label: str,
         rect: PkRect | RectValue,
@@ -43,6 +44,7 @@ class PkButtonWidget(PkWidget):
         """Initialize the button widget.
 
         Args:
+            id_ (str): The ID of the button widget.
             container (PkContainer): The container that the button belongs to.
             label (str): The label of the button.
             rect (PkRect | RectValue): The rectangle that the button occupies.
@@ -73,7 +75,7 @@ class PkButtonWidget(PkWidget):
             border_radius (int, optional): The border radius of the button.
                 Defaults to 0.
         """
-        super().__init__(container, rect)
+        super().__init__(id_, container, rect)
 
         if not isinstance(background_color, PkColor):
             background_color = PkColor.from_value(background_color)
@@ -112,8 +114,8 @@ class PkButtonWidget(PkWidget):
         )
 
         self.inner_container.add_widget(
-            "label",
             PkLabelWidget(
+                "label",
                 self.inner_container,
                 self.label,
                 PkRect(0, 0, self.rect.width, self.rect.height),
