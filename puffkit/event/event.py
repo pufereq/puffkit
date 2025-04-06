@@ -39,7 +39,7 @@ class PkEvent:
         Returns:
             PkEvent: The PkEvent.
         """
-        return cls(pg.event.event_name(event.type), event.dict)
+        return cls(pg.event.event_name(event.type).upper(), event.dict)
 
     def __str__(self) -> str:  # pragma: no cover
         """Return the string representation of the event.

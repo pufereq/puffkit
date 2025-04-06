@@ -55,7 +55,7 @@ class PkSurface(PkObject):
         if not isinstance(pos, PkCoordinate):
             pos = PkCoordinate(*pos)
 
-        super().__init__()
+        super().__init__(suppress_init_log=True)
 
         self.transparent: Final[bool] = transparent
 

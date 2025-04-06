@@ -45,6 +45,8 @@ class PkContainer(PkObject):
         self.draw_outline: bool = draw_outline
         self.parent_surface: PkSurface = parent_surface
 
+        self.children: list[PkWidget] = []
+
         if isinstance(rect, PkRect):
             self.rect: PkRect = rect
         else:
@@ -76,6 +78,8 @@ class PkContainer(PkObject):
                 "Container must be within the parent surface."
             )
 
+        self.surface: PkSurface = PkSurface(self.rect.size, transparent=True)
+
         # create an outline surface if needed (for debugging)
         if self.draw_outline:
             self.outline_surface: PkSurface = PkSurface(
@@ -86,8 +90,6 @@ class PkContainer(PkObject):
                 (rnd.randint(0, 255), rnd.randint(0, 255), rnd.randint(0, 255), 128),
                 4,
             )
-
-        self.children: list[PkWidget] = []
 
     def __str__(self) -> str:  # pragma: no cover
         """Return a human-friendly representation of the container."""
@@ -138,7 +140,12 @@ class PkContainer(PkObject):
 
     def render(self) -> None:
         """Render the container."""
+        self.surface.fill(PkBasicPalette.TRANSPARENT)
+
         if self.draw_outline:
-            self.parent_surface.blit(self.outline_surface, self.rect.pos)
+            self.surface.blit(self.outline_surface, (0, 0))
+
         for child in self.children:
             child.render()
+
+        self.parent_surface.blit(self.surface, self.rect.pos)

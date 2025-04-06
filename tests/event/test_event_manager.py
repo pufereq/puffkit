@@ -1,3 +1,4 @@
+import pygame
 import pytest
 from unittest.mock import Mock, patch
 from puffkit.event.event_manager import PkEventManager
@@ -87,7 +88,9 @@ def test_update(
     mock_input: Mock,
     event_manager: PkEventManager,
 ):
-    mock_pg_event_get.return_value = []
+    mock_pg_event_get.return_value = [
+        pygame.event.Event(pygame.MOUSEMOTION, {"pos": (10, 10)})
+    ]
     mock_get_pressed.return_value = []
     mock_get_pos.return_value = (0, 0)
     mock_get_mouse_pressed.return_value = []

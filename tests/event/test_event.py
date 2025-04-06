@@ -25,7 +25,7 @@ def test_pk_event_from_pygame() -> None:
     mock_event = mock.Mock()
     mock_event.type = pg.USEREVENT
     mock_event.dict = {"key": "value"}
-    pg_event_name = pg.event.event_name(mock_event.type)
+    pg_event_name = "USEREVENT"
 
     event = PkEvent.from_pygame(mock_event)
     assert event.name == pg_event_name
