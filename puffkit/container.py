@@ -45,7 +45,7 @@ class PkContainer(PkObject):
         self.draw_outline: bool = draw_outline
         self.parent_surface: PkSurface = parent_surface
 
-        self.children: list[PkWidget] = []
+        self.widgets: list[PkWidget] = []
 
         if isinstance(rect, PkRect):
             self.rect: PkRect = rect
@@ -95,7 +95,7 @@ class PkContainer(PkObject):
         """Return a human-friendly representation of the container."""
         return (
             f"PkContainer({self.name} on {self.parent_surface},"
-            f" {len(self.children)} children, {self.rect})"
+            f" {len(self.widgets)} widgets, {self.rect})"
         )
 
     def __repr__(self) -> str:  # pragma: no cover
@@ -112,7 +112,7 @@ class PkContainer(PkObject):
             widget (PkWidget): The widget to add.
         """
         self.logger.debug(f"Adding widget {widget} to container {self}")
-        self.children.append(widget)
+        self.widgets.append(widget)
 
     def remove_widget(self, widget: PkWidget) -> None:
         """Remove a widget from the container.
@@ -121,7 +121,7 @@ class PkContainer(PkObject):
             widget (PkWidget): The widget to remove.
         """
         self.logger.debug(f"Removing widget {widget} from container {self}")
-        self.children.remove(widget)
+        self.widgets.remove(widget)
 
     def update(self, delta: float) -> None:
         """Update the container.
@@ -129,14 +129,14 @@ class PkContainer(PkObject):
         Args:
             delta (float): The time delta.
         """
-        for child in self.children:
-            child.input(
+        for widget in self.widgets:
+            widget.input(
                 self._input["events"],
                 self._input["keys"],
                 self._input["mouse_pos"],
                 self._input["mouse_buttons"],
             )
-            child.update(delta)
+            widget.update(delta)
 
     def render(self) -> None:
         """Render the container."""
@@ -145,7 +145,7 @@ class PkContainer(PkObject):
         if self.draw_outline:
             self.surface.blit(self.outline_surface, (0, 0))
 
-        for child in self.children:
-            child.render()
+        for widget in self.widgets:
+            widget.render()
 
         self.parent_surface.blit(self.surface, self.rect.pos)
