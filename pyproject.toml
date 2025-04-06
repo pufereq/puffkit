@@ -4,7 +4,7 @@ build-backend = "pdm.backend"
 
 [project]
 name = "puffkit"
-version = "0.8.0"
+version = "0.9.0"
 description = "A pygame-ce based engine for application and game development."
 authors = [
     {name = "Artur Borecki", email = "me@pufereq.pl"},

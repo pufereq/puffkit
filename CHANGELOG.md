@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.0] - 2025-04-06
+
+### Bug Fixes
+
+- [`fc61c08`](https://github.com/pufereq/template-repo/commit/fc61c08841afd91dc4b587af9839edca7e9c7077) **button_widget.py**: reorder arguments to `__init__` for consistency
+
+### Features
+
+- [`bc7392d`](https://github.com/pufereq/template-repo/commit/bc7392d3f96c55e566ae585b7d34cdee3151ef7b) **button_widget.py**: add `PkButtonWidget.id` attribute and `id_` argument
+- [`602f3f8`](https://github.com/pufereq/template-repo/commit/602f3f8b3160800e9da03dc1e02fb16e46407a4e) **label_widget.py**: add `PkLabelWidget.id` attribute and `id_` argument
+- [`a4cc51a`](https://github.com/pufereq/template-repo/commit/a4cc51a7a5e411eb50a875d85591f2ed3b9db470) **widget.py**: add `PkWidget.id` attribute
+- [`6dc024d`](https://github.com/pufereq/template-repo/commit/6dc024d8246b3d312a66a80b613d83f9a11d1b2c) **container.py**: add IDs to widgets and make `PkContainer.widgets` a dict
+- [`ef0d05c`](https://github.com/pufereq/template-repo/commit/ef0d05cafa359fefe66ed6924a31d36400fef2c4) **color.py**: ensure values in `PkColor`'s constructor are correct RGBA values
+- [`749da55`](https://github.com/pufereq/template-repo/commit/749da559e6b71f26747a565c11b982bec86ca493) **label_widget.py**: remove `background_surface` and fill the main surface instead
+
+### Miscellaneous Tasks
+
+- [`3fb90a5`](https://github.com/pufereq/template-repo/commit/3fb90a589cc8798c8621ac4b02de96409240236d) **button_widget.py**: add `__str__()` `__repr__()` methods
+
+### Refactor
+
+- [`aa1deca`](https://github.com/pufereq/template-repo/commit/aa1deca554bf795e708baadefd4b86da7d3bfd32) **container.py**: remove `_id` argument and use `widget.id` in `PkContainer.add_widget`
+- [`fbd891c`](https://github.com/pufereq/template-repo/commit/fbd891c422d23f227f2407c5329a958e7dff1af0) **container.py**: rename `_id` argument to `id_` to adhere with PEP8
+- [`294dc5f`](https://github.com/pufereq/template-repo/commit/294dc5f95a12487da3a1845f254baa1488b23006) **button_widget.py**: add `id` argument to inner container's label widget
+- [`7542b9c`](https://github.com/pufereq/template-repo/commit/7542b9c668239438f35d19c80779fbb04fb192cb) **container.py**: rename `children` and `child` to `widget` for clarity
+- [`41fc2b4`](https://github.com/pufereq/template-repo/commit/41fc2b4c60956b47a9394c04f77de9587e39a066) **color.py**: remove redundant exception in `PkColor.from_value()`
+
+### Testing
+
+- [`e26c16a`](https://github.com/pufereq/template-repo/commit/e26c16a69f7a18fd00d0fe2c64f46d366773d1d5) **test_button_widget.py**: supply `PkButtonWidget.__init__()` with `id_`
+- [`8bcdd92`](https://github.com/pufereq/template-repo/commit/8bcdd92fbc23153830466829bea4e60c4def6984) **test_label_widget.py**: supply `PkLabelWidget.__init__()` with `id_`
+- [`9839808`](https://github.com/pufereq/template-repo/commit/9839808808514078188e8baadfaf0a7ba86a0148) **test_widget.py**: supply `PkWidget.__init__()` with `id_`
+- [`b68172e`](https://github.com/pufereq/template-repo/commit/b68172ef50948f57fbc6297fa155415b8dbd6675) **test_container.py**: refactor tests to call `add_widget` with only PkWidget
+- [`dcc7127`](https://github.com/pufereq/template-repo/commit/dcc7127add613c9af59d1cf4f7d16e8d138746ca) **test_container.py**: refactor tests to supply `add_widget` with ID
+- [`fb59176`](https://github.com/pufereq/template-repo/commit/fb59176173c8aebec46ed5a5b5507ef2da3cb3c2) **test_container.py**: remove unused import
+- [`9d25c57`](https://github.com/pufereq/template-repo/commit/9d25c57a530f27d2837e621e034bda91cdca7f85) **container.py**: adjust `PkContainer.children` to `widgets`
+- [`46188e3`](https://github.com/pufereq/template-repo/commit/46188e3a25013dfe7220c651f76af580244ec678) **test_label_widget.py**: if background color is none, compare with transparent in `PkColor.from_value()` test
+- [`79abd3d`](https://github.com/pufereq/template-repo/commit/79abd3d9abe5f617a431280655fa90847a4904b9) **test_color.py**: add more invalid values to test in `PkColor.from_value()`
+- [`b3e8549`](https://github.com/pufereq/template-repo/commit/b3e85498550133f461b2eacdcb2fb362939b07bc) **test_color.py**: add test for invalid values in `PkColor.from_value()`
+
 ## [0.8.0] - 2025-04-06
 
 ### Bug Fixes
