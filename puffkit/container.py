@@ -45,7 +45,7 @@ class PkContainer(PkObject):
         self.draw_outline: bool = draw_outline
         self.parent_surface: PkSurface = parent_surface
 
-        self.widgets: list[PkWidget] = []
+        self.widgets: dict[str, PkWidget] = {}
 
         if isinstance(rect, PkRect):
             self.rect: PkRect = rect
@@ -105,23 +105,28 @@ class PkContainer(PkObject):
             f" {self.name}, {self.rect})"
         )
 
-    def add_widget(self, widget: PkWidget) -> None:
+    def add_widget(self, _id: str, widget: PkWidget) -> None:
         """Add a widget to the container.
 
         Args:
+            _id (str): The ID of the widget.
             widget (PkWidget): The widget to add.
         """
-        self.logger.debug(f"Adding widget {widget} to container {self}")
-        self.widgets.append(widget)
+        self.logger.debug(f"Adding widget {_id}: {widget} to container {self}")
+        if _id in self.widgets:
+            raise ValueError(f"Widget with ID '{_id}' already exists in the container.")
+        self.widgets[_id] = widget
 
-    def remove_widget(self, widget: PkWidget) -> None:
+    def remove_widget(self, _id: str) -> None:
         """Remove a widget from the container.
 
         Args:
-            widget (PkWidget): The widget to remove.
+            _id (str): The ID of the widget to remove.
         """
-        self.logger.debug(f"Removing widget {widget} from container {self}")
-        self.widgets.remove(widget)
+        self.logger.debug(f"Removing widget ID {_id} from container {self}")
+        if _id not in self.widgets:
+            raise ValueError(f"Widget with ID '{_id}' does not exist in the container.")
+        del self.widgets[_id]
 
     def update(self, delta: float) -> None:
         """Update the container.
@@ -129,7 +134,7 @@ class PkContainer(PkObject):
         Args:
             delta (float): The time delta.
         """
-        for widget in self.widgets:
+        for widget in self.widgets.values():
             widget.input(
                 self._input["events"],
                 self._input["keys"],
@@ -145,7 +150,7 @@ class PkContainer(PkObject):
         if self.draw_outline:
             self.surface.blit(self.outline_surface, (0, 0))
 
-        for widget in self.widgets:
+        for widget in self.widgets.values():
             widget.render()
 
         self.parent_surface.blit(self.surface, self.rect.pos)
