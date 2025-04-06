@@ -166,8 +166,12 @@ def test_pkcolor_from_value(color_value: ColorValue, expected: PkColor):
         (0, -1, 0, 255),  # Invalid green value
         (0, 0, 300, 255),  # Invalid blue value
         (0, 0, 0, -1),  # Invalid alpha value
+        (0.5, 0, 0, 255),  # Invalid red value type
+        (0, 0.5, 0, 255),  # Invalid green value type
+        (0, 0, 0.5, 255),  # Invalid blue value type
+        (0, 0, 0, 0.5),  # Invalid alpha value type
         (0, "a", 0, 255),  # Invalid green value type
-        ("#xyz",),  # Invalid hex color
+        ("xyz",),  # Invalid hex color
         None,  # None value
         (0, 0, 0, 255, 255),  # Extra value
         (0, 0, 0, 255, "extra"),  # Extra value with string
