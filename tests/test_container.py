@@ -72,12 +72,13 @@ def test_pkcontainer_add_remove_widget() -> None:
     mock_surface.get_width.return_value = 100
     mock_surface.get_height.return_value = 100
     mock_widget = MagicMock()
+    mock_widget.id = "widget"
     container = PkContainer(mock_app, mock_surface, "widget_test", (0, 0, 50, 50))
-    container.add_widget("widget", mock_widget)
+    container.add_widget(mock_widget)
     assert len(container.widgets) == 1
 
     with pytest.raises(ValueError):
-        container.add_widget("widget", mock_widget)
+        container.add_widget(mock_widget)
     assert len(container.widgets) == 1
 
     container.remove_widget("widget")
@@ -97,7 +98,7 @@ def test_pkcontainer_update() -> None:
 
     mock_widget = MagicMock()
     container = PkContainer(mock_app, mock_surface, "update_test", (0, 0, 50, 50))
-    container.add_widget("widget", mock_widget)
+    container.add_widget(mock_widget)
 
     container._input = {
         "events": [],
@@ -121,7 +122,7 @@ def test_pkcontainer_render() -> None:
     container = PkContainer(
         mock_app, mock_surface, "render_test", (0, 0, 50, 50), draw_outline=True
     )
-    container.add_widget("widget", mock_widget)
+    container.add_widget(mock_widget)
     container.render()
     mock_surface.blit.assert_called()
     mock_widget.render.assert_called_once()
