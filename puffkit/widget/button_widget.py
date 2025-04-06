@@ -124,6 +124,20 @@ class PkButtonWidget(PkWidget):
             )
         )
 
+    def __str__(self) -> str:  # pragma: no cover
+        return (
+            f"PkButtonWidget(container={self.container} label={self.label}, "
+            f"disabled={self.disabled}, "
+            f"on_click={self.action_on_click}, on_hover={self.action_on_hover})"
+        )
+
+    def __repr__(self) -> str:  # pragma: no cover
+        return (
+            f"PkButtonWidget(container={self.container}, label={self.label}, "
+            f"disabled={self.disabled}, "
+            f"on_click={self.action_on_click}, on_hover={self.action_on_hover})"
+        )
+
     def on_update(self, delta: float) -> None:
         if self._disabled:
             self._hovered = False
