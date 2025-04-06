@@ -112,6 +112,7 @@ class PkButtonWidget(PkWidget):
         )
 
         self.inner_container.add_widget(
+            "label",
             PkLabelWidget(
                 self.inner_container,
                 self.label,
@@ -121,7 +122,7 @@ class PkButtonWidget(PkWidget):
                 background_color=None,
                 text_align=self.text_align,
                 vertical_align="middle",
-            )
+            ),
         )
 
     def __str__(self) -> str:  # pragma: no cover
