@@ -25,8 +25,8 @@ class PkButtonWidget(PkWidget):
     def __init__(
         self,
         container: PkContainer,
-        rect: PkRect | RectValue,
         label: str,
+        rect: PkRect | RectValue,
         *,
         on_click: Any | None = None,
         on_hover: Any | None = None,
@@ -44,9 +44,9 @@ class PkButtonWidget(PkWidget):
 
         Args:
             container (PkContainer): The container that the button belongs to.
+            label (str): The label of the button.
             rect (PkRect | RectValue): The rectangle that the button occupies.
                 Relative to the container.
-            label (str): The label of the button.
             on_click (Any | None, optional): The action to perform when the
                 button is clicked. Defaults to None.
             on_hover (Any | None, optional): The action to perform when the
