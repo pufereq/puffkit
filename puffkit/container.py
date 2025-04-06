@@ -117,16 +117,16 @@ class PkContainer(PkObject):
             raise ValueError(f"Widget with ID '{_id}' already exists in the container.")
         self.widgets[_id] = widget
 
-    def remove_widget(self, _id: str) -> None:
+    def remove_widget(self, id_: str) -> None:
         """Remove a widget from the container.
 
         Args:
-            _id (str): The ID of the widget to remove.
+            id_ (str): The ID of the widget to remove.
         """
-        self.logger.debug(f"Removing widget ID {_id} from container {self}")
-        if _id not in self.widgets:
-            raise ValueError(f"Widget with ID '{_id}' does not exist in the container.")
-        del self.widgets[_id]
+        self.logger.debug(f"Removing widget ID {id_} from container {self}")
+        if id_ not in self.widgets:
+            raise ValueError(f"Widget with ID '{id_}' does not exist in the container.")
+        del self.widgets[id_]
 
     def update(self, delta: float) -> None:
         """Update the container.
