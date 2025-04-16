@@ -295,29 +295,29 @@ class PkWidget(PkObject):
                 if self.abs_rect.collidepoint(event.pos):
                     if not self.abs_rect.collidepoint(self._last_mouse_pos):
                         self.on_mouse_enter(event)
-                    self._hovered = True
+                    self.hovered = True
                     self.on_hover(event)
                 else:
                     if self.abs_rect.collidepoint(self._last_mouse_pos):
                         self.on_mouse_leave(event)
-                    self._hovered = False
+                    self.hovered = False
                 self._last_mouse_pos = event.pos
             elif event.name == "MOUSEBUTTONDOWN":
                 if self.abs_rect.collidepoint(event.pos):
                     self.on_mouse_down(event)
                     self.on_focus(event)
-                    self._focused = True
-                    self._pressed = True
+                    self.focused = True
+                    self.pressed = True
                 else:
                     self.on_unfocus(event)
-                    self._focused = False
-                    self._pressed = False
+                    self.focused = False
+                    self.pressed = False
             elif event.name == "MOUSEBUTTONUP":
                 if self.abs_rect.collidepoint(event.pos):
                     self.on_mouse_up(event)
-                    self._pressed = False
+                    self.pressed = False
                 else:
-                    self._pressed = False
+                    self.pressed = False
 
         self.on_update(delta)
 
