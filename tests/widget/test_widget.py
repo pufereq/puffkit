@@ -154,6 +154,16 @@ def test_widget_render_calls_on_render_and_blit(mock_container: MagicMock) -> No
     mock_container.surface.blit.assert_called_once_with(widget.surface, widget.rect.pos)
 
 
+def test_widget_render_not_visible(mock_container: MagicMock) -> None:
+    """Test that render method does not call on_render or blit if widget is not visible."""
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
+    widget.visible = False
+    widget.on_render = MagicMock()
+    widget.render()
+    widget.on_render.assert_not_called()
+    mock_container.surface.blit.assert_not_called()
+
+
 def test_widget_disabled(mock_container: MagicMock) -> None:
     """Test that setting disabled property disables the widget."""
     widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
