@@ -129,6 +129,19 @@ class PkContainer(PkObject):
             raise ValueError(f"Widget with ID '{id_}' does not exist in the container.")
         del self.widgets[id_]
 
+    def get_widget(self, id_: str) -> PkWidget:
+        """Get a widget from the container.
+
+        Args:
+            id_ (str): The ID of the widget to get.
+
+        Returns:
+            PkWidget: The widget with the given ID.
+        """
+        if id_ not in self.widgets:
+            raise ValueError(f"Widget with ID '{id_}' does not exist in the container.")
+        return self.widgets[id_]
+
     def update(self, delta: float) -> None:
         """Update the container.
 
