@@ -32,6 +32,21 @@ bump = [
     "python-semantic-release>=9.8.8",
 ]
 
+[tool.flake8]
+max-line-length = 79
+extend-ignore = [
+    "E203",
+    "E501",
+    "W503",
+]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    "docs",
+]
+
 [tool.pytest.ini_options]
 addopts = [
     "--cov-report=term-missing",
