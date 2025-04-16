@@ -685,8 +685,7 @@ class PkSurface(PkObject):
             bg_color = PkColor.from_value(bg_color) if bg_color is not None else None
 
         # rect conversion
-        if not isinstance(rect, PkRect):
-            rect = PkRect.from_tuple(rect)
+        rect = PkRect.from_value(rect)
 
         text_surface: PkSurface = PkSurface(rect.size, transparent=True)
 
