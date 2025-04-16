@@ -105,6 +105,22 @@ class PkWidget(PkObject):
         self._pressed = False
 
     @property
+    def hovered(self) -> bool:
+        return self._hovered
+
+    @hovered.setter
+    def hovered(self, value: bool) -> None:
+        self._hovered = value
+
+    @property
+    def pressed(self) -> bool:
+        return self._pressed
+
+    @pressed.setter
+    def pressed(self, value: bool) -> None:
+        self._pressed = value
+
+    @property
     def focused(self) -> bool:
         return self._focused
 
