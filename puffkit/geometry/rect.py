@@ -58,7 +58,7 @@ class PkRect(PkObject):
         return cls(*rect)
 
     @classmethod
-    def from_tuple(cls, rect: RectValue) -> PkRect:
+    def from_tuple(cls, rect: RectValue) -> PkRect:  # pragma: no cover
         """# DEPRECATED
 
         This method is deprecated. Use `from_value` instead.
