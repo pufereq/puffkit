@@ -198,3 +198,12 @@ def test_widget_focusable(mock_container: MagicMock) -> None:
     widget.focusable = False
     assert not widget.focusable
     assert not widget._focusable
+
+
+def test_widget_hovered(mock_container: MagicMock) -> None:
+    """Test that setting hovered property sets the widget as hovered."""
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10), focusable=True)
+    assert not widget.hovered
+    widget.hovered = True
+    assert widget.hovered
+    assert widget._hovered
