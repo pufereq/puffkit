@@ -41,10 +41,7 @@ class PkWidget(PkObject):
         self.id: str = id_
         self.container: PkContainer = container
 
-        if isinstance(rect, PkRect):
-            self.rect: PkRect = rect
-        else:
-            self.rect: PkRect = PkRect.from_tuple(rect)
+        self.rect: PkRect = PkRect.from_value(rect)
 
         # check if the widget is out of bounds
         if self.rect.x < 0:
