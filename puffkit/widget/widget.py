@@ -79,10 +79,20 @@ class PkWidget(PkObject):
         self.surface: PkSurface = PkSurface(self.rect.size, transparent=True)
 
         self._last_mouse_pos: tuple[int, int] = (0, 0)
+
+        self._visible: bool = True
         self._disabled: bool = False
         self._hovered: bool = False
         self._pressed: bool = False
         self._focused: bool = False
+
+    @property
+    def visible(self) -> bool:
+        return self._visible
+
+    @visible.setter
+    def visible(self, value: bool) -> None:
+        self._visible = value
 
     @property
     def disabled(self) -> bool:
@@ -283,6 +293,9 @@ class PkWidget(PkObject):
         This internal method is called every frame to render the widget.
         NOTE: Do not override this method. Instead, override `on_render`.
         """
+        if not self.visible:
+            return
+
         self.on_render()
         if self.focused:  # pragma: no cover
             self.surface.fill("#0000FF")
