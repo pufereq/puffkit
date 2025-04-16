@@ -86,6 +86,8 @@ class PkEventManager:
                     * self.app.internal_screen_size.height
                     / self.app.display_size.height,
                 )
+            elif e.type in (pg.KEYDOWN, pg.KEYUP):  # pragma: no cover
+                e.key = pg.key.name(e.key)
 
         self.events = [PkEvent.from_pygame(e) for e in pygame_events]
         self.app.scene_manager.input(
