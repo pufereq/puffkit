@@ -207,3 +207,17 @@ def test_widget_hovered(mock_container: MagicMock) -> None:
     widget.hovered = True
     assert widget.hovered
     assert widget._hovered
+
+
+def test_widget_pressed(mock_container: MagicMock) -> None:
+    """Test that setting pressed property sets the widget as pressed."""
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10), focusable=True)
+    assert not widget.pressed
+    widget.pressed = True
+    assert not widget.pressed
+    assert widget._pressed
+
+    widget.focused = True
+    widget.pressed = True
+    assert widget.pressed
+    assert widget._pressed
