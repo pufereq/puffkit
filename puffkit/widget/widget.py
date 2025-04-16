@@ -24,6 +24,8 @@ class PkWidget(PkObject):
         id_: str,
         container: PkContainer,
         rect: PkRect | RectValue,
+        *,
+        focusable: bool = False,
     ):
         """Initialize the widget.
 
@@ -32,6 +34,8 @@ class PkWidget(PkObject):
             container (PkContainer): The container that the widget belongs to.
             rect (PkRect | RectValue): The rectangle that the widget occupies.
                 Relative to the container.
+            focusable (bool): Whether the widget can be focused.
+                Defaults to False.
         """
         super().__init__()
         self.id: str = id_
@@ -81,6 +85,7 @@ class PkWidget(PkObject):
         self._last_mouse_pos: tuple[int, int] = (0, 0)
 
         self._visible: bool = True
+        self._focusable: bool = focusable
         self._disabled: bool = False
         self._hovered: bool = False
         self._pressed: bool = False
@@ -93,6 +98,18 @@ class PkWidget(PkObject):
     @visible.setter
     def visible(self, value: bool) -> None:
         self._visible = value
+
+    @property
+    def focusable(self) -> bool:
+        return self._focusable
+
+    @focusable.setter
+    def focusable(self, value: bool) -> None:
+        self._focusable = value
+        if not value:
+            self._focused = False
+            self._pressed = False
+            self._hovered = False
 
     @property
     def disabled(self) -> bool:
@@ -114,7 +131,7 @@ class PkWidget(PkObject):
 
     @property
     def pressed(self) -> bool:
-        return self._pressed
+        return self._pressed and self._focused
 
     @pressed.setter
     def pressed(self, value: bool) -> None:
@@ -126,7 +143,8 @@ class PkWidget(PkObject):
 
     @focused.setter
     def focused(self, value: bool) -> None:
-        self._focused = value
+        # if the widget is not focusable, set the focused state to False
+        self._focused = value and self.focusable
 
     def on_key_down(self, event: PkEvent) -> None:  # pragma: no cover
         """Handle the key down event.
