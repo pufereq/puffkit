@@ -89,6 +89,23 @@ def test_pkcontainer_add_remove_widget() -> None:
     assert len(container.widgets) == 0
 
 
+def test_pkcontainer_get_widget() -> None:
+    """Test getting a widget by ID."""
+    mock_app = MagicMock()
+    mock_surface = MagicMock()
+    mock_surface.get_width.return_value = 100
+    mock_surface.get_height.return_value = 100
+    mock_widget = MagicMock()
+    mock_widget.id = "widget"
+    container = PkContainer(mock_app, mock_surface, "get_widget_test", (0, 0, 50, 50))
+    container.add_widget(mock_widget)
+    assert container.get_widget("widget") == mock_widget
+
+    with pytest.raises(ValueError):
+        container.get_widget("non_existent_widget")
+    assert len(container.widgets) == 1
+
+
 def test_pkcontainer_update() -> None:
     """Test the update method of the container to ensure child widgets receive updates."""
     mock_app = MagicMock()
