@@ -166,7 +166,17 @@ def test_widget_disabled(mock_container: MagicMock) -> None:
 def test_widget_focused(mock_container: MagicMock) -> None:
     """Test that setting focused property sets the widget as focused."""
     widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
+
+    # not focusable
+    assert not widget.focusable
     assert not widget.focused
+    widget.focused = True
+    assert not widget.focused
+    assert not widget._focused
+
+    # focusable
+    widget.focusable = True
+    assert widget.focusable
     widget.focused = True
     assert widget.focused
     assert widget._focused
