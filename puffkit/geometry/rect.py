@@ -46,7 +46,26 @@ class PkRect(PkObject):
         self.h: float = h
 
     @classmethod
+    def from_value(cls, rect: RectValue | PkRect) -> PkRect:
+        """Create a rectangle from a tuple of values.
+
+        Args:
+            rect (RectValue): A tuple of values representing the rectangle.
+
+        Returns:
+            PkRect: The created rectangle.
+        """
+        if isinstance(rect, PkRect):
+            return rect
+        return cls(*rect)
+
+    @classmethod
     def from_tuple(cls, rect: RectValue) -> PkRect:
+        """# DEPRECATED
+
+        This method is deprecated. Use `from_value` instead.
+        """
+        raise DeprecationWarning("from_tuple is deprecated. Use from_value instead.")
         return cls(*rect)
 
     @property
