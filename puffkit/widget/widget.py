@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from copy import copy
 from typing import TYPE_CHECKING
 
 from puffkit import PkObject, PkSurface
+from puffkit.color import PkBasicPalette
 from puffkit.geometry import PkRect, RectValue
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -76,6 +78,11 @@ class PkWidget(PkObject):
             self.rect.w,
             self.rect.h,
         )
+
+        self.outer_outline = copy(PkBasicPalette.BLUE)
+        self.outer_outline.a = 127
+        self.inner_outline = copy(PkBasicPalette.BLUE)
+        self.inner_outline.a = 64
 
         self.surface: PkSurface = PkSurface(self.rect.size, transparent=True)
 
@@ -328,6 +335,18 @@ class PkWidget(PkObject):
             return
 
         self.on_render()
-        if self.focused:  # pragma: no cover
-            self.surface.fill("#0000FF")
+        # if focused, draw outline
+        if self.focused:
+            self.surface.draw_rect(
+                (0, 0, self.rect.w, self.rect.h),
+                self.inner_outline,
+                width=1,
+            )
+            outline_rect = self.rect.inflate(2, 2)
+            self.container.surface.draw_rect(
+                outline_rect,
+                self.outer_outline,
+                width=1,
+            )
+
         self.container.surface.blit(self.surface, self.rect.pos)
