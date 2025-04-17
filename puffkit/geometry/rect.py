@@ -247,3 +247,15 @@ class PkRect(PkObject):
 
     def copy(self) -> PkRect:
         return PkRect(self.x, self.y, self.w, self.h)
+
+    def inflate(self, dx: float, dy: float) -> PkRect:
+        """Inflate the rectangle by the given amount.
+
+        Args:
+            dx (float): The amount to inflate the width.
+            dy (float): The amount to inflate the height.
+
+        Returns:
+            PkRect: The inflated rectangle.
+        """
+        return PkRect(self.x - dx / 2, self.y - dy / 2, self.w + dx, self.h + dy)
