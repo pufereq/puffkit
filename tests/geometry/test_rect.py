@@ -456,3 +456,12 @@ def test_pkrect_size() -> None:
     assert rect.size == (10, 10)
     rect.size = (5, 5)
     assert rect.size == (5, 5)
+
+
+def test_pkrect_inflate() -> None:
+    """Test the inflate method of PkRect."""
+    rect = PkRect(0, 0, 10, 10)
+    inflated = rect.inflate(10, 10)
+    assert inflated == PkRect(-5, -5, 20, 20)
+    rect.inflate(5, 5)
+    assert rect == PkRect(0, 0, 10, 10)  # Original rect should not change
