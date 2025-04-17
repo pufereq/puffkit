@@ -195,8 +195,12 @@ def test_button_render_states(
     """Test the rendering of the button in different states."""
     button_widget.surface = Mock()
     button_widget._disabled = False
+
+    button_widget._focused = state == "pressed"
     button_widget._pressed = state == "pressed"
+
     button_widget._hovered = state == "hovered"
+
     button_widget.on_render()
     button_widget.surface.draw_rect.assert_called_with(
         PkRect(0, 0, 100, 50),

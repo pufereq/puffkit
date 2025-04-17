@@ -612,37 +612,54 @@ class PkSurface(PkObject):
         border_bottom_left_radius: int = -1,
         border_bottom_right_radius: int = -1,
     ) -> None:
-        """Draw a rectangle on the surface.
+        """Draw a rectangle on the surface, supporting alpha transparency.
 
         Args:
             rect (PkRect | RectValue): Rectangle to draw.
             color (PkColor | ColorValue): Color of the rectangle.
-            width (int, optional): Stroke width of the rectangle.
-                Defaults to 0 (filled).
-            border_radius (int, optional): Radius of the rectangle border.
-                Defaults to -1 (no border radius).
-            border_top_left_radius (int, optional): Radius of the top-left corner.
-                Defaults to -1 (no border radius).
-            border_top_right_radius (int, optional): Radius of the top-right corner.
-                Defaults to -1 (no border radius).
-            border_bottom_left_radius (int, optional): Radius of the bottom-left corner.
-                Defaults to -1 (no border radius).
-            border_bottom_right_radius (int, optional): Radius of the bottom-right corner.
-                Defaults to -1 (no border radius).
+            width (int, optional): Stroke width of the rectangle. Defaults to 0 (filled).
+            border_radius (int, optional): Radius of the rectangle border. Defaults to -1 (no border radius).
+            border_top_left_radius (int, optional): Radius of the top-left corner. Defaults to -1 (no border radius).
+            border_top_right_radius (int, optional): Radius of the top-right corner. Defaults to -1 (no border radius).
+            border_bottom_left_radius (int, optional): Radius of the bottom-left corner. Defaults to -1 (no border radius).
+            border_bottom_right_radius (int, optional): Radius of the bottom-right corner. Defaults to -1 (no border radius).
         """
-        if not isinstance(color, PkColor):
-            color = PkColor.from_value(color)
-        pygame.draw.rect(
-            self.internal_surface,
-            tuple(color),
-            tuple(rect),
-            width,
-            border_radius,
-            border_top_left_radius,
-            border_top_right_radius,
-            border_bottom_left_radius,
-            border_bottom_right_radius,
-        )
+        color = PkColor.from_value(color)
+        rect = PkRect.from_value(rect)
+
+        # handle transparency
+        if color.a != 255:
+            shape_surface = PkSurface(
+                self.size,
+                transparent=True,
+            )
+            pygame.draw.rect(
+                shape_surface.internal_surface,
+                tuple(color),
+                (0, 0, *rect[2:]),
+                width,
+                border_radius,
+                border_top_left_radius,
+                border_top_right_radius,
+                border_bottom_left_radius,
+                border_bottom_right_radius,
+            )
+
+            # blit the shape surface to the main surface
+            self.blit(shape_surface, tuple(rect[:2]))
+        else:
+            # draw opaque rect
+            pygame.draw.rect(
+                self.internal_surface,
+                tuple(color),
+                tuple(rect),
+                width,
+                border_radius,
+                border_top_left_radius,
+                border_top_right_radius,
+                border_bottom_left_radius,
+                border_bottom_right_radius,
+            )
 
     def blit_text(
         self,
@@ -685,8 +702,7 @@ class PkSurface(PkObject):
             bg_color = PkColor.from_value(bg_color) if bg_color is not None else None
 
         # rect conversion
-        if not isinstance(rect, PkRect):
-            rect = PkRect.from_tuple(rect)
+        rect = PkRect.from_value(rect)
 
         text_surface: PkSurface = PkSurface(rect.size, transparent=True)
 

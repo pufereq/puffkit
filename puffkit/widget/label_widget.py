@@ -144,8 +144,9 @@ class PkLabelWidget(PkWidget):
 
     def on_render(self) -> None:
         """Render the label widget."""
-        if not self.needs_redraw:
-            return
+        # redraw all labels every frame
+        # if not self.needs_redraw:
+        #     return
 
         self.surface.fill(self.background_color)
 

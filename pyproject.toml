@@ -31,9 +31,20 @@ bump = [
     "git-cliff>=2.6.0",
     "python-semantic-release>=9.8.8",
 ]
-lint = [
-    "black>=24.8.0",
-    "isort>=5.13.2",
+
+[tool.flake8]
+max-line-length = 79
+extend-ignore = [
+    "E203",
+    "E501",
+    "W503",
+]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    "docs",
 ]
 
 [tool.pytest.ini_options]
@@ -70,3 +81,11 @@ allowed_tags = ["build", "chore", "ci", "docs", "feat", "fix", "perf", "style", 
 minor_tags = ["feat"]
 patch_tags = ["fix", "perf"]
 default_bump_level = 0
+
+[dependency-groups]
+lint = [
+    "black>=24.8.0",
+    "isort>=5.13.2",
+    "flake8>=7.2.0",
+    "flake8-pyproject>=1.2.3",
+]

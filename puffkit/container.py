@@ -47,10 +47,7 @@ class PkContainer(PkObject):
 
         self.widgets: dict[str, PkWidget] = {}
 
-        if isinstance(rect, PkRect):
-            self.rect: PkRect = rect
-        else:
-            self.rect: PkRect = PkRect.from_tuple(rect)
+        self.rect: PkRect = PkRect.from_value(rect)
 
         # check if the container is out of bounds
         if self.rect.x < 0:
@@ -128,6 +125,19 @@ class PkContainer(PkObject):
         if id_ not in self.widgets:
             raise ValueError(f"Widget with ID '{id_}' does not exist in the container.")
         del self.widgets[id_]
+
+    def get_widget(self, id_: str) -> PkWidget:
+        """Get a widget from the container.
+
+        Args:
+            id_ (str): The ID of the widget to get.
+
+        Returns:
+            PkWidget: The widget with the given ID.
+        """
+        if id_ not in self.widgets:
+            raise ValueError(f"Widget with ID '{id_}' does not exist in the container.")
+        return self.widgets[id_]
 
     def update(self, delta: float) -> None:
         """Update the container.

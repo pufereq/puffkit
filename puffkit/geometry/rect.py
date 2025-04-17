@@ -6,8 +6,6 @@ import logging as lg
 
 import pygame
 
-from puffkit.geometry.coordinate import PkCoordinate
-from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
 
 type RectValue = tuple[int | float, int | float, int | float, int | float]
@@ -46,7 +44,26 @@ class PkRect(PkObject):
         self.h: float = h
 
     @classmethod
-    def from_tuple(cls, rect: RectValue) -> PkRect:
+    def from_value(cls, rect: RectValue | PkRect) -> PkRect:
+        """Create a rectangle from a tuple of values.
+
+        Args:
+            rect (RectValue): A tuple of values representing the rectangle.
+
+        Returns:
+            PkRect: The created rectangle.
+        """
+        if isinstance(rect, PkRect):
+            return rect
+        return cls(*rect)
+
+    @classmethod
+    def from_tuple(cls, rect: RectValue) -> PkRect:  # pragma: no cover
+        """# DEPRECATED
+
+        This method is deprecated. Use `from_value` instead.
+        """
+        raise DeprecationWarning("from_tuple is deprecated. Use from_value instead.")
         return cls(*rect)
 
     @property
@@ -230,3 +247,27 @@ class PkRect(PkObject):
 
     def copy(self) -> PkRect:
         return PkRect(self.x, self.y, self.w, self.h)
+
+    def inflate(self, dx: float, dy: float) -> PkRect:
+        """Inflate the rectangle by the given amount.
+
+        Args:
+            dx (float): The amount to inflate the width.
+            dy (float): The amount to inflate the height.
+
+        Returns:
+            PkRect: The inflated rectangle.
+        """
+        return PkRect(self.x - dx / 2, self.y - dy / 2, self.w + dx, self.h + dy)
+
+    def inflate_ip(self, dx: float, dy: float) -> None:
+        """Inflate the rectangle by the given amount in place.
+
+        Args:
+            dx (float): The amount to inflate the width.
+            dy (float): The amount to inflate the height.
+        """
+        self.x -= dx / 2
+        self.y -= dy / 2
+        self.w += dx
+        self.h += dy

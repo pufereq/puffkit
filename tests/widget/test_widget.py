@@ -82,6 +82,8 @@ def test_widget_update_event_handling(mock_container: MagicMock) -> None:
     widget.on_hover = MagicMock()
     widget.on_mouse_enter = MagicMock()
     widget.on_mouse_leave = MagicMock()
+    widget.on_focus = MagicMock()
+    widget.on_unfocus = MagicMock()
 
     KEYDOWN = MagicMock()
     KEYUP = MagicMock()
@@ -136,6 +138,9 @@ def test_widget_update_event_handling(mock_container: MagicMock) -> None:
     widget.on_mouse_leave.assert_called_once()
     widget.on_mouse_down.assert_called_once()
     widget.on_mouse_up.assert_called_once()
+    widget.on_focus.assert_called_once()
+    widget.on_unfocus.assert_called_once()
+    widget.on_hover.assert_called_once()
 
 
 def test_widget_render_calls_on_render_and_blit(mock_container: MagicMock) -> None:
@@ -149,6 +154,26 @@ def test_widget_render_calls_on_render_and_blit(mock_container: MagicMock) -> No
     mock_container.surface.blit.assert_called_once_with(widget.surface, widget.rect.pos)
 
 
+def test_widget_render_not_visible(mock_container: MagicMock) -> None:
+    """Test that render method does not call on_render or blit if widget is not visible."""
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
+    widget.visible = False
+    widget.on_render = MagicMock()
+    widget.render()
+    widget.on_render.assert_not_called()
+    mock_container.surface.blit.assert_not_called()
+
+
+def test_widget_render_focused(mock_container: MagicMock) -> None:
+    """Test that render method calls on_render and blits the widget onto the parent surface when focused."""
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
+    widget._focused = True
+    widget.on_render = MagicMock()
+    widget.render()
+    widget.on_render.assert_called_once()
+    mock_container.surface.blit.assert_called_once_with(widget.surface, widget.rect.pos)
+
+
 def test_widget_disabled(mock_container: MagicMock) -> None:
     """Test that setting disabled property disables the widget."""
     widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
@@ -156,3 +181,63 @@ def test_widget_disabled(mock_container: MagicMock) -> None:
     widget.disabled = True
     assert widget.disabled
     assert widget._disabled
+
+
+def test_widget_focused(mock_container: MagicMock) -> None:
+    """Test that setting focused property sets the widget as focused."""
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
+
+    # not focusable
+    assert not widget.focusable
+    assert not widget.focused
+    widget.focused = True
+    assert not widget.focused
+    assert not widget._focused
+
+    # focusable
+    widget.focusable = True
+    assert widget.focusable
+    widget.focused = True
+    assert widget.focused
+    assert widget._focused
+
+
+def test_widget_visible(mock_container: MagicMock) -> None:
+    """Test that setting visible property sets the widget as visible."""
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
+    assert widget.visible
+    widget.visible = False
+    assert not widget.visible
+    assert not widget._visible
+
+
+def test_widget_focusable(mock_container: MagicMock) -> None:
+    """Test that setting focusable property sets the widget as focusable."""
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10), focusable=True)
+    assert widget.focusable
+    widget.focusable = False
+    assert not widget.focusable
+    assert not widget._focusable
+
+
+def test_widget_hovered(mock_container: MagicMock) -> None:
+    """Test that setting hovered property sets the widget as hovered."""
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10), focusable=True)
+    assert not widget.hovered
+    widget.hovered = True
+    assert widget.hovered
+    assert widget._hovered
+
+
+def test_widget_pressed(mock_container: MagicMock) -> None:
+    """Test that setting pressed property sets the widget as pressed."""
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10), focusable=True)
+    assert not widget.pressed
+    widget.pressed = True
+    assert not widget.pressed
+    assert widget._pressed
+
+    widget.focused = True
+    widget.pressed = True
+    assert widget.pressed
+    assert widget._pressed

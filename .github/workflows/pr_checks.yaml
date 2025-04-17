@@ -20,7 +20,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: "${{ env.GH_TOKEN }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          submodules: 'recursive'
 
       - name: 🐍 python
         uses: actions/setup-python@v5

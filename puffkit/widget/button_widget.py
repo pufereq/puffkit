@@ -75,7 +75,7 @@ class PkButtonWidget(PkWidget):
             border_radius (int, optional): The border radius of the button.
                 Defaults to 0.
         """
-        super().__init__(id_, container, rect)
+        super().__init__(id_, container, rect, focusable=True)
 
         if not isinstance(background_color, PkColor):
             background_color = PkColor.from_value(background_color)
@@ -162,21 +162,21 @@ class PkButtonWidget(PkWidget):
 
     def on_render(self) -> None:
         # fill the surface with a background color depending on the state
-        if self._disabled:
+        if self.disabled:
             self.surface.draw_rect(
                 PkRect(0, 0, self.rect.width, self.rect.height),
                 self.background_color_disabled,
                 0,
                 self.border_radius,
             )
-        elif self._pressed:
+        elif self.pressed:
             self.surface.draw_rect(
                 PkRect(0, 0, self.rect.width, self.rect.height),
                 self.background_color_pressed,
                 0,
                 self.border_radius,
             )
-        elif self._hovered:
+        elif self.hovered:
             self.surface.draw_rect(
                 PkRect(0, 0, self.rect.width, self.rect.height),
                 self.background_color_hovered,

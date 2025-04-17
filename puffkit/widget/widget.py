@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from copy import copy
 from typing import TYPE_CHECKING
 
 from puffkit import PkObject, PkSurface
+from puffkit.color import PkBasicPalette
 from puffkit.geometry import PkRect, RectValue
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -24,6 +26,8 @@ class PkWidget(PkObject):
         id_: str,
         container: PkContainer,
         rect: PkRect | RectValue,
+        *,
+        focusable: bool = False,
     ):
         """Initialize the widget.
 
@@ -32,15 +36,14 @@ class PkWidget(PkObject):
             container (PkContainer): The container that the widget belongs to.
             rect (PkRect | RectValue): The rectangle that the widget occupies.
                 Relative to the container.
+            focusable (bool): Whether the widget can be focused.
+                Defaults to False.
         """
         super().__init__()
         self.id: str = id_
         self.container: PkContainer = container
 
-        if isinstance(rect, PkRect):
-            self.rect: PkRect = rect
-        else:
-            self.rect: PkRect = PkRect.from_tuple(rect)
+        self.rect: PkRect = PkRect.from_value(rect)
 
         # check if the widget is out of bounds
         if self.rect.x < 0:
@@ -76,12 +79,41 @@ class PkWidget(PkObject):
             self.rect.h,
         )
 
+        self.outer_outline = copy(PkBasicPalette.BLUE)
+        self.outer_outline.a = 127
+        self.inner_outline = copy(PkBasicPalette.BLUE)
+        self.inner_outline.a = 64
+
         self.surface: PkSurface = PkSurface(self.rect.size, transparent=True)
 
         self._last_mouse_pos: tuple[int, int] = (0, 0)
+
+        self._visible: bool = True
+        self._focusable: bool = focusable
         self._disabled: bool = False
         self._hovered: bool = False
         self._pressed: bool = False
+        self._focused: bool = False
+
+    @property
+    def visible(self) -> bool:
+        return self._visible
+
+    @visible.setter
+    def visible(self, value: bool) -> None:
+        self._visible = value
+
+    @property
+    def focusable(self) -> bool:
+        return self._focusable
+
+    @focusable.setter
+    def focusable(self, value: bool) -> None:
+        self._focusable = value
+        if not value:
+            self._focused = False
+            self._pressed = False
+            self._hovered = False
 
     @property
     def disabled(self) -> bool:
@@ -92,6 +124,31 @@ class PkWidget(PkObject):
         self._disabled = value
         self._hovered = False
         self._pressed = False
+
+    @property
+    def hovered(self) -> bool:
+        return self._hovered
+
+    @hovered.setter
+    def hovered(self, value: bool) -> None:
+        self._hovered = value
+
+    @property
+    def pressed(self) -> bool:
+        return self._pressed and self._focused
+
+    @pressed.setter
+    def pressed(self, value: bool) -> None:
+        self._pressed = value
+
+    @property
+    def focused(self) -> bool:
+        return self._focused
+
+    @focused.setter
+    def focused(self, value: bool) -> None:
+        # if the widget is not focusable, set the focused state to False
+        self._focused = value and self.focusable
 
     def on_key_down(self, event: PkEvent) -> None:  # pragma: no cover
         """Handle the key down event.
@@ -174,6 +231,36 @@ class PkWidget(PkObject):
         """
         pass
 
+    def on_focus(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the focus event.
+
+        This method is called when the widget is focused.
+
+        Args:
+            event (PkEvent): The focus event.
+        """
+        pass
+
+    def on_unfocus(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the unfocus event.
+
+        This method is called when the widget is unfocused.
+
+        Args:
+            event (PkEvent): The unfocus event.
+        """
+        pass
+
+    def on_change(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the change event.
+
+        This method is called when the widget's state changes.
+
+        Args:
+            event (PkEvent): The change event.
+        """
+        pass
+
     def on_update(self, delta: float) -> None:  # pragma: no cover
         """Update the widget.
 
@@ -212,25 +299,29 @@ class PkWidget(PkObject):
                 if self.abs_rect.collidepoint(event.pos):
                     if not self.abs_rect.collidepoint(self._last_mouse_pos):
                         self.on_mouse_enter(event)
-                    self._hovered = True
+                    self.hovered = True
                     self.on_hover(event)
                 else:
                     if self.abs_rect.collidepoint(self._last_mouse_pos):
                         self.on_mouse_leave(event)
-                    self._hovered = False
+                    self.hovered = False
                 self._last_mouse_pos = event.pos
             elif event.name == "MOUSEBUTTONDOWN":
                 if self.abs_rect.collidepoint(event.pos):
                     self.on_mouse_down(event)
-                    self._pressed = True
+                    self.on_focus(event)
+                    self.focused = True
+                    self.pressed = True
                 else:
-                    self._pressed = False
+                    self.on_unfocus(event)
+                    self.focused = False
+                    self.pressed = False
             elif event.name == "MOUSEBUTTONUP":
                 if self.abs_rect.collidepoint(event.pos):
                     self.on_mouse_up(event)
-                    self._pressed = False
+                    self.pressed = False
                 else:
-                    self._pressed = False
+                    self.pressed = False
 
         self.on_update(delta)
 
@@ -240,5 +331,22 @@ class PkWidget(PkObject):
         This internal method is called every frame to render the widget.
         NOTE: Do not override this method. Instead, override `on_render`.
         """
+        if not self.visible:
+            return
+
         self.on_render()
+        # if focused, draw outline
+        if self.focused:
+            self.surface.draw_rect(
+                (0, 0, self.rect.w, self.rect.h),
+                self.inner_outline,
+                width=1,
+            )
+            outline_rect = self.rect.inflate(2, 2)
+            self.container.surface.draw_rect(
+                outline_rect,
+                self.outer_outline,
+                width=1,
+            )
+
         self.container.surface.blit(self.surface, self.rect.pos)
