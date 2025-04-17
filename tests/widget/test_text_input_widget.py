@@ -148,6 +148,12 @@ def test_on_render_disabled(text_input_widget):
     text_input_widget.on_render()
 
 
+def test_on_render_no_focus(text_input_widget):
+    """Test the on_render method when the widget is not focused."""
+    text_input_widget.focused = False
+    text_input_widget.on_render()
+
+
 def test_invalid_padding_raises_value_error(mock_container):
     """Test that invalid padding raises a ValueError."""
     rect = PkRect(0, 0, 10, 10)
