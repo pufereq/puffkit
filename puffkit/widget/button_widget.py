@@ -75,7 +75,7 @@ class PkButtonWidget(PkWidget):
             border_radius (int, optional): The border radius of the button.
                 Defaults to 0.
         """
-        super().__init__(id_, container, rect)
+        super().__init__(id_, container, rect, focusable=True)
 
         if not isinstance(background_color, PkColor):
             background_color = PkColor.from_value(background_color)

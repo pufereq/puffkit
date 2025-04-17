@@ -6,8 +6,6 @@ import logging as lg
 
 import pygame
 
-from puffkit.geometry.coordinate import PkCoordinate
-from puffkit.geometry.size import PkSize
 from puffkit.object import PkObject
 
 type RectValue = tuple[int | float, int | float, int | float, int | float]
@@ -46,7 +44,26 @@ class PkRect(PkObject):
         self.h: float = h
 
     @classmethod
-    def from_tuple(cls, rect: RectValue) -> PkRect:
+    def from_value(cls, rect: RectValue | PkRect) -> PkRect:
+        """Create a rectangle from a tuple of values.
+
+        Args:
+            rect (RectValue): A tuple of values representing the rectangle.
+
+        Returns:
+            PkRect: The created rectangle.
+        """
+        if isinstance(rect, PkRect):
+            return rect
+        return cls(*rect)
+
+    @classmethod
+    def from_tuple(cls, rect: RectValue) -> PkRect:  # pragma: no cover
+        """# DEPRECATED
+
+        This method is deprecated. Use `from_value` instead.
+        """
+        raise DeprecationWarning("from_tuple is deprecated. Use from_value instead.")
         return cls(*rect)
 
     @property
