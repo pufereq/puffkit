@@ -259,3 +259,15 @@ class PkRect(PkObject):
             PkRect: The inflated rectangle.
         """
         return PkRect(self.x - dx / 2, self.y - dy / 2, self.w + dx, self.h + dy)
+
+    def inflate_ip(self, dx: float, dy: float) -> None:
+        """Inflate the rectangle by the given amount in place.
+
+        Args:
+            dx (float): The amount to inflate the width.
+            dy (float): The amount to inflate the height.
+        """
+        self.x -= dx / 2
+        self.y -= dy / 2
+        self.w += dx
+        self.h += dy
