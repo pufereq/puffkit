@@ -2,6 +2,73 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.0] - 2025-04-17
+
+### Bug Fixes
+
+- [`8124d84`](https://github.com/pufereq/template-repo/commit/8124d84dc17ac33964ba2b4b292ca108951b42a6) **button_widget.py**: replace _disabled, _pressed, _hovered with public properties in `render()`
+- [`4185ac0`](https://github.com/pufereq/template-repo/commit/4185ac08c7cee1045e0937e0ea84527108fffe03) **label_widget.py**: quick fix for labels not refreshing properly
+
+### Features
+
+- [`20cdaff`](https://github.com/pufereq/template-repo/commit/20cdaff7c73cb610db0aa1e3801a0ddd9917ebb1) **surface.py**: add outline on focused widget
+- [`b12de9b`](https://github.com/pufereq/template-repo/commit/b12de9b0b0b43da1568b292b16a2b94a9e57a38a) **surface.py**: add support for drawing transparency in `PkSurface.draw_rect()`
+- [`f05735b`](https://github.com/pufereq/template-repo/commit/f05735b5d5995edf2c9d136d2321fcc5528d0b1c) **rect.py**: add `PkRect.inflate_ip()` method
+- [`b5d49b3`](https://github.com/pufereq/template-repo/commit/b5d49b385f0cf91c8fc25d5883e3dbb82e29b3a1) **rect.py**: add `PkRect.inflate()` method
+- [`151df31`](https://github.com/pufereq/template-repo/commit/151df316454bd0485d0a95d178258e4a32999c93) **text_input_widget.py**: add the `PkTextInputWidget` widget
+- [`720a397`](https://github.com/pufereq/template-repo/commit/720a3974965a93bbcbcdaac0691f1ab92754bb2d) **rect.py**: add `PkRect.from_value()` method to replace `from_tuple()`
+- [`3d7e462`](https://github.com/pufereq/template-repo/commit/3d7e4624bdcf860c894c0063abff68c37a61c483) **widget.py**: add `PkWidget._focusable` and `focusable` attributes
+- [`ed4d8ac`](https://github.com/pufereq/template-repo/commit/ed4d8acc8fe115781f6a314020ef10c7e73a1e1e) **event_manager.py**: translate key codes to names in `KEYDOWN`, `KEYUP` events
+- [`b014e64`](https://github.com/pufereq/template-repo/commit/b014e64ec94a486551072a88a542c382c92c128a) **widget.py**: add `PkWidget.hovered` and `PkWidget.pressed` properties
+- [`d5d251a`](https://github.com/pufereq/template-repo/commit/d5d251a06e7d9f0a570aefe47930afe20d71c8b9) **widget.py**: add `PkWidget._visible` attribute and `visible` property
+- [`52af376`](https://github.com/pufereq/template-repo/commit/52af376f2bf5177072f446b2bfebcb0b708d63e0) **widget.py**: add `PkWidget.focused` property and `on_focus()` and `on_unfocus()` hooks
+- [`e0464b8`](https://github.com/pufereq/template-repo/commit/e0464b8d790f9c7f449f24eeebc3a97812e24685) **container.py**: add `get_widget()` method to `PkContainer` for easy access to widgets
+
+### Miscellaneous Tasks
+
+- [`6067680`](https://github.com/pufereq/template-repo/commit/606768099c0b695c18c8aa6e07dd98f73c8ebdb4) **widget/__init__.py**: add `PkTextInputWidget` to module imports
+- [`23d251f`](https://github.com/pufereq/template-repo/commit/23d251f31c103fc6d7bd2b9ce30e177d84f31639) **release.yaml**: correct github token
+- [`8e98225`](https://github.com/pufereq/template-repo/commit/8e9822590c30f0d0082ff5fbd60b8573433856b8) **pr_checks.yaml**: correct github token
+- [`eba4e2d`](https://github.com/pufereq/template-repo/commit/eba4e2d8aa2d9f343f05122f60a8f2fa202e83fe) **commit_checks.yaml**: correct github token
+- [`d30da3a`](https://github.com/pufereq/template-repo/commit/d30da3a7cfe57a31fb056fe67485692db169dbde) **pr_checks.yaml**: recurse submodules on checkout
+- [`9a711a8`](https://github.com/pufereq/template-repo/commit/9a711a8bd0140f4de200d723ead8fb617764cdd2) **commit_checks.yaml**: add token and recurse submodules
+
+### Refactor
+
+- [`e5b3396`](https://github.com/pufereq/template-repo/commit/e5b3396d744f8b05cb22e12a1bbd029f901cff21) **rect.py**: remove unneeded imports
+- [`d54a527`](https://github.com/pufereq/template-repo/commit/d54a5273ed03ae03d76e2c036b9e1ca0062408b0) **surface.py**: use `PkRect.from_value()` instead of deprecated `from_tuple()`
+- [`c410669`](https://github.com/pufereq/template-repo/commit/c410669992d1d68fb696bad54b5f3d03c2ba3f5b) **widget.py**: use `PkRect.from_value()` instead of deprecated `from_tuple()`
+- [`ef06b7d`](https://github.com/pufereq/template-repo/commit/ef06b7dafef84162673649a45f2147323e0d27ac) **container.py**: use `PkRect.from_value()` instead of deprecated `from_tuple()`
+- [`ae3154b`](https://github.com/pufereq/template-repo/commit/ae3154b6d9c2baccb6064a07ab89040a8eee00c3) **widget.py**: use state properties instead of internal attributes in `PkWidget.update()`
+- [`6c89758`](https://github.com/pufereq/template-repo/commit/6c8975841975b9ba83a804fe30e6f68d3150b946) **button_widget.py**: set `focusable` attribute to True
+
+### Testing
+
+- [`a78bf4a`](https://github.com/pufereq/template-repo/commit/a78bf4ad037be2f1ceb7e193f972ef94c4e7476e) **test_button_widget.py**: set `_focused` to true in `test_button_render_states()` to ensure correct checks
+- [`9062994`](https://github.com/pufereq/template-repo/commit/90629945ab95ef5a83bca08e5afcb5938c1d4287) **test_widget.py**: add case for focused widgets in `PkWidget.render()`
+- [`e11fb75`](https://github.com/pufereq/template-repo/commit/e11fb7584f3f5360d16f42c5f390856089ca0bf4) **test_text_input_widget.py**: add case for `PkTextInputWidget.render()` while widget unfocused
+- [`03a5296`](https://github.com/pufereq/template-repo/commit/03a529645333cfacd754671d1ef895406cfced81) **test_text_input_widget.py**: add case for `PkTextInputWidget.render()` while widget disabled
+- [`a679cca`](https://github.com/pufereq/template-repo/commit/a679ccaae4c163abc3bc87dedad2f4b15227a0b4) **test_rect.py**: add test for `PkRect.inflate_ip()`
+- [`7829423`](https://github.com/pufereq/template-repo/commit/7829423cbb23d99f71300af89480a121878f5d7e) **test_rect.py**: add test for `PkRect.inflate()`
+- [`ebeffa4`](https://github.com/pufereq/template-repo/commit/ebeffa415b53da98b58fbc5da5f58c8f47a7ed7c) **test_text_input_widget.py**: add tests for `PkTextInputWidget`
+- [`b541a5e`](https://github.com/pufereq/template-repo/commit/b541a5ef1ea24ef7f05872a311a0c7bdae160212) **test_widget.py**: add test ensuring early return of `PkWidget.render()` if not visible
+- [`ad4471e`](https://github.com/pufereq/template-repo/commit/ad4471e4b0c3aa102bbd7cf2f339795bdf7c3a8f) **test_widget.py**: add test for `PkWidget.pressed`
+- [`197f872`](https://github.com/pufereq/template-repo/commit/197f872c41fb33cdab6fd9f8da1099bb62644343) **test_widget.py**: add test for `PkWidget.hovered`
+- [`fbdcd8a`](https://github.com/pufereq/template-repo/commit/fbdcd8a5865f05403d55c04ac7d4d4e2e9ebdf55) **test_widget.py**: add test for `PkWidget.focusable`
+- [`dccb819`](https://github.com/pufereq/template-repo/commit/dccb819770319ca13ad82704b60cd0f629d60912) **test_widget.py**: add test for `PkWidget.visible`
+- [`793ea15`](https://github.com/pufereq/template-repo/commit/793ea158217f8ea857ffa1557eec5d23836eeeb1) **test_widget.py**: modify `PkWidget.focused` test to include focusable and un-focusable cases
+- [`a27862f`](https://github.com/pufereq/template-repo/commit/a27862fdea4f52d4abcb4dd6e8726a98503bfbd3) **rect.py**: exclude deprecated `PkRect.from_tuple()` from coverage
+- [`e28e5d9`](https://github.com/pufereq/template-repo/commit/e28e5d9ba269559213c33bd376e13cbc4f7a74fb) **test_widget.py**: add a test for `PkWidget.focused` property
+- [`ee576a1`](https://github.com/pufereq/template-repo/commit/ee576a1f935208ce2594dda24886b2b6456896c6) **test_widget.py**: test if `widget.on_focus()` and `widget.on_unfocus()` were called in `test_widget_update_handling()`
+- [`b375f39`](https://github.com/pufereq/template-repo/commit/b375f39df1e4a7d1a4a0d69dab5af78d8789d559) **widget.py**: exclude temporary if statement from coverage
+- [`34fc180`](https://github.com/pufereq/template-repo/commit/34fc180d1af3bf4e12ccfce99dd862b7a014ed69) **test_container.py**: add test for `PkContainer.get_widget()`
+
+### Build
+
+- [`97020bd`](https://github.com/pufereq/template-repo/commit/97020bd7e73103a1e616a0b25fba5700950bfb2b) **pyproject.toml**: configure flake8
+- [`6143ec5`](https://github.com/pufereq/template-repo/commit/6143ec52407bd990c479a975855094b4ede56b0c) **pdm.lock**: update pdm lockfile
+- [`a0c9fb6`](https://github.com/pufereq/template-repo/commit/a0c9fb6024e002ab6b3372e8b739467caff18f45) **pyproject.toml**: add flake8 and flake8-pyproject as a lint depedency group
+
 ## [0.9.0] - 2025-04-06
 
 ### Bug Fixes
