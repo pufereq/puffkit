@@ -465,3 +465,12 @@ def test_pkrect_inflate() -> None:
     assert inflated == PkRect(-5, -5, 20, 20)
     rect.inflate(5, 5)
     assert rect == PkRect(0, 0, 10, 10)  # Original rect should not change
+
+
+def test_pkrect_inflate_ip() -> None:
+    """Test the inflate_ip method of PkRect."""
+    rect = PkRect(0, 0, 10, 10)
+    rect.inflate_ip(10, 10)
+    assert rect == PkRect(-5, -5, 20, 20)
+    rect.inflate_ip(-10, -10)
+    assert rect == PkRect(0, 0, 10, 10)
