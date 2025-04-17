@@ -162,21 +162,21 @@ class PkButtonWidget(PkWidget):
 
     def on_render(self) -> None:
         # fill the surface with a background color depending on the state
-        if self._disabled:
+        if self.disabled:
             self.surface.draw_rect(
                 PkRect(0, 0, self.rect.width, self.rect.height),
                 self.background_color_disabled,
                 0,
                 self.border_radius,
             )
-        elif self._pressed:
+        elif self.pressed:
             self.surface.draw_rect(
                 PkRect(0, 0, self.rect.width, self.rect.height),
                 self.background_color_pressed,
                 0,
                 self.border_radius,
             )
-        elif self._hovered:
+        elif self.hovered:
             self.surface.draw_rect(
                 PkRect(0, 0, self.rect.width, self.rect.height),
                 self.background_color_hovered,
