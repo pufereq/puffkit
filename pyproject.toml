@@ -32,20 +32,22 @@ bump = [
     "python-semantic-release>=9.8.8",
 ]
 
-[tool.flake8]
-max-line-length = 79
-extend-ignore = [
-    "E203",
-    "E501",
-    "W503",
-]
+[tool.ruff]
+line-length = 79
 exclude = [
-    ".git",
-    "__pycache__",
-    "build",
-    "dist",
-    "docs",
+    "tests/*"
 ]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 79
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402", "F401"]
+"**/{tests,docs,tools}/*" = ["E402"]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 72
 
 [tool.pytest.ini_options]
 addopts = [
@@ -84,8 +86,6 @@ default_bump_level = 0
 
 [dependency-groups]
 lint = [
-    "black>=24.8.0",
     "isort>=5.13.2",
-    "flake8>=7.2.0",
-    "flake8-pyproject>=1.2.3",
+    "ruff>=0.11.6",
 ]
