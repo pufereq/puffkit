@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.1] - 2025-04-18
+
+### Miscellaneous Tasks
+
+- [`8c19df7`](https://github.com/pufereq/template-repo/commit/8c19df75c5b7cb75fa0e1a50876fdc65f2d86255) **update_depedencies.yaml**: update depedencies every day at 12:00 AM
+- [`6b307cd`](https://github.com/pufereq/template-repo/commit/6b307cd79e9aad00a21e99e65573bf55a82ae807) **pdm.lock**: remove depedencies: `flake8`, `flake8-pyproject`, `black`
+
+### Build
+
+- [`d98c1cf`](https://github.com/pufereq/template-repo/commit/d98c1cf4edbc2716e33ff3d9cb4681cfeb9d4468) **pyproject.toml**: use `ruff` for linting and formatting
+
 ## [0.10.0] - 2025-04-17
 
 ### Bug Fixes
