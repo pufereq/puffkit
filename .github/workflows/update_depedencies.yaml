@@ -1,0 +1,17 @@
+name: Update dependencies
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update dependencies
+        uses: pdm-project/update-deps-action@main
+        with:
+          commit-message: "build(pdm.lock): update dependencies"
+          pr-title: "build(pdm.lock): update dependencies"
