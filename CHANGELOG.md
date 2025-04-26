@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.1-post.3] - 2025-04-26
+
+### Styling
+
+- [`3881b3b`](https://github.com/pufereq/template-repo/commit/3881b3b732bcd29f29042b48356b16e9a08ff8e4) **text_input_widget.py**: format with ruff
+- [`858ff07`](https://github.com/pufereq/template-repo/commit/858ff07f16c61bae9a975c4349724d8fb762622d) **label_widget.py**: format with ruff
+- [`73561a3`](https://github.com/pufereq/template-repo/commit/73561a3d4655946830e977badda52a5e7c7f9d87) **button_widget.py**: format with ruff
+- [`4516386`](https://github.com/pufereq/template-repo/commit/45163862b117a11e730d13045832469f228fe560) **surface.py**: format with ruff
+- [`d47b1fa`](https://github.com/pufereq/template-repo/commit/d47b1fa2b0cc2bfbeda758fea7f883883535e4ec) **subsurface.py**: format with ruff
+- [`a573255`](https://github.com/pufereq/template-repo/commit/a573255a4329e34d8302c05c74ea3e6bf14c388e) **scene_manager.py**: format with ruff
+- [`737ac72`](https://github.com/pufereq/template-repo/commit/737ac725556a7faf75106e39c9da518ce6fbb964) **scene.py**: format with ruff
+- [`98b9afb`](https://github.com/pufereq/template-repo/commit/98b9afbccab22d69c1dad52a1d093f53a7e22efb) **object.py**: format with ruff
+- [`4f83c86`](https://github.com/pufereq/template-repo/commit/4f83c861c622732684ab9fb1fe783e456839c1a3) **rect.py**: format with ruff
+- [`756fa69`](https://github.com/pufereq/template-repo/commit/756fa69fcb8811d101129b3bfbc7cabffa051624) **coordinate.py**: format with ruff
+- [`00ab6bd`](https://github.com/pufereq/template-repo/commit/00ab6bdc8322bfbe0e3745f50090b10e4c0fd351) **sysfont.py**: format with ruff
+- [`714b16f`](https://github.com/pufereq/template-repo/commit/714b16f1757beea1959b33f6faa26f4c26c7c293) **font.py**: format with ruff
+- [`a1cad1e`](https://github.com/pufereq/template-repo/commit/a1cad1eed8dd482b9f9be17309dd640e1407937b) **event_manager.py**: format with ruff
+- [`6ad0b9c`](https://github.com/pufereq/template-repo/commit/6ad0b9c34f0867c76a46bb3beae892b29543938d) **timing.py**: format with ruff
+- [`ee5d782`](https://github.com/pufereq/template-repo/commit/ee5d782f58f52e3d3f5becce36b53e49cc10eb64) **container.py**: format with ruff
+- [`e642d8c`](https://github.com/pufereq/template-repo/commit/e642d8ccfed60d3a1b626354f94202f6e53a14b0) **color.py**: format with ruff
+- [`0b0c322`](https://github.com/pufereq/template-repo/commit/0b0c3224578b79c303200d3bf9ca3830be6ac916) **app.py**: format with ruff
+
 ## [0.10.1-post.2] - 2025-04-25
 
 ### Miscellaneous Tasks
