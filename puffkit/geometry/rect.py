@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Rect module for puffkit."""
+
 from __future__ import annotations
 
 import logging as lg
@@ -63,7 +64,9 @@ class PkRect(PkObject):
 
         This method is deprecated. Use `from_value` instead.
         """
-        raise DeprecationWarning("from_tuple is deprecated. Use from_value instead.")
+        raise DeprecationWarning(
+            "from_tuple is deprecated. Use from_value instead."
+        )
         return cls(*rect)
 
     @property
@@ -258,7 +261,9 @@ class PkRect(PkObject):
         Returns:
             PkRect: The inflated rectangle.
         """
-        return PkRect(self.x - dx / 2, self.y - dy / 2, self.w + dx, self.h + dy)
+        return PkRect(
+            self.x - dx / 2, self.y - dy / 2, self.w + dx, self.h + dy
+        )
 
     def inflate_ip(self, dx: float, dy: float) -> None:
         """Inflate the rectangle by the given amount in place.
