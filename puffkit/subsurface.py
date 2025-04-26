@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """puffkit SubSurface."""
+
 from __future__ import annotations
 
 from puffkit.surface import PkSurface
@@ -13,7 +14,10 @@ class PkSubSurface(PkSurface):
     """
 
     def __init__(
-        self, parent: PkSurface, pos: tuple[int, int], size: tuple[int, int] = (0, 0)
+        self,
+        parent: PkSurface,
+        pos: tuple[int, int],
+        size: tuple[int, int] = (0, 0),
     ):
         """Initialize the subsurface.
 
