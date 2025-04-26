@@ -39,7 +39,9 @@ class PkEventManager:
                 should take a single argument, the event to handle.
         """
         if event_name in self.handlers:
-            self.logger.warning(f"Overwriting handler for event type {event_name}...")
+            self.logger.warning(
+                f"Overwriting handler for event type {event_name}..."
+            )
         self.handlers[event_name] = handler
 
     def remove_handler(self, event_name: str) -> None:
@@ -52,7 +54,9 @@ class PkEventManager:
             del self.handlers[event_name]
             self.logger.info(f"Removed handler for event type {event_name}.")
         else:
-            self.logger.warning(f"No handler found for event type {event_name}.")
+            self.logger.warning(
+                f"No handler found for event type {event_name}."
+            )
 
     def handle_events(self, event_list: list[PkEvent]) -> None:
         """Handle the events in the event manager.

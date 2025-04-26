@@ -62,7 +62,10 @@ class PkLabelWidget(PkWidget):
         if not isinstance(text_color, PkColor):
             text_color = PkColor.from_value(text_color)
 
-        if not isinstance(background_color, PkColor) and background_color is not None:
+        if (
+            not isinstance(background_color, PkColor)
+            and background_color is not None
+        ):
             background_color = PkColor.from_value(background_color)
 
         self._text: str = text
@@ -72,7 +75,9 @@ class PkLabelWidget(PkWidget):
 
         self.font: PkFont = self._find_font(font_id)
 
-        self.background_color: PkColor = background_color or PkBasicPalette.TRANSPARENT
+        self.background_color: PkColor = (
+            background_color or PkBasicPalette.TRANSPARENT
+        )
 
         self.text_wrap: bool = text_wrap
         self.text_align: str = text_align

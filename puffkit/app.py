@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """puffkit App module."""
+
 from __future__ import annotations
 
 import pygame as pg
@@ -64,7 +65,9 @@ class PkApp(PkObject):
         pg.init()
 
         # set up display
-        self.display = pg.display.set_mode(self.display_size.tuple, **display_arguments)
+        self.display = pg.display.set_mode(
+            self.display_size.tuple, **display_arguments
+        )
         self.internal_screen = PkSurface(self.internal_screen_size)
 
         # set up event manager
@@ -110,7 +113,9 @@ class PkApp(PkObject):
 
     def update(self, delta_time: float) -> None:
         """Run update hooks."""
-        pg.display.set_caption(f"{self.title} - {round(self.clock.get_fps(), 2)} FPS")
+        pg.display.set_caption(
+            f"{self.title} - {round(self.clock.get_fps(), 2)} FPS"
+        )
         self.event_manager.update(delta_time)
         self.scene_manager.input(
             self.event_manager.events,
@@ -141,7 +146,9 @@ class PkApp(PkObject):
                 self.quit()
             self.update(self.delta_time)
             self.render()
-            self.delta_time = self.clock.tick(self.fps_limit) / 1000  # [seconds]
+            self.delta_time = (
+                self.clock.tick(self.fps_limit) / 1000
+            )  # [seconds]
 
         pg.quit()
 

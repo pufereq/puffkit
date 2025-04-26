@@ -54,14 +54,18 @@ class PkObject:
         self.logger.warning(
             f"update method not implemented for {self.full_class_name}."
         )
-        raise NotImplementedError(f"{self.class_name}.update() method not implemented.")
+        raise NotImplementedError(
+            f"{self.class_name}.update() method not implemented."
+        )
 
     def render(self) -> None:
         """Render the object."""
         self.logger.warning(
             f"render method not implemented for {self.full_class_name}."
         )
-        raise NotImplementedError(f"{self.class_name}.render() method not implemented.")
+        raise NotImplementedError(
+            f"{self.class_name}.render() method not implemented."
+        )
 
     def __str__(self) -> str:
         self.logger.warning(

@@ -90,7 +90,9 @@ class PkSceneManager(PkObject):
         if not scene.loaded and not scene.lazy:
             self.load_scene(scene.id)
 
-        self.logger.debug(f"Added scene {scene.id}. Scene count: {len(self.scenes)}")
+        self.logger.debug(
+            f"Added scene {scene.id}. Scene count: {len(self.scenes)}"
+        )
 
     def set_scene(self, scene_id: str) -> None:
         """Set the current scene.
@@ -115,7 +117,9 @@ class PkSceneManager(PkObject):
 
         self.current_scene = new_scene
 
-    def load_scene(self, scene_id: str, *, supress_error: bool = False) -> None:
+    def load_scene(
+        self, scene_id: str, *, supress_error: bool = False
+    ) -> None:
         """Load a scene.
 
         Args:
@@ -141,7 +145,9 @@ class PkSceneManager(PkObject):
             if not supress_error:
                 raise e
         else:
-            self.logger.debug(f"Loaded scene {scene_id}. Took {t.elapsed} seconds.")
+            self.logger.debug(
+                f"Loaded scene {scene_id}. Took {t.elapsed} seconds."
+            )
 
     def unload_scene(self, scene_id: str) -> None:
         """Unload a scene.
@@ -175,7 +181,9 @@ class PkSceneManager(PkObject):
         if scene_id not in self.scenes:
             raise ValueError(f"Scene with ID '{scene_id}' does not exist.")
         del self.scenes[scene_id]
-        self.logger.debug(f"Removed scene {scene_id}. Scene count: {len(self.scenes)}")
+        self.logger.debug(
+            f"Removed scene {scene_id}. Scene count: {len(self.scenes)}"
+        )
 
     def input(
         self,

@@ -22,7 +22,11 @@ class PkColor:
             b (int): Blue value.
             a (int, optional): Alpha value. Defaults to 255.
         """
-        if not isinstance(r, int) or not isinstance(g, int) or not isinstance(b, int):
+        if (
+            not isinstance(r, int)
+            or not isinstance(g, int)
+            or not isinstance(b, int)
+        ):
             raise TypeError("RGB values must be integers.")
         if not isinstance(a, int):
             raise TypeError("Alpha value must be an integer.")
@@ -294,7 +298,9 @@ class PkColor:
             tuple[float, float, float, float]: HSVA tuple.
         """
         hsv = colorsys.rgb_to_hsv(
-            self.normalize(self.r), self.normalize(self.g), self.normalize(self.b)
+            self.normalize(self.r),
+            self.normalize(self.g),
+            self.normalize(self.b),
         )
         return (hsv[0] * 360, hsv[1], hsv[2], self.normalize(self.a))
 
@@ -306,7 +312,9 @@ class PkColor:
             tuple[float, float, float, float]: HSLA tuple.
         """
         hls = colorsys.rgb_to_hls(
-            self.normalize(self.r), self.normalize(self.g), self.normalize(self.b)
+            self.normalize(self.r),
+            self.normalize(self.g),
+            self.normalize(self.b),
         )
         hsl = hls[0] * 360, hls[2], hls[1]
         return hsl + (self.normalize(self.a),)
