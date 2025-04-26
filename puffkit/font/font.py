@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Font module for puffkit."""
+
 from __future__ import annotations
 from typing import TYPE_CHECKING
 

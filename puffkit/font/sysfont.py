@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """System font module for puffkit."""
+
 from __future__ import annotations
 
 import pygame as pg

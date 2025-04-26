@@ -34,8 +34,10 @@ class PkButtonWidget(PkWidget):
         disabled: bool = False,
         font_id: str = "default",
         background_color: PkColor | ColorValue = PkBasicPalette.GREY,
-        background_color_disabled: PkColor | ColorValue = PkBasicPalette.DARK_GREY,
-        background_color_pressed: PkColor | ColorValue = PkBasicPalette.LIGHT_GREY,
+        background_color_disabled: PkColor
+        | ColorValue = PkBasicPalette.DARK_GREY,
+        background_color_pressed: PkColor
+        | ColorValue = PkBasicPalette.LIGHT_GREY,
         background_color_hovered: PkColor | ColorValue = PkBasicPalette.BLUE,
         text_color: PkColor | ColorValue = PkBasicPalette.WHITE,
         text_align: str = "center",
@@ -80,11 +82,17 @@ class PkButtonWidget(PkWidget):
         if not isinstance(background_color, PkColor):
             background_color = PkColor.from_value(background_color)
         if not isinstance(background_color_disabled, PkColor):
-            background_color_disabled = PkColor.from_value(background_color_disabled)
+            background_color_disabled = PkColor.from_value(
+                background_color_disabled
+            )
         if not isinstance(background_color_pressed, PkColor):
-            background_color_pressed = PkColor.from_value(background_color_pressed)
+            background_color_pressed = PkColor.from_value(
+                background_color_pressed
+            )
         if not isinstance(background_color_hovered, PkColor):
-            background_color_hovered = PkColor.from_value(background_color_hovered)
+            background_color_hovered = PkColor.from_value(
+                background_color_hovered
+            )
         if not isinstance(text_color, PkColor):
             text_color = PkColor.from_value(text_color)
 

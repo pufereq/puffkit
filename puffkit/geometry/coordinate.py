@@ -111,12 +111,16 @@ class PkCoordinate:
         """
         return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5
 
-    def __eq__(self, other: PkCoordinate | tuple[int | float, int | float]) -> bool:
+    def __eq__(
+        self, other: PkCoordinate | tuple[int | float, int | float]
+    ) -> bool:
         if not isinstance(other, PkCoordinate):
             other = PkCoordinate(*other)
         return self.x == other.x and self.y == other.y
 
-    def __ne__(self, other: PkCoordinate | tuple[int | float, int | float]) -> bool:
+    def __ne__(
+        self, other: PkCoordinate | tuple[int | float, int | float]
+    ) -> bool:
         if not isinstance(other, PkCoordinate):
             other = PkCoordinate(*other)
         return self.x != other.x or self.y != other.y

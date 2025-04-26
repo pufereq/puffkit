@@ -84,7 +84,12 @@ class PkContainer(PkObject):
             )
             self.outline_surface.draw_rect(
                 PkRect(0, 0, self.rect.width, self.rect.height),
-                (rnd.randint(0, 255), rnd.randint(0, 255), rnd.randint(0, 255), 128),
+                (
+                    rnd.randint(0, 255),
+                    rnd.randint(0, 255),
+                    rnd.randint(0, 255),
+                    128,
+                ),
                 4,
             )
 
@@ -108,7 +113,9 @@ class PkContainer(PkObject):
         Args:
             widget (PkWidget): The widget to add.
         """
-        self.logger.debug(f"Adding widget {widget.id}: {widget} to container {self}")
+        self.logger.debug(
+            f"Adding widget {widget.id}: {widget} to container {self}"
+        )
         if widget.id in self.widgets:
             raise ValueError(
                 f"Widget with ID '{widget.id}' already exists in the container."
@@ -123,7 +130,9 @@ class PkContainer(PkObject):
         """
         self.logger.debug(f"Removing widget ID {id_} from container {self}")
         if id_ not in self.widgets:
-            raise ValueError(f"Widget with ID '{id_}' does not exist in the container.")
+            raise ValueError(
+                f"Widget with ID '{id_}' does not exist in the container."
+            )
         del self.widgets[id_]
 
     def get_widget(self, id_: str) -> PkWidget:
@@ -136,7 +145,9 @@ class PkContainer(PkObject):
             PkWidget: The widget with the given ID.
         """
         if id_ not in self.widgets:
-            raise ValueError(f"Widget with ID '{id_}' does not exist in the container.")
+            raise ValueError(
+                f"Widget with ID '{id_}' does not exist in the container."
+            )
         return self.widgets[id_]
 
     def update(self, delta: float) -> None:

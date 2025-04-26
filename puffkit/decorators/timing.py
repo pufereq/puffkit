@@ -9,7 +9,9 @@ from functools import wraps
 from typing import Any, Callable
 
 
-def measure_execution_time(func: Callable[..., object]) -> Callable[..., object]:
+def measure_execution_time(
+    func: Callable[..., object],
+) -> Callable[..., object]:
     """Measure the execution time of a function.
 
     Args:
