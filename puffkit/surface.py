@@ -68,7 +68,9 @@ class PkSurface(PkObject):
         if masks is None:
             self.internal_surface = pygame.Surface(size.tuple, flags, depth)
         else:
-            self.internal_surface = pygame.Surface(size.tuple, flags, depth, masks)
+            self.internal_surface = pygame.Surface(
+                size.tuple, flags, depth, masks
+            )
 
     def __str__(self) -> str:  # pragma: no cover
         """Return the string representation of the surface."""
@@ -155,8 +157,14 @@ class PkSurface(PkObject):
         self,
         blit_sequence: (
             list[tuple[PkSurface, tuple[int, int]]]
-            | list[tuple[PkSurface, tuple[int, int], tuple[int, int, int, int]]]
-            | list[tuple[PkSurface, tuple[int, int], tuple[int, int, int, int], int]]
+            | list[
+                tuple[PkSurface, tuple[int, int], tuple[int, int, int, int]]
+            ]
+            | list[
+                tuple[
+                    PkSurface, tuple[int, int], tuple[int, int, int, int], int
+                ]
+            ]
         ),
     ):
         """Draw multiple surfaces onto this surface.
@@ -312,7 +320,9 @@ class PkSurface(PkObject):
         """
         return PkColor.from_pygame(self.internal_surface.get_at(pos))
 
-    def set_at(self, pos: tuple[int, int], color: PkColor | ColorValue) -> None:
+    def set_at(
+        self, pos: tuple[int, int], color: PkColor | ColorValue
+    ) -> None:
         """Set the color of a pixel.
 
         Args:
@@ -340,7 +350,9 @@ class PkSurface(PkObject):
         Returns:
             list[PkColor]: Palette of the surface.
         """
-        return [PkColor(*color) for color in self.internal_surface.get_palette()]
+        return [
+            PkColor(*color) for color in self.internal_surface.get_palette()
+        ]
 
     def set_palette(self, palette: list[PkColor]) -> None:
         """Set the palette of the surface.
@@ -546,7 +558,9 @@ class PkSurface(PkObject):
         """
         return self.internal_surface.get_losses()
 
-    def get_bounding_rect(self, min_alpha: int = 1) -> tuple[int, int, int, int]:
+    def get_bounding_rect(
+        self, min_alpha: int = 1
+    ) -> tuple[int, int, int, int]:
         """Get the bounding rect of the surface.
 
         Args:
@@ -599,7 +613,9 @@ class PkSurface(PkObject):
         Returns:
             Surface: Scaled surface.
         """
-        return self.from_pygame(pygame.transform.scale(self.internal_surface, size))
+        return self.from_pygame(
+            pygame.transform.scale(self.internal_surface, size)
+        )
 
     def draw_rect(
         self,
@@ -699,7 +715,9 @@ class PkSurface(PkObject):
         if not isinstance(color, PkColor):
             color = PkColor.from_value(color)
         if not isinstance(bg_color, PkColor):
-            bg_color = PkColor.from_value(bg_color) if bg_color is not None else None
+            bg_color = (
+                PkColor.from_value(bg_color) if bg_color is not None else None
+            )
 
         # rect conversion
         rect = PkRect.from_value(rect)
