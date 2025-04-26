@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Scene module for simulat."""
+
 from __future__ import annotations
 
 import logging as lg
@@ -24,7 +25,9 @@ class PkScene(PkObject):
     A scene takes up the whole screen (minus the topbar).
     """
 
-    def __init__(self, _id: str, app: PkApp, *, lazy: bool, auto_unload: bool) -> None:
+    def __init__(
+        self, _id: str, app: PkApp, *, lazy: bool, auto_unload: bool
+    ) -> None:
         """Initialize the scene class.
 
         Args:
@@ -112,7 +115,12 @@ class PkScene(PkObject):
                 if (x + y) % (_checkerboard_rect_size * 2) == 0:
                     self.surface.fill(
                         PkBasicPalette.DARK_GREY,
-                        (x, y, _checkerboard_rect_size, _checkerboard_rect_size),
+                        (
+                            x,
+                            y,
+                            _checkerboard_rect_size,
+                            _checkerboard_rect_size,
+                        ),
                     )
 
         self.on_render()
