@@ -35,7 +35,8 @@ class PkTextInputWidget(PkWidget):
         disabled: bool = False,
         font_id: str = "default",
         background_color: PkColor | ColorValue = PkBasicPalette.GREY,
-        background_color_disabled: PkColor | ColorValue = PkBasicPalette.DARK_GREY,
+        background_color_disabled: PkColor
+        | ColorValue = PkBasicPalette.DARK_GREY,
         background_color_focused: PkColor | ColorValue = PkBasicPalette.BLUE,
         text_color: PkColor | ColorValue = PkBasicPalette.WHITE,
         text_align: str = "left",
@@ -45,7 +46,8 @@ class PkTextInputWidget(PkWidget):
         placeholder: str = "",
         placeholder_color: PkColor | ColorValue = PkBasicPalette.LIGHT_GREY,
         placeholder_color_disabled: PkColor | ColorValue = PkBasicPalette.GREY,
-        placeholder_color_focused: PkColor | ColorValue = PkBasicPalette.LIGHT_GREY,
+        placeholder_color_focused: PkColor
+        | ColorValue = PkBasicPalette.LIGHT_GREY,
     ) -> None:
         """Initialize the text input widget.
 
@@ -106,11 +108,11 @@ class PkTextInputWidget(PkWidget):
         self.background_color: PkColor | ColorValue = PkColor.from_value(
             background_color
         )
-        self.background_color_disabled: PkColor | ColorValue = PkColor.from_value(
-            background_color_disabled
+        self.background_color_disabled: PkColor | ColorValue = (
+            PkColor.from_value(background_color_disabled)
         )
-        self.background_color_focused: PkColor | ColorValue = PkColor.from_value(
-            background_color_focused
+        self.background_color_focused: PkColor | ColorValue = (
+            PkColor.from_value(background_color_focused)
         )
         self.text_color: PkColor | ColorValue = PkColor.from_value(text_color)
 
@@ -122,11 +124,11 @@ class PkTextInputWidget(PkWidget):
         self.placeholder_color: PkColor | ColorValue = PkColor.from_value(
             placeholder_color
         )
-        self.placeholder_color_disabled: PkColor | ColorValue = PkColor.from_value(
-            placeholder_color_disabled
+        self.placeholder_color_disabled: PkColor | ColorValue = (
+            PkColor.from_value(placeholder_color_disabled)
         )
-        self.placeholder_color_focused: PkColor | ColorValue = PkColor.from_value(
-            placeholder_color_focused
+        self.placeholder_color_focused: PkColor | ColorValue = (
+            PkColor.from_value(placeholder_color_focused)
         )
 
         self.cursor: int = len(self.text)
@@ -202,7 +204,9 @@ class PkTextInputWidget(PkWidget):
 
         if event.key == "backspace":
             if self.text:
-                self.text = self.text[: self.cursor - 1] + self.text[self.cursor :]
+                self.text = (
+                    self.text[: self.cursor - 1] + self.text[self.cursor :]
+                )
                 self.cursor = max(0, self.cursor - 1)
         elif event.key == "left":
             self.cursor = max(0, self.cursor - 1)
@@ -214,7 +218,9 @@ class PkTextInputWidget(PkWidget):
             self.cursor = len(self.text)
         elif event.key == "delete":
             if self.text:
-                self.text = self.text[: self.cursor] + self.text[self.cursor + 1 :]
+                self.text = (
+                    self.text[: self.cursor] + self.text[self.cursor + 1 :]
+                )
         else:
             if event.unicode.isprintable() and event.unicode != "":
                 if self.max_length == 0 or len(self.text) < self.max_length:
@@ -278,22 +284,22 @@ class PkTextInputWidget(PkWidget):
         """
         if self.disabled:
             self.surface.fill(self.background_color_disabled)
-            self._inner_container.get_widget(f"{self.id}_placeholder").surface.fill(
-                self.placeholder_color_disabled
-            )
+            self._inner_container.get_widget(
+                f"{self.id}_placeholder"
+            ).surface.fill(self.placeholder_color_disabled)
         else:
             self.surface.fill(self.background_color)
-            self._inner_container.get_widget(f"{self.id}_placeholder").surface.fill(
-                self.placeholder_color
-            )
+            self._inner_container.get_widget(
+                f"{self.id}_placeholder"
+            ).surface.fill(self.placeholder_color)
 
         text_with_cursor = self.text
 
         if self.focused:
             # self.surface.fill(self.background_color_focused)
-            self._inner_container.get_widget(f"{self.id}_placeholder").surface.fill(
-                self.placeholder_color_focused
-            )
+            self._inner_container.get_widget(
+                f"{self.id}_placeholder"
+            ).surface.fill(self.placeholder_color_focused)
             cursor = self.cursor_chars[
                 int(
                     self.cursor_blink_timer
@@ -310,10 +316,14 @@ class PkTextInputWidget(PkWidget):
                 text_with_cursor
             )
             self._inner_container.get_widget(f"{self.id}_text").visible = True
-            self._inner_container.get_widget(f"{self.id}_placeholder").visible = False
+            self._inner_container.get_widget(
+                f"{self.id}_placeholder"
+            ).visible = False
         else:
             self._inner_container.get_widget(f"{self.id}_text").set_text("")
             self._inner_container.get_widget(f"{self.id}_text").visible = False
-            self._inner_container.get_widget(f"{self.id}_placeholder").visible = True
+            self._inner_container.get_widget(
+                f"{self.id}_placeholder"
+            ).visible = True
 
         self._inner_container.render()
