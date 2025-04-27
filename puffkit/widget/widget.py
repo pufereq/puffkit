@@ -294,6 +294,9 @@ class PkWidget(PkObject):
         for event in events:
             if event.name == "KEYDOWN":
                 self.on_key_down(event)
+                if event.key == "escape":
+                    self.on_unfocus(event)
+                    self.focused = False
             elif event.name == "KEYUP":
                 self.on_key_up(event)
             elif event.name == "MOUSEMOTION":
