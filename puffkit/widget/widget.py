@@ -254,7 +254,9 @@ class PkWidget(PkObject):
     def on_change(self, event: PkEvent) -> None:  # pragma: no cover
         """Handle the change event.
 
-        This method is called when the widget's state changes.
+        This method is called when the widget's content changes.
+        This is used for widgets that have a value, such as sliders or text
+        inputs.
 
         Args:
             event (PkEvent): The change event.
