@@ -37,3 +37,6 @@ build/
 # Log files
 logs/
 *.log
+
+# Sphinx
+docs/_build/
