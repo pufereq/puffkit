@@ -1,0 +1,11 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "command": "pdm run sphinx-build -M html docs docs/_build && exit",
+            "name": "Build Sphinx docs",
+            "request": "launch",
+            "type": "node-terminal"
+        }
+    ],
+}
