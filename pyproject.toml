@@ -13,7 +13,7 @@ dependencies = [
     "pygame-ce>=2.5.1",
     "pyyaml>=6.0.2",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.13"
 readme = "README.md"
 license = {text = "LGPL-3.0+"}
 
