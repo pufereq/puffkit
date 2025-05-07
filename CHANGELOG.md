@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.1-post.5] - 2025-05-07
+
+### Miscellaneous Tasks
+
+- [`d9fc0a7`](https://github.com/pufereq/template-repo/commit/d9fc0a7d0956c1d964987f69962ff1a33be19faf) **pdm.lock**: update dependencies
+
 ## [0.10.1-post.4] - 2025-05-03
 
 ### Miscellaneous Tasks
