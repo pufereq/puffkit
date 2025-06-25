@@ -13,7 +13,7 @@ dependencies = [
     "pygame-ce>=2.5.1",
     "pyyaml>=6.0.2",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.13"
 readme = "README.md"
 license = {text = "LGPL-3.0+"}
 
@@ -34,6 +34,10 @@ bump = [
 lint = [
     "isort>=5.13.2",
     "ruff>=0.11.6",
+]
+docs = [
+    "sphinx>=8.2.3",
+    "furo>=2024.8.6",
 ]
 
 [tool.ruff]
@@ -63,6 +67,8 @@ addopts = [
 [tool.coverage.run]
 omit = [
     "puffkit/__init__.py",
+    "examples/*",
+    "docs/*",
     "tests/*",
 ]
 
