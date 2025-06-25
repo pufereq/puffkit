@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0-post.1] - 2025-06-25
+
+### Miscellaneous Tasks
+
+- [`43a8337`](https://github.com/pufereq/template-repo/commit/43a83374ee16c3c50c5994eac929d9f5fd6a5822) **.readthedocs.yaml**: add readthedocs config file
+
+### Build
+
+- [`4d379e1`](https://github.com/pufereq/template-repo/commit/4d379e1b97cb847e40f7699ac9ba3c7e31b8c581) **docs/requirements.txt**: add requirements for docs for readthedocs
+
 ## [0.11.0] - 2025-06-25
 
 ### Documentation
