@@ -40,3 +40,4 @@ logs/
 
 # Sphinx
 docs/_build/
+docs/ref/modules/
