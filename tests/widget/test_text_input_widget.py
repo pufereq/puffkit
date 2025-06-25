@@ -167,3 +167,23 @@ def test_invalid_padding_raises_value_error(mock_container):
             rect=rect,
             padding=6,
         )
+
+
+def test_set_text_no_suppress(text_input_widget):
+    """Test the set_text method with supress_hook=False."""
+    new_text = "new text"
+
+    text_input_widget.set_text(new_text, supress_hook=False)
+    assert text_input_widget.text == new_text
+    assert text_input_widget.cursor == len(new_text)  # cursor should be at the end
+    text_input_widget.on_change_hook.assert_called_once_with(text_input_widget)
+
+
+def test_set_text_with_suppress(text_input_widget):
+    """Test the set_text method with supress_hook=True."""
+    new_text = "new text"
+
+    text_input_widget.set_text(new_text, supress_hook=True)
+    assert text_input_widget.text == new_text
+    assert text_input_widget.cursor == len(new_text)  # cursor should be at the end
+    text_input_widget.on_change_hook.assert_not_called()  # hook should not be called
