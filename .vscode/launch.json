@@ -2,8 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "command": "pdm run sphinx-build -M html docs docs/_build && exit",
+            "name": "Clean build Sphinx docs",
+            "command": "make clean && make html && exit",
+            "cwd": "${workspaceFolder}/docs",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
             "name": "Build Sphinx docs",
+            "command": "make html && exit",
+            "cwd": "${workspaceFolder}/docs",
             "request": "launch",
             "type": "node-terminal"
         }
