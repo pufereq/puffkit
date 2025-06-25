@@ -241,3 +241,21 @@ def test_widget_pressed(mock_container: MagicMock) -> None:
     widget.pressed = True
     assert widget.pressed
     assert widget._pressed
+
+
+def test_widget_unfocus_escape_keypress(mock_container: MagicMock) -> None:
+    """Test that pressing escape key unfocuses the widget."""
+    widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10), focusable=True)
+    widget.focused = True
+    widget.on_unfocus = MagicMock()
+
+    # Simulate escape key press
+    event = MagicMock()
+    event.name = "KEYDOWN"
+    event.key = "escape"
+
+    widget.input(events=[event], keys={}, mouse_pos=(0, 0), mouse_buttons=(False, False, False))
+    widget.update(0.016)
+
+    assert not widget.focused
+    widget.on_unfocus.assert_called_once_with(event)

@@ -34,6 +34,9 @@ def text_input_widget(mock_container):
         text="",
         max_length=10,
         placeholder="Enter text",
+        on_change_hook=Mock(),
+        on_focus_hook=Mock(),
+        on_unfocus_hook=Mock(),
     )
 
 
@@ -71,13 +74,13 @@ def test_on_key_down_no_focus(text_input_widget):
 def test_on_key_down_action(text_input_widget):
     """Test the on_key_down method with an action key."""
     text_input_widget.focused = True
-    text_input_widget.action_on_change = Mock()
+    text_input_widget.on_change_hook = Mock()
     initial_text = "hello"
     text_input_widget.text = initial_text
     text_input_widget.cursor = len(initial_text)
     text_input_widget.on_key_down(Mock(key="enter", unicode=""))
     assert text_input_widget.text == initial_text
-    text_input_widget.action_on_change.assert_called_once_with(text_input_widget)
+    text_input_widget.on_change_hook.assert_called_once_with(text_input_widget)
 
 
 def test_on_focus(text_input_widget):
@@ -85,18 +88,18 @@ def test_on_focus(text_input_widget):
     mock_event = Mock()
 
     # widget not disabled
-    text_input_widget.action_on_focus = Mock()
+    text_input_widget.on_focus_hook = Mock()
     text_input_widget.on_focus(mock_event)
     assert text_input_widget.cursor_blink_timer == 0
-    assert text_input_widget.action_on_focus.called
+    assert text_input_widget.on_focus_hook.called
 
     # widget disabled
     text_input_widget.disabled = True
     text_input_widget.cursor_blink_timer = 0.5
-    text_input_widget.action_on_focus = Mock()
+    text_input_widget.on_focus_hook = Mock()
     text_input_widget.on_focus(mock_event)
     assert text_input_widget.cursor_blink_timer == 0.5  # ensure the timer is not reset
-    text_input_widget.action_on_focus.assert_not_called()
+    text_input_widget.on_focus_hook.assert_not_called()
 
 
 def test_on_unfocus(text_input_widget):
@@ -104,9 +107,9 @@ def test_on_unfocus(text_input_widget):
     mock_event = Mock()
 
     # widget not disabled
-    text_input_widget.action_on_unfocus = Mock()
+    text_input_widget.on_unfocus_hook = Mock()
     text_input_widget.on_unfocus(mock_event)
-    text_input_widget.action_on_unfocus.assert_called_once_with(text_input_widget)
+    text_input_widget.on_unfocus_hook.assert_called_once_with(text_input_widget)
 
     # widget disabled
     text_input_widget.disabled = True
@@ -164,3 +167,23 @@ def test_invalid_padding_raises_value_error(mock_container):
             rect=rect,
             padding=6,
         )
+
+
+def test_set_text_no_suppress(text_input_widget):
+    """Test the set_text method with supress_hook=False."""
+    new_text = "new text"
+
+    text_input_widget.set_text(new_text, supress_hook=False)
+    assert text_input_widget.text == new_text
+    assert text_input_widget.cursor == len(new_text)  # cursor should be at the end
+    text_input_widget.on_change_hook.assert_called_once_with(text_input_widget)
+
+
+def test_set_text_with_suppress(text_input_widget):
+    """Test the set_text method with supress_hook=True."""
+    new_text = "new text"
+
+    text_input_widget.set_text(new_text, supress_hook=True)
+    assert text_input_widget.text == new_text
+    assert text_input_widget.cursor == len(new_text)  # cursor should be at the end
+    text_input_widget.on_change_hook.assert_not_called()  # hook should not be called

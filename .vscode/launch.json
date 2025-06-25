@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Clean build Sphinx docs",
+            "command": "make clean && make html && exit",
+            "cwd": "${workspaceFolder}/docs",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "name": "Build Sphinx docs",
+            "command": "make html && exit",
+            "cwd": "${workspaceFolder}/docs",
+            "request": "launch",
+            "type": "node-terminal"
+        }
+    ],
+}
