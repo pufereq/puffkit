@@ -34,6 +34,9 @@ def text_input_widget(mock_container):
         text="",
         max_length=10,
         placeholder="Enter text",
+        on_change_hook=Mock(),
+        on_focus_hook=Mock(),
+        on_unfocus_hook=Mock(),
     )
 
 
