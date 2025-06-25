@@ -20,7 +20,7 @@ license = {text = "LGPL-3.0+"}
 [tool.pdm]
 distribution = true
 
-[tool.pdm.dev-dependencies]
+[dependency-groups]
 test = [
     "pytest>=8.3.3",
     "pytest-cov>=5.0.0",
@@ -30,6 +30,14 @@ test = [
 bump = [
     "git-cliff>=2.6.0",
     "python-semantic-release>=9.8.8",
+]
+lint = [
+    "isort>=5.13.2",
+    "ruff>=0.11.6",
+]
+docs = [
+    "sphinx>=8.2.3",
+    "furo>=2024.8.6",
 ]
 
 [tool.ruff]
@@ -85,13 +93,3 @@ allowed_tags = ["build", "chore", "ci", "docs", "feat", "fix", "perf", "style", 
 minor_tags = ["feat"]
 patch_tags = ["fix", "perf"]
 default_bump_level = 0
-
-[dependency-groups]
-lint = [
-    "isort>=5.13.2",
-    "ruff>=0.11.6",
-]
-docs = [
-    "sphinx>=8.2.3",
-    "furo>=2024.8.6",
-]
