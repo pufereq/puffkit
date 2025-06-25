@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0] - 2025-06-25
+
+### Documentation
+
+- [`8623e21`](https://github.com/pufereq/template-repo/commit/8623e215dfedbb55c2923745545aa0858f9b6d1e) **README.md**: add a License section
+- [`39291f7`](https://github.com/pufereq/template-repo/commit/39291f71da2eab29324d53314f42afc86b5c8694) **index.rst**: add the main page of docs
+- [`75d6b2d`](https://github.com/pufereq/template-repo/commit/75d6b2db81cd34310358c62fe4c1ed972dd13fc8) **getting_started.rst**: add the Getting Started section
+- [`06ee0a2`](https://github.com/pufereq/template-repo/commit/06ee0a26bb462eda932b208262c53c282a9ce594) **tutorial.rst**: add a basic tutorial of puffkit
+- [`70afd7b`](https://github.com/pufereq/template-repo/commit/70afd7be8112c66f246090c801ca6a418355447c) **installation.rst**: add Installation section
+- [`594e1de`](https://github.com/pufereq/template-repo/commit/594e1dec2d864e79a54447401cfbe6ea6a4d4e4a) **_templates/**: add _templates folder
+- [`189bbc1`](https://github.com/pufereq/template-repo/commit/189bbc131bf887ef39f80d5be1665bee7e8884a7) **_static/**: add _static folder
+- [`45d7635`](https://github.com/pufereq/template-repo/commit/45d7635aa1307309a14ae9a066d69b03408d0bc3) **reference.rst**: add API Reference
+- [`00f7dbd`](https://github.com/pufereq/template-repo/commit/00f7dbd65c01645a4a77dad840fda40396c2395b) add base sphinx files
+
+### Miscellaneous Tasks
+
+- [`a0215b9`](https://github.com/pufereq/template-repo/commit/a0215b952822ea259b85f5c285baf5634fd3904b) **pyproject.toml**: migrate old `dev-depedencies` to `depedency-groups`
+- [`e9d3a71`](https://github.com/pufereq/template-repo/commit/e9d3a71df0759cc61aaad5ac305634a45411147e) **.gitignore**: ignore dynamically-generated module references
+- [`40955c8`](https://github.com/pufereq/template-repo/commit/40955c8976a84a487e6d9ea02c3cd7dacc623485) **.vscode/launch.json**: add Clean build Sphinx docs config
+- [`8358f7f`](https://github.com/pufereq/template-repo/commit/8358f7f8ab6c9daba98bc762cc4bb0bda4c61a14) **.gitignore**: add Sphinx-specific directories to gitignore
+- [`26f3ccd`](https://github.com/pufereq/template-repo/commit/26f3ccda3ec2a09114858a98d419d92797506779) change license to LGPL-3.0
+
+### Testing
+
+- [`b729441`](https://github.com/pufereq/template-repo/commit/b72944145aadb2e4e36f4cbc91c04c9297bca2c7) **text_input_widget.py**: add tests for `set_text()`
+- [`0f53d59`](https://github.com/pufereq/template-repo/commit/0f53d590a1ebf90b81387a957d73adf73ba834ee) **text_input_widget.py**: fix badly-written tests
+- [`8bc089c`](https://github.com/pufereq/template-repo/commit/8bc089c707942310fb7573f3dcb2fb94ccac2882) **text_input_widget.py**: set hooks to Mock by default in fixture
+- [`fa1f570`](https://github.com/pufereq/template-repo/commit/fa1f570b75adc172ecaa4630c9c5249e5eb105a1) **test_widget.py**: test unfocusing with <ESC>
+
+### Build
+
+- [`bc69358`](https://github.com/pufereq/template-repo/commit/bc6935883108658fb1785745bf75ba75391bede6) **pyproject.toml**: fix the license to match SPDX name
+- [`6198aef`](https://github.com/pufereq/template-repo/commit/6198aefd7a2bbe3af3e3816026aaf2cb8d7defd7) **pdm.lock**: add `furo` to lockfile
+- [`7a8271d`](https://github.com/pufereq/template-repo/commit/7a8271d3ff38730c2f39e59f1d68a0c5ea88d5ce) **pyproject.toml**: add the Furo Sphinx theme
+- [`d2ab36b`](https://github.com/pufereq/template-repo/commit/d2ab36bf6ddb8f1297abd92ba1accafb6be6a54d) **pyproject.toml**: omit `docs/` and `examples` from coverage
+- [`0084cba`](https://github.com/pufereq/template-repo/commit/0084cbab23d52ee05a769a12df58abeada6aad37) **.vscode/launch.json**: add 'Build Sphinx docs' launch option
+- [`2e6f84a`](https://github.com/pufereq/template-repo/commit/2e6f84a38d65a8bc93cd90e5ae33c3994238e258) add sphinx as a depedency
+- [`a19bbbc`](https://github.com/pufereq/template-repo/commit/a19bbbc220c93bf6e4a2c8fac72ad3be4d5260a4) **pyproject.toml**: require python >= 3.13
+
 ## [0.10.1-post.5] - 2025-05-07
 
 ### Miscellaneous Tasks
@@ -10,9 +49,22 @@ All notable changes to this project will be documented in this file.
 
 ## [0.10.1-post.4] - 2025-05-03
 
+### Documentation
+
+- [`35069c6`](https://github.com/pufereq/template-repo/commit/35069c66da63a902a1bc54da8085a87d3e2019fa) **widget.py**: correct docstring of `PkWidget.on_change()`
+
+### Features
+
+- [`193d142`](https://github.com/pufereq/template-repo/commit/193d142b455ae70287b3308bfebbad3358869b89) **text_input_widget.py**: add `PkTextInputWidget.set_text()` method
+- [`bee526a`](https://github.com/pufereq/template-repo/commit/bee526ad018621266e702994cee991377044a140) **widget.py**: unfocus widget if <ESC> pressed
+
 ### Miscellaneous Tasks
 
 - [`3339069`](https://github.com/pufereq/template-repo/commit/333906997cef4b48f745e755bd37b383f55bb96b) **pdm.lock**: update dependencies
+
+### Refactor
+
+- [`2e49203`](https://github.com/pufereq/template-repo/commit/2e492030b6b05715bf5199e7c6f618746a66fd56) **text_input_widget.py**: rename `action_on...` to `on_..._hook` for parity
 
 ## [0.10.1-post.3] - 2025-04-26
 
