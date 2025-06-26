@@ -20,7 +20,7 @@ Setting up
 ----------
 
 First, make sure you have `pdm` installed. If you don't have it yet, refer to
-the `Installation guide <installation.html>`_.
+the :ref:`installation guide <introduction/installation:Installation>`
 
 Creating the project
 --------------------
@@ -55,24 +55,24 @@ Some theory
 
 puffkit works with the concept of "containers" and "widgets".
 
-`App <../ref/modules/puffkit.app.html#puffkit.app.PkApp>`_
+:class:`PkApp <puffkit.app.PkApp>`
     An app is the main entry point of your application. It is responsible for
     initializing the application, creating the main window, and managing the
     event loop. The app can have multiple scenes, which are different
     screens or views within the application.
 
-`Scene <../ref/modules/puffkit.scene.scene.html#puffkit.scene.scene.PkScene>`_
+:class:`PkScene <puffkit.scene.scene.PkScene>`
     A scene is a specific screen or view within your app. It can contain
     various widgets and containers. Scenes can be switched dynamically, allowing
     you to create multi-screen applications. Each scene can have its own layout
     and behavior.
 
-`Container <../ref/modules/puffkit.container.html#puffkit.container.PkContainer>`_
+:class:`PkContainer <puffkit.container.PkContainer>`
     A container is a special object that can hold other widgets. It is used to
     organize the layout of your app. Containers can be nested, allowing you to
     create complex layouts with ease.
 
-`Widget <../ref/modules/puffkit.widget.html>`_
+:class:`PkWidget <puffkit.widget.widget.PkWidget>`
     A widget is a basic building block of your app. It can be a button, label,
     text input, or any other interactive element. Widgets can be added to
     containers to create a user interface. Each widget can have its own
