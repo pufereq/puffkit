@@ -20,7 +20,7 @@ Setting up
 ----------
 
 First, make sure you have `pdm` installed. If you don't have it yet, refer to
-the `Installation guide <installation>`_.
+the `Installation guide <installation.html>`_.
 
 Creating the project
 --------------------
