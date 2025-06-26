@@ -27,6 +27,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.autosummary",
     "sphinx.ext.viewcode",
+    "sphinx.ext.autosectionlabel",
 ]
 
 templates_path = ["_templates"]
@@ -46,6 +47,8 @@ autodoc_default_options = {
 }
 
 napoleon_include_init_with_doc = True
+
+autosectionlabel_prefix_document = True
 
 
 # -- Options for HTML output -------------------------------------------------
