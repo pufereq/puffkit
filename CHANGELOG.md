@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0-post.2] - 2025-06-26
+
+### Bug Fixes
+
+- [`b600e13`](https://github.com/pufereq/template-repo/commit/b600e13c95b4a1b623efa459dd87c36528078591) **docs/conf.py**: fix error on docs build
+
+### Documentation
+
+- [`fe116c1`](https://github.com/pufereq/template-repo/commit/fe116c126ba4a295378e4fd6a258496568ccf64c) **tutorial.rst**: fix badly-written links
+- [`a0e63d0`](https://github.com/pufereq/template-repo/commit/a0e63d0b1fc6708691df0d572ecdddfb3dea7255) **conf.py**: add sphinx.ext.autosectionlabel with config
+- [`194f6c9`](https://github.com/pufereq/template-repo/commit/194f6c94c0105780cf972e0a7195bf7460d5be84) **tutorial.rst**: fix links to point to HTML files
+- [`9b29946`](https://github.com/pufereq/template-repo/commit/9b29946fe132d8afc134a0852fe679f5697732b5) **getting_started.rst**: fix links to point to HTML files
+
 ## [0.11.0-post.1] - 2025-06-25
 
 ### Miscellaneous Tasks
