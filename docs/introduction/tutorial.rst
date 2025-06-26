@@ -20,7 +20,7 @@ Setting up
 ----------
 
 First, make sure you have `pdm` installed. If you don't have it yet, refer to
-the :ref:`installation guide <introduction/installation:Installation>`
+the :doc:`installation guide <installation>`
 
 Creating the project
 --------------------

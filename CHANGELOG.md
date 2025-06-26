@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0-post.3] - 2025-06-26
+
+### Documentation
+
+- [`e0aab4d`](https://github.com/pufereq/template-repo/commit/e0aab4d09761d3c91b9d04a2877f4f3ed763b1ed) **tutorial.rst**: replace unnecesarry ref with doc
+- [`6d0ee66`](https://github.com/pufereq/template-repo/commit/6d0ee66500189c4da412fbaa2a30b1545778a171) **getting_started.rst**: fix links
+
 ## [0.11.0-post.2] - 2025-06-26
 
 ### Bug Fixes
