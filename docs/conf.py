@@ -6,6 +6,12 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import os
+import sys
+
+# Add the project root to the system path so that Sphinx can find the package
+sys.path.insert(0, os.path.abspath(".."))
+
 from puffkit import __version__ as puffkit_version
 
 project = "puffkit"
@@ -21,6 +27,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.autosummary",
     "sphinx.ext.viewcode",
+    "sphinx.ext.autosectionlabel",
 ]
 
 templates_path = ["_templates"]
@@ -40,6 +47,8 @@ autodoc_default_options = {
 }
 
 napoleon_include_init_with_doc = True
+
+autosectionlabel_prefix_document = True
 
 
 # -- Options for HTML output -------------------------------------------------
