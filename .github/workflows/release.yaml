@@ -126,7 +126,7 @@ jobs:
       - name: 📤 merge into develop
         run: |
           git checkout develop
-          git merge main --no-ff
+          git merge main
           git push origin develop
 
       - name: ✅ done
