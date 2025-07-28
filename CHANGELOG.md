@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.1] - 2025-07-28
+
+### Documentation
+
+- [`b893026`](https://github.com/pufereq/template-repo/commit/b893026c4340c3e3b8e4480d9ba0e414073a8f7e) **installation.rst**: add section for uv and mark it as recommended
+- [`a8eb048`](https://github.com/pufereq/template-repo/commit/a8eb04840b4ca42e2e8626079235e48837ee65a2) **installation.rst**: simplify install instructions for `pip`
+- [`698c799`](https://github.com/pufereq/template-repo/commit/698c799b2b2d738b70d6d1af3c94408a17d5e4dc) **conf.py**: set src as project root
+
+### Miscellaneous Tasks
+
+- [`3dad649`](https://github.com/pufereq/template-repo/commit/3dad649c465171e2aff7bdb3990c96c7fd7d9bc5) **release.yaml**: replace pdm with uv
+- [`cd0559c`](https://github.com/pufereq/template-repo/commit/cd0559c164dc8242334b5bfa3fcc81e3e8b809d3) **pr_checks.yaml**: replace pdm with uv
+- [`05e378a`](https://github.com/pufereq/template-repo/commit/05e378a96bb8ddf1c6d73af660908b5f9cf79662) **commit_checks.yaml**: replace pdm with uv
+- [`dbf730b`](https://github.com/pufereq/template-repo/commit/dbf730b8f44cf7c43a94a6afb558bfe763d16760) **update_depedencies.yaml**: remove unused workflow
+- [`23bc9f2`](https://github.com/pufereq/template-repo/commit/23bc9f2a5e704e7f0de84ed32b2593ec1512eb76) **pyproject.toml**: remove pdm-specific config
+- [`6900ced`](https://github.com/pufereq/template-repo/commit/6900cedebfac7f78dd62b1efdadadd7877087855) **release.yaml**: allow fast-forward on develop merge
+
+### Refactor
+
+- [`6c7301a`](https://github.com/pufereq/template-repo/commit/6c7301a8d9cf7d17323566850fc6f75a5e237f44) **widget**: move `puffkit/widget` to `src/puffkit/widget`
+- [`0836784`](https://github.com/pufereq/template-repo/commit/0836784dced3179643831597e42efc00b869c881) **textures.py**: move `puffkit/textures.py` to `src/puffkit/textures.py`
+- [`f962783`](https://github.com/pufereq/template-repo/commit/f9627832db9a73cddb7202f4108e798382a3022d) **surface.py**: move `puffkit/surface.py` to `src/puffkit/surface.py`
+- [`d27e07b`](https://github.com/pufereq/template-repo/commit/d27e07b0fdaaa9a95ccf3a5ce7fbf220cb24128b) **subsurface.py**: move `puffkit/subsurface.py` to `src/puffkit/subsurface.py`
+- [`27c20b9`](https://github.com/pufereq/template-repo/commit/27c20b9d50a6830293050bd21842cce59aff9c5e) **scene**: move `puffkit/scene` to `src/puffkit/scene`
+- [`2e3ff94`](https://github.com/pufereq/template-repo/commit/2e3ff94d66f9ecc660f2208e2c26a1c67809d2cb) **object.py**: move `puffkit/object.py` to `src/puffkit/object.py`
+- [`4f87a14`](https://github.com/pufereq/template-repo/commit/4f87a14fff60ae82f9f10d6514050afa05d2272b) **__init__.py**: move `puffkit/__init__.py` to `src/puffkit/__init__.py`
+- [`cade90f`](https://github.com/pufereq/template-repo/commit/cade90f2b1c118a304187cd0ba845f24599c3548) **geometry**: move `puffkit/geometry` to `src/puffkit/geometry`
+- [`f9258f9`](https://github.com/pufereq/template-repo/commit/f9258f9e8c72447456c33731eaf90114ac279134) **font**: move `puffkit/font` to `src/puffkit/font`
+- [`ed5e8b8`](https://github.com/pufereq/template-repo/commit/ed5e8b8f90cf7fb51f06f0a77b7f31798d0ff67b) **event**: move `puffkit/event` to `src/puffkit/event`
+- [`22e78c4`](https://github.com/pufereq/template-repo/commit/22e78c41025003fd4f3ac2dd4946a41482a3b8a8) **decorators**: move `puffkit/decorators` to `src/puffkit/decorators`
+- [`e5c2241`](https://github.com/pufereq/template-repo/commit/e5c2241eeb4b66a3bf69c9a8b249452e238c3d2d) **container.py**: move `puffkit/container.py` to `src/puffkit/container.py`
+- [`0ffc0a3`](https://github.com/pufereq/template-repo/commit/0ffc0a3b11fbe8a46a18060f19dd5cc72eca853e) **color**: move `puffkit/color` to `src/puffkit/color`
+- [`889edfb`](https://github.com/pufereq/template-repo/commit/889edfbb3da034f76c0606f740a8c9353b34ab79) **app.py**: move `puffkit/app.py` to `src/puffkit/app.py`
+
+### Build
+
+- [`0b14cdc`](https://github.com/pufereq/template-repo/commit/0b14cdc19e1473a6afd0cb9494cb758f97e64bb4) **uv.lock**: update metadata and deps
+- [`f9cc44b`](https://github.com/pufereq/template-repo/commit/f9cc44b28046080df0247f98d0e853087e5eb3ab) **pyproject.toml**: change commit_parser to `conventional`
+- [`f2609b3`](https://github.com/pufereq/template-repo/commit/f2609b319fa13436cf672f1e6dd698a2d1b91e1b) **pyproject.toml**: order and update dep-groups
+- [`de9140b`](https://github.com/pufereq/template-repo/commit/de9140bc7d5dfe98c392f1be6909a43cdb72ecfb) **uv.lock**: add uv lockfile
+- [`4cb55f4`](https://github.com/pufereq/template-repo/commit/4cb55f462910403ba223affa954a42e8279d555a) **pyproject.toml**: use uv_build backend
+- [`186f19e`](https://github.com/pufereq/template-repo/commit/186f19e63cf4f47812470f8dc61b5a08cab00cbb) **pyproject.toml**: adjust paths to src/puffkit
+- [`64d927f`](https://github.com/pufereq/template-repo/commit/64d927fd816561b197cea12827c84aef204a2966) **pdm.lock**: remove pdm lockfile
+
 ## [0.11.0-post.3] - 2025-06-26
 
 ### Documentation
