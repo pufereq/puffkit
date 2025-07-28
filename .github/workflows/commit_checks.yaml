@@ -20,24 +20,23 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           submodules: 'recursive'
 
+      - name: 📦 install uv
+        uses: astral-sh/setup-uv@v5
+
       - name: 🐍 python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version-file: "pyproject.toml"
 
-      - name: 📦 setup pdm
-        uses: pdm-project/setup-pdm@v4
-        with:
-          cache: true
-
-      - name: 📦 install dependencies
+      - name: 📦 sync depedencies
         run: |
-          pdm install
+          uv sync
+          uv sync --group test
 
       - name: 🧪 run tests
         id: test
         run: |
-          pdm run pytest -v
+          uv run pytest -v
   coverage:
     name: Check coverage
     runs-on: ubuntu-latest
@@ -46,30 +45,31 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          submodules: 'recursive'
+
+      - name: 📦 install uv
+        uses: astral-sh/setup-uv@v5
 
       - name: 🐍 python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version-file: "pyproject.toml"
 
-      - name: 📦 setup pdm
-        uses: pdm-project/setup-pdm@v4
-        with:
-          cache: true
-
-      - name: 📦 install dependencies
+      - name: 📦 sync depedencies
         run: |
-          pdm install
+          uv sync
+          uv sync --group test
 
       - name: 🧪 run tests
         id: test
         run: |
-          pdm run pytest -v --cov
+          uv run pytest -v --cov
 
       - name: 📊 generate coverage report
         if: always()
         run: |
-          pdm run coverage json
+          uv run coverage json
           cov_percent=$(jq '.totals.percent_covered' coverage.json)
           cov_percent_rounded=$(python3 -c "print(round(${cov_percent}, 2))")
           cov_lines=$(jq '.totals.covered_lines' coverage.json)
@@ -98,7 +98,7 @@ jobs:
           echo "<summary>Details</summary>" >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          pdm run coverage report >> $GITHUB_STEP_SUMMARY
+          uv run coverage report >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
           echo "</details>" >> $GITHUB_STEP_SUMMARY

@@ -4,11 +4,35 @@ Installation
 puffkit is not yet published on PyPI, so you will need to install it
 directly from the source repository.
 
-PDM (recommended)
------------------
+Most python depedency managers support installing packages directly
+from a Git repository, so you can use the following instead of the
+usual PyPI package name:
 
-If you want to use puffkit in your project, it is recommended to use
-`PDM <https://pdm-project.org/>`_ to manage your dependencies.
+.. code-block:: text
+
+    git+https://github.com/pufereq/puffkit.git
+
+uv (recommended)
+----------------
+
+We recommend using `uv <https://docs.astral.sh/uv/>`_ for managing your project's
+dependencies.
+
+.. note::
+    If you don't have uv installed, see the `uv installation
+    guide <https://docs.astral.sh/uv/getting-started/installation/>`_.
+
+You can add puffkit to your project by running the following command:
+
+.. code-block:: bash
+
+    uv add "git+https://github.com/puferq/puffkit.git"
+
+PDM
+---
+
+If you prefer `PDM <https://pdm-project.org/>`_, you can add puffkit to your
+project directly from the GitHub repository using the following command:
 
 .. note::
     If you don't have PDM installed, see the `pdm installation
@@ -23,26 +47,13 @@ This will add puffkit to your project and allow you to use it in your code.
 pip
 ---
 
-If you prefer to use `pip`, you also need to clone the repository.
+You can also install puffkit using `pip <https://pip.pypa.io/en/stable/>`_.
+Pip is the default package manager for Python and is included with
+most Python installations.
 
 .. code-block:: bash
 
-    git clone https://github.com/pufereq/puffkit.git
-
-Then, navigate to the cloned directory:
-
-.. code-block:: bash
-
-    cd puffkit
-
-And install puffkit using pip:
-
-.. code-block:: bash
-
-    pip install .
-
-This will install puffkit and its dependencies system-wide, allowing you to
-use it in your projects.
+    pip install "git+https://github.com/pufereq/puffkit.git"
 
 .. note::
 
