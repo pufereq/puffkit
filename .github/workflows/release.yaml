@@ -34,20 +34,11 @@ on:
           - 'beta'
           - 'rc'
           - 'post'
-env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   bump_version:
     runs-on: ubuntu-latest
     name: Bump version and create release
     steps:
-      - name: GH_TOKEN
-        if: env.GH_TOKEN == ''
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
-
       - name: 🔀 checkout
         uses: actions/checkout@v4
         with:
@@ -55,19 +46,18 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           submodules: 'recursive'
 
+      - name: 📦 install uv
+        uses: astral-sh/setup-uv@v5
+
       - name: 🐍 python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version-file: "pyproject.toml"
 
-      - name: 📦 setup pdm
-        uses: pdm-project/setup-pdm@v4
-        with:
-          cache: true
-
-      - name: 📦 install dependencies
+      - name: 📦 sync depedencies
         run: |
-          pdm install
+          uv sync
+          uv sync --group bump
 
       - name: configure git
         run: |
@@ -78,18 +68,18 @@ jobs:
         if: ${{ github.event.inputs.auto_bump == 'true' }}
         run: |
           if [ "${{ github.event.inputs.as_pre_release }}" == "true" ]; then
-            pdm run semantic-release version --no-changelog --no-commit --no-push --as-prerelease --prerelease-token ${{ github.event.inputs.prerelease_type }}
+            uv run semantic-release version --no-changelog --no-commit --no-push --as-prerelease --prerelease-token ${{ github.event.inputs.prerelease_type }}
           else
-            pdm run semantic-release version --no-changelog --no-commit --no-push
+            uv run semantic-release version --no-changelog --no-commit --no-push
           fi
 
       - name: 📦 bump version (manual)
         if: ${{ github.event.inputs.auto_bump == 'false' }}
         run: |
           if [ "${{ github.event.inputs.as_pre_release }}" == "true" ]; then
-            pdm run semantic-release version --no-changelog --no-commit --no-push --${{ github.event.inputs.bump_type }} --as-prerelease --prerelease-token ${{ github.event.inputs.prerelease_type }}
+            uv run semantic-release version --no-changelog --no-commit --no-push --${{ github.event.inputs.bump_type }} --as-prerelease --prerelease-token ${{ github.event.inputs.prerelease_type }}
           else
-            pdm run semantic-release version --no-changelog --no-commit --no-push --${{ github.event.inputs.bump_type }}
+            uv run semantic-release version --no-changelog --no-commit --no-push --${{ github.event.inputs.bump_type }}
           fi
 
       - name: 📦 get new version
@@ -98,20 +88,18 @@ jobs:
 
       - name: 📝 create changelog
         run: |
-          pdm run git-cliff -s header -l > release_body.md
+          uv run git-cliff -s header -l > release_body.md
           echo "Changes:" && cat release_body.md
-          pdm run git-cliff > CHANGELOG.md
+          uv run git-cliff > CHANGELOG.md
 
       - name: 📤 push changes
         run: |
-          git add CHANGELOG.md pyproject.toml ${{ github.event.repository.name }}/__init__.py
+          git add CHANGELOG.md pyproject.toml src/*/__init__.py
           git commit -m "chore(release): ${{ steps.get_version.outputs.BUMPED_VERSION }}"
           git push origin main
 
       - name: create release
         uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           name: ${{ github.event.repository.name }} ${{ steps.get_version.outputs.BUMPED_VERSION }} - ${{ github.event.inputs.short_description }}
           tag_name: ${{ steps.get_version.outputs.BUMPED_VERSION }}
