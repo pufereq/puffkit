@@ -23,26 +23,13 @@ This will add puffkit to your project and allow you to use it in your code.
 pip
 ---
 
-If you prefer to use `pip`, you also need to clone the repository.
+You can also install puffkit using `pip <https://pip.pypa.io/en/stable/>`_.
+Pip is the default package manager for Python and is included with
+most Python installations.
 
 .. code-block:: bash
 
-    git clone https://github.com/pufereq/puffkit.git
-
-Then, navigate to the cloned directory:
-
-.. code-block:: bash
-
-    cd puffkit
-
-And install puffkit using pip:
-
-.. code-block:: bash
-
-    pip install .
-
-This will install puffkit and its dependencies system-wide, allowing you to
-use it in your projects.
+    pip install "git+https://github.com/pufereq/puffkit.git"
 
 .. note::
 
