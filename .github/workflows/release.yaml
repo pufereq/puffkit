@@ -116,9 +116,14 @@ jobs:
 
       - name: 📤 merge into develop
         run: |
-          git checkout develop
-          git merge main
-          git push origin develop
+          if git show-ref --quiet refs/heads/develop; then
+            git checkout develop
+            git merge main
+            git push origin develop
+          else
+            echo "develop doesn't exist, skipping..."
+          fi
 
       - name: ✅ done
         run: echo "done"
+
