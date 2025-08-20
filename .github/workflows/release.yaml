@@ -5,35 +5,35 @@ on:
     inputs:
       short_description:
         type: string
-        description: 'Short description of the release'
+        description: "Short description of the release"
         required: false
       auto_bump:
         type: boolean
-        description: 'Auto bump version?'
+        description: "Auto bump version?"
         required: true
       bump_type:
         type: choice
-        description: 'Bump type'
+        description: "Bump type"
         required: true
         options:
-          - 'major'
-          - 'minor'
-          - 'patch'
-          - 'prerelease'
+          - "major"
+          - "minor"
+          - "patch"
+          - "prerelease"
       as_pre_release:
         type: boolean
-        description: 'As pre-release?'
+        description: "As pre-release?"
         required: true
       prerelease_type:
         type: choice
-        description: 'Pre-release label'
+        description: "Pre-release label"
         required: true
         options:
-          - 'dev'
-          - 'alpha'
-          - 'beta'
-          - 'rc'
-          - 'post'
+          - "dev"
+          - "alpha"
+          - "beta"
+          - "rc"
+          - "post"
 jobs:
   bump_version:
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
         with:
           fetch-depth: 0
           token: "${{ secrets.GITHUB_TOKEN }}"
-          submodules: 'recursive'
+          submodules: "recursive"
 
       - name: 📦 install uv
         uses: astral-sh/setup-uv@v5
@@ -105,7 +105,7 @@ jobs:
           tag_name: ${{ steps.get_version.outputs.BUMPED_VERSION }}
           body_path: release_body.md
           prerelease: ${{ github.event.inputs.as_pre_release }}
-          discussion_category_name: 'Announcements'
+          discussion_category_name: "Announcements"
 
       - name: 🧹 cleanup
         run: |
