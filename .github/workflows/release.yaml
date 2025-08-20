@@ -92,9 +92,12 @@ jobs:
           echo "Changes:" && cat release_body.md
           uv run git-cliff > CHANGELOG.md
 
+      - name: 📦 update lockfile (re-sync)
+        run: uv sync
+
       - name: 📤 push changes
         run: |
-          git add CHANGELOG.md pyproject.toml src/*/__init__.py
+          git add CHANGELOG.md pyproject.toml src/*/__init__.py uv.lock
           git commit -m "chore(release): ${{ steps.get_version.outputs.BUMPED_VERSION }}"
           git push origin main
 
