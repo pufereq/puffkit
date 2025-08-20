@@ -6,7 +6,6 @@ import pygame as _pygame
 del _pygame
 
 from puffkit.app import PkApp
-from puffkit.color import palettes
 from puffkit.color.color import ColorValue, PkColor
 from puffkit.geometry.coordinate import PkCoordinate
 from puffkit.geometry.rect import PkRect
