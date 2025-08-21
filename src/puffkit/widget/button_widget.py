@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, override
 
 from puffkit.color import PkBasicPalette, PkColor, ColorValue
 from puffkit.container import PkContainer
@@ -160,6 +160,17 @@ class PkButtonWidget(PkWidget):
 
         if callable(self.action_on_click) and self._pressed:
             self.action_on_click()
+
+    @override
+    def on_key_down(self, event: PkEvent) -> None:
+        if event.key in ["return", "space"]:
+            self.pressed = True
+            self.on_mouse_up(event)
+
+    @override
+    def on_key_up(self, event: PkEvent) -> None:
+        if event.key in ["return", "space"]:
+            self.pressed = False
 
     def on_hover(self, event: PkEvent) -> None:
         if self._disabled:
