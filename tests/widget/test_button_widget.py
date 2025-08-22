@@ -263,3 +263,43 @@ def test_button_on_hover(button_widget: PkButtonWidget, disabled: bool, event: M
         button_widget.action_on_hover.assert_not_called()
     else:
         button_widget.action_on_hover.assert_called_once()
+
+@pytest.mark.parametrize(
+    "disabled, event",
+    [
+        (True, Mock(spec=PkEvent, key="return")),
+        (False, Mock(spec=PkEvent, key="return")),
+        (True, Mock(spec=PkEvent, key="space")),
+        (False, Mock(spec=PkEvent, key="space")),
+        (True, Mock(spec=PkEvent, key="a")),
+        (False, Mock(spec=PkEvent, key="a")),
+    ],
+)
+def test_button_on_key_down(button_widget: PkButtonWidget, disabled: bool, event: Mock):
+    """Test the on_key_down method of the button widget."""
+    button_widget.disabled = disabled
+    button_widget.on_key_down(event)
+    if disabled or event.key not in ["return", "space"]:
+        button_widget.action_on_click.assert_not_called()
+    else:
+        button_widget.action_on_click.assert_called_once()
+
+@pytest.mark.parametrize(
+    "event",
+    [
+        Mock(spec=PkEvent, key="return"),
+        Mock(spec=PkEvent, key="return"),
+        Mock(spec=PkEvent, key="space"),
+        Mock(spec=PkEvent, key="space"),
+        Mock(spec=PkEvent, key="a"),
+        Mock(spec=PkEvent, key="a"),
+    ],
+)
+def test_button_on_key_up(button_widget: PkButtonWidget, event: Mock):
+    """Test the on_key_up method of the button widget."""
+    button_widget._pressed = True
+    button_widget.on_key_up(event)
+    if event.key in ["return", "space"]:
+        assert not button_widget._pressed
+    else:
+        assert button_widget._pressed
