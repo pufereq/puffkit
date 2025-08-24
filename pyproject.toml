@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "puffkit"
-version = "0.11.1"
+version = "0.12.0"
 description = "A pygame-ce based engine for application and game development."
 authors = [{ name = "Artur Borecki", email = "me@pufereq.pl" }]
 dependencies = ["pygame-ce>=2.5.1", "pyyaml>=6.0.2"]

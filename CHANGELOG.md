@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.12.0] - 2025-08-24
+
+### Features
+
+- [`48fe085`](https://github.com/pufereq/template-repo/commit/48fe085c2878faefedd59cb094a8c2c22230c2dd) **button_widget.py**: activate focused button on space/return keypress
+- [`0862331`](https://github.com/pufereq/template-repo/commit/08623311be760a68694013af3447b6647ab4b577) **puffkit/__init__.py**: add `__all__`
+
+### Miscellaneous Tasks
+
+- [`17d1d27`](https://github.com/pufereq/template-repo/commit/17d1d27a3f9544a80e65b6e6db35a1efcee907af) **release.yaml**: make 'merge into develop' task optional
+- [`6f6b94b`](https://github.com/pufereq/template-repo/commit/6f6b94b76f8a736743b106ff651df5184868676d) **release.yaml**: update lockfile version on bump
+- [`6cf1a0f`](https://github.com/pufereq/template-repo/commit/6cf1a0f7951c1594977f9e9eed2404c2d450330c) **release.yaml**: make all quotes double quotes
+- [`e3ccb4e`](https://github.com/pufereq/template-repo/commit/e3ccb4e946f47c484c9e1db38d88814bcfe9918a) **widget/__init__.py**: add `__all__`
+- [`04277c9`](https://github.com/pufereq/template-repo/commit/04277c970879edb6091ffc4b90d580c801b1c154) **scene/__init__.py**: add `__all__`
+- [`518f0ea`](https://github.com/pufereq/template-repo/commit/518f0eae713c99b951f21b3083e2f897cde68111) **geometry/__init__.py**: add `__all__`
+- [`b37ca6b`](https://github.com/pufereq/template-repo/commit/b37ca6bdfcb0ab12ea2826962fe8f0efbedd35b7) **font/__init__.py**: add `__all__`
+- [`5e1b016`](https://github.com/pufereq/template-repo/commit/5e1b0169ac6f77486b0ab9ea7e63791c6940a320) **event/__init__.py**: add `__all__`
+- [`6af96fc`](https://github.com/pufereq/template-repo/commit/6af96fca4df76f14804ff4caa47c1be11ff50641) **color/__init__.py**: add `__all__`
+- [`418073c`](https://github.com/pufereq/template-repo/commit/418073cedaebc7ef13bc61e6dfe7691e26ce2561) **puffkit/__init__.py**: remove unused import
+
+### Refactor
+
+- [`f296bc5`](https://github.com/pufereq/template-repo/commit/f296bc554117d3ff2bab5a1c82631e8779e02f41) **puffkit/__init__.py**: initialize pygame-ce before loading anything else
+
+### Styling
+
+- [`ec8b283`](https://github.com/pufereq/template-repo/commit/ec8b28355e1bfbe90de3cd42652a1ff3fdba301f) **pyproject.toml**: format pyproject.toml
+- [`3ed91c7`](https://github.com/pufereq/template-repo/commit/3ed91c7c99db2e8cd0ccd0a72f53f82e567e24a9) **.vscode/launch.json**: fix formatting
+
+### Testing
+
+- [`1893b87`](https://github.com/pufereq/template-repo/commit/1893b8789a339506e6b4087c789dcdbf577a4a81) **test_button_widget.py**: add tests for `on_key_down()` and `on_key_up()`
+
+### Build
+
+- [`f0d8f5d`](https://github.com/pufereq/template-repo/commit/f0d8f5d085f92b74d831378061afed9a36575360) **uv.lock**: update lockfile
+
 ## [0.11.1] - 2025-07-28
 
 ### Documentation
