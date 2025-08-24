@@ -6,42 +6,26 @@ build-backend = "uv_build"
 name = "puffkit"
 version = "0.11.1"
 description = "A pygame-ce based engine for application and game development."
-authors = [
-    {name = "Artur Borecki", email = "me@pufereq.pl"},
-]
-dependencies = [
-    "pygame-ce>=2.5.1",
-    "pyyaml>=6.0.2",
-]
+authors = [{ name = "Artur Borecki", email = "me@pufereq.pl" }]
+dependencies = ["pygame-ce>=2.5.1", "pyyaml>=6.0.2"]
 requires-python = ">=3.13"
 readme = "README.md"
-license = {text = "LGPL-3.0-or-later"}
+license = { text = "LGPL-3.0-or-later" }
 
 [dependency-groups]
-bump = [
-    "git-cliff>=2.9.1",
-    "python-semantic-release>=10.2.0",
-]
+bump = ["git-cliff>=2.9.1", "python-semantic-release>=10.2.0"]
 test = [
-    "pytest>=8.3.3",
-    "pytest-cov>=6.2.1",
-    "pytest-mock>=3.14.1",
-    "pytest-github-actions-annotate-failures>=0.3.0",
+  "pytest>=8.3.3",
+  "pytest-cov>=6.2.1",
+  "pytest-mock>=3.14.1",
+  "pytest-github-actions-annotate-failures>=0.3.0",
 ]
-lint = [
-    "isort>=5.13.2",
-    "ruff>=0.11.6",
-]
-docs = [
-    "sphinx>=8.2.3",
-    "furo>=2024.8.6",
-]
+lint = ["isort>=5.13.2", "ruff>=0.11.6"]
+docs = ["sphinx>=8.2.3", "furo>=2024.8.6"]
 
 [tool.ruff]
 line-length = 79
-exclude = [
-    "tests/*"
-]
+exclude = ["tests/*"]
 
 [tool.ruff.lint.pycodestyle]
 max-line-length = 79
@@ -56,18 +40,13 @@ docstring-code-line-length = 72
 
 [tool.pytest.ini_options]
 addopts = [
-    "--cov-report=term-missing",
-    "--cov-report=html",
-    "--cov-fail-under=100",
+  "--cov-report=term-missing",
+  "--cov-report=html",
+  "--cov-fail-under=100",
 ]
 
 [tool.coverage.run]
-omit = [
-    "src/puffkit/__init__.py",
-    "examples/*",
-    "docs/*",
-    "tests/*",
-]
+omit = ["src/puffkit/__init__.py", "examples/*", "docs/*", "tests/*"]
 
 [tool.semantic_release]
 version_variables = ["src/puffkit/__init__.py:__version__"]
@@ -86,7 +65,18 @@ env = "GIT_COMMIT_AUTHOR"
 default = "semantic-release <semantic-release>"
 
 [tool.semantic_release.commit_parser_options]
-allowed_tags = ["build", "chore", "ci", "docs", "feat", "fix", "perf", "style", "refactor", "test"]
+allowed_tags = [
+  "build",
+  "chore",
+  "ci",
+  "docs",
+  "feat",
+  "fix",
+  "perf",
+  "style",
+  "refactor",
+  "test",
+]
 minor_tags = ["feat"]
 patch_tags = ["fix", "perf"]
 default_bump_level = 0
