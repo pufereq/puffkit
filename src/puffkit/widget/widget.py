@@ -180,6 +180,16 @@ class PkWidget(PkObject):
         """
         pass
 
+    def on_click(self, event: PkEvent) -> None:  # pragma: no cover
+        """Handle the click event.
+
+        This method is called when the widget is clicked.
+
+        Args:
+            event (PkEvent): The mouse click event.
+        """
+        pass
+
     def on_mouse_motion(self, event: PkEvent) -> None:  # pragma: no cover
         """Handle the mouse motion event.
 
@@ -324,6 +334,8 @@ class PkWidget(PkObject):
             elif event.name == "MOUSEBUTTONUP":
                 if self.abs_rect.collidepoint(event.pos):
                     self.on_mouse_up(event)
+                    if self.pressed:
+                        self.on_click(event)
                     self.pressed = False
                 else:
                     self.pressed = False
