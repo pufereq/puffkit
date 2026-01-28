@@ -463,6 +463,16 @@ def test_pksurface_blit_text(
     )
 
 
+@pytest.mark.parametrize(
+    "smooth",
+    [False, True],
+)
+def test_pksurface_resize(surface: PkSurface, smooth: bool) -> None:
+    """Test resizing the surface."""
+    resized_surface: PkSurface = surface.resize((150, 150), smooth=smooth)
+    assert resized_surface.size == (150, 150)
+
+
 @mock.patch("typing.TYPE_CHECKING", True)
 def test_type_checking_imports() -> None:
     """Test importing PkSurface with TYPE_CHECKING."""
