@@ -755,3 +755,28 @@ class PkSurface(PkObject):
         text_surface.blit(rendered_text, (0, y_pos))
 
         self.blit(text_surface, rect.pos)
+
+    def resize(
+        self, size: PkSize | SizeValue, *, smooth: bool = True
+    ) -> PkSurface:
+        """Resize the surface and return a new surface.
+
+        Args:
+            size (PkSize | SizeValue): New size of the surface.
+            smooth (bool, optional): Whether to use smooth scaling.
+                Defaults to True.
+
+        Returns:
+            Surface: Resized surface.
+        """
+        if not isinstance(size, PkSize):
+            size = PkSize(*size)
+        if smooth:
+            resized_surface = pygame.transform.smoothscale(
+                self.internal_surface, size.tuple
+            )
+        else:
+            resized_surface = pygame.transform.scale(
+                self.internal_surface, size.tuple
+            )
+        return self.from_pygame(resized_surface)
