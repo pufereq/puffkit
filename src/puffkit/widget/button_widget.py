@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, override
+from typing import TYPE_CHECKING, Any, override, Callable
 
 from puffkit.color import PkBasicPalette, PkColor, ColorValue
 from puffkit.container import PkContainer
@@ -29,8 +29,8 @@ class PkButtonWidget(PkWidget):
         label: str,
         rect: PkRect | RectValue,
         *,
-        on_click: Any | None = None,
-        on_hover: Any | None = None,
+        on_click: Callable[[PkButtonWidget, PkEvent], None] | None = None,
+        on_hover: Callable[[PkButtonWidget, PkEvent], None] | None = None,
         disabled: bool = False,
         font_id: str = "default",
         background_color: PkColor | ColorValue = PkBasicPalette.GREY,
@@ -42,7 +42,7 @@ class PkButtonWidget(PkWidget):
         text_color: PkColor | ColorValue = PkBasicPalette.WHITE,
         text_align: str = "center",
         border_radius: int = 0,
-    ):
+    ) -> None:
         """Initialize the button widget.
 
         Args:
@@ -98,8 +98,12 @@ class PkButtonWidget(PkWidget):
 
         self.label: str = label
 
-        self.action_on_click: Any | None = on_click
-        self.action_on_hover: Any | None = on_hover
+        self.action_on_click: (
+            Callable[[PkButtonWidget, PkEvent], None] | None
+        ) = on_click
+        self.action_on_hover: (
+            Callable[[PkButtonWidget, PkEvent], None] | None
+        ) = on_hover
         self.disabled: bool = disabled
 
         self.font_id: str = font_id
