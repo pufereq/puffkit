@@ -1,6 +1,6 @@
 from typing import Any
 import pytest
-from unittest.mock import Mock
+from unittest.mock import Mock, MagicMock
 from puffkit import PkApp
 from puffkit.color import PkBasicPalette, PkColor
 from puffkit.geometry import PkRect
@@ -44,8 +44,8 @@ def button_widget(mock_container: Mock):
         container=mock_container,
         rect=PkRect(0, 0, 100, 50),
         label="Click Me",
-        on_click=Mock(),
-        on_hover=Mock(),
+        on_click=MagicMock(),
+        on_hover=MagicMock(),
         disabled=False,
         font_id="default",
         background_color=PkBasicPalette.GREY,
