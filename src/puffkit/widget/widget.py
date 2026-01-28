@@ -150,7 +150,7 @@ class PkWidget(PkObject):
         # if the widget is not focusable, set the focused state to False
         self._focused = value and self.focusable
 
-    def on_key_down(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_key_down(self, event: PkEvent) -> None:
         """Handle the key down event.
 
         This method is called when a key is pressed.
@@ -160,7 +160,7 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_key_up(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_key_up(self, event: PkEvent) -> None:
         """Handle the key up event.
 
         This method is called when a key is released.
@@ -170,7 +170,7 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_hover(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_hover(self, event: PkEvent) -> None:
         """Handle the hover event.
 
         This method is called when the mouse over the widget.
@@ -180,7 +180,7 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_click(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_click(self, event: PkEvent) -> None:
         """Handle the click event.
 
         This method is called when the widget is clicked.
@@ -190,7 +190,7 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_mouse_motion(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_mouse_motion(self, event: PkEvent) -> None:
         """Handle the mouse motion event.
 
         This method is called when the mouse is moved over the widget.
@@ -201,7 +201,7 @@ class PkWidget(PkObject):
         # self.logger.debug("Mouse motion")
         pass
 
-    def on_mouse_enter(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_mouse_enter(self, event: PkEvent) -> None:
         """Handle the mouse enter event.
 
         This method is called when the mouse enters the widget.
@@ -211,7 +211,7 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_mouse_leave(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_mouse_leave(self, event: PkEvent) -> None:
         """Handle the mouse leave event.
 
         This method is called when the mouse leaves the widget.
@@ -221,7 +221,7 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_mouse_down(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_mouse_down(self, event: PkEvent) -> None:
         """Handle the mouse down event.
 
         This method is called when the mouse button is pressed over the widget.
@@ -231,7 +231,7 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_mouse_up(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_mouse_up(self, event: PkEvent) -> None:
         """Handle the mouse up event.
 
         This method is called when the mouse button is released over the widget.
@@ -241,7 +241,7 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_focus(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_focus(self, event: PkEvent) -> None:
         """Handle the focus event.
 
         This method is called when the widget is focused.
@@ -251,7 +251,7 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_unfocus(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_unfocus(self, event: PkEvent) -> None:
         """Handle the unfocus event.
 
         This method is called when the widget is unfocused.
@@ -261,19 +261,19 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_change(self, event: PkEvent) -> None:  # pragma: no cover
+    def on_change(self) -> None:
         """Handle the change event.
 
-        This method is called when the widget's content changes.
-        This is used for widgets that have a value, such as sliders or text
-        inputs.
+        This method is called when the widget's state changes.
+        NOTE: This method does not get called automatically
+            in the base class.
 
         Args:
             event (PkEvent): The change event.
         """
         pass
 
-    def on_update(self, delta: float) -> None:  # pragma: no cover
+    def on_update(self, delta: float) -> None:
         """Update the widget.
 
         This method is called every frame to update the widget.
@@ -283,7 +283,7 @@ class PkWidget(PkObject):
         """
         pass
 
-    def on_render(self) -> None:  # pragma: no cover
+    def on_render(self) -> None:
         """Render the widget.
 
         This method is called every frame to render the widget.
