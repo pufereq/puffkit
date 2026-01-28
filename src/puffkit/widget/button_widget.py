@@ -154,22 +154,18 @@ class PkButtonWidget(PkWidget):
         )
 
     def on_update(self, delta: float) -> None:
-        if self._disabled:
-            self._hovered = False
         self.inner_container.update(delta)
 
-    def on_mouse_up(self, event: PkEvent) -> None:
-        if self._disabled:
-            return
-
-        if callable(self.action_on_click) and self._pressed:
-            self.action_on_click()
+    @override
+    def on_click(self, event: PkEvent) -> None:
+        if callable(self.action_on_click):
+            self.action_on_click(self, event)
 
     @override
     def on_key_down(self, event: PkEvent) -> None:
         if event.key in ["return", "space"]:
             self.pressed = True
-            self.on_mouse_up(event)
+            self.on_click(event)
 
     @override
     def on_key_up(self, event: PkEvent) -> None:
@@ -181,7 +177,7 @@ class PkButtonWidget(PkWidget):
             return
 
         if callable(self.action_on_hover):
-            self.action_on_hover()
+            self.action_on_hover(self, event)
 
     def on_render(self) -> None:
         # fill the surface with a background color depending on the state
