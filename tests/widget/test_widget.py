@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import MagicMock
 from puffkit.widget.widget import PkWidget
 from puffkit.geometry import PkRect, RectValue
-from typing import Generator
+from collections.abc import Generator
 
 
 @pytest.fixture
