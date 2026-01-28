@@ -135,7 +135,7 @@ class PkWidget(PkObject):
 
     @property
     def pressed(self) -> bool:
-        return self._pressed and self._focused
+        return self._pressed
 
     @pressed.setter
     def pressed(self, value: bool) -> None:
