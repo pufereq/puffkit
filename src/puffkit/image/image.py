@@ -11,11 +11,19 @@ from puffkit.surface import PkSurface
 
 
 class PkImage(PkObject):
+    """Represents an image in puffkit."""
+
     def __init__(
         self,
         id_: str,
         image: PkSurface,
     ) -> None:
+        """Initialize a PkImage.
+
+        Args:
+            id_ (str): The unique identifier for the image.
+            image (PkSurface): The surface representing the image.
+        """
         super().__init__(True)
 
         self.id: str = id_
@@ -24,6 +32,15 @@ class PkImage(PkObject):
 
     @classmethod
     def from_file(cls, id_: str, file_path: str) -> PkImage:
+        """Create a PkImage from a file.
+
+        Args:
+            id_ (str): The unique identifier for the image.
+            file_path (str): The path to the image file.
+
+        Returns:
+            PkImage: The created PkImage instance.
+        """
         image_surface: PkSurface = PkSurface.from_pygame(
             pg.image.load(file_path).convert_alpha()
         )
