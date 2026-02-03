@@ -15,6 +15,7 @@ def test_image_properties(mock_image: PkImage) -> None:
     assert mock_image.id == "test_image"
     assert mock_image.width == 100
     assert mock_image.height == 100
+    assert mock_image.filename is None
     assert isinstance(mock_image.image, PkSurface)
 
 @unittest.mock.patch("puffkit.image.image.pg.image.load")
@@ -27,5 +28,6 @@ def test_image_from_file(mock_pygame_load: MagicMock) -> None:
     assert image.id == "file_image"
     assert image.width == 50
     assert image.height == 50
+    assert image.filename == "path/to/image.png"
     mock_pygame_load.assert_called_once_with("path/to/image.png")
 
