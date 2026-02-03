@@ -20,13 +20,16 @@ class PkImage(PkObject):
 
         self.id: str = id_
         self.image: PkSurface = image
+        self.filename: str | None = None
 
     @classmethod
     def from_file(cls, id_: str, file_path: str) -> PkImage:
         image_surface: PkSurface = PkSurface.from_pygame(
             pg.image.load(file_path).convert_alpha()
         )
-        return cls(id_, image_surface)
+        class_ = cls(id_, image_surface)
+        class_.filename = file_path
+        return class_
 
     @override
     def __repr__(self) -> str:  # pragma: no cover
