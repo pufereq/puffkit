@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.13.0] - 2026-02-16
+
+### Bug Fixes
+
+- [`9ca3ce4`](https://github.com/pufereq/template-repo/commit/9ca3ce4d7e0657bde475a623d838021853cadc97) **widget.py**: allow for widget to be pressed without focus
+
+### Documentation
+
+- [`b8f4f1c`](https://github.com/pufereq/template-repo/commit/b8f4f1caf1c0b391362c90c7b74ff3b49e5ab2bc) **image.py**: add docstrings
+
+### Features
+
+- [`ddb871e`](https://github.com/pufereq/template-repo/commit/ddb871ef2a1ca85e8d6c7a51a0398c92989b5cf9) **widget/__init__.py**: import PkImageWidget
+- [`1d5ea20`](https://github.com/pufereq/template-repo/commit/1d5ea20ec240dba97f1880631c80e0eda0f3861b) **image_widget.py**: add `PkImageWidget`
+- [`46492fe`](https://github.com/pufereq/template-repo/commit/46492fe92ab7fc82a8dec38951804cc1806ca16b) **image.py**: add `PkImage.filename` attribute set if creating from file
+- [`af5be47`](https://github.com/pufereq/template-repo/commit/af5be4732b069f302590ecf160806bf32e5aa570) **image.py**: add `PkImage`
+- [`dd2e4f2`](https://github.com/pufereq/template-repo/commit/dd2e4f2f1aae1f272228695f943347252835cf70) **surface.py**: add `PkSurface.resize()` method
+- [`36d86d3`](https://github.com/pufereq/template-repo/commit/36d86d3632bde7167998d6f10bc3d5ba691410d8) **image_widget.py**: use on_click()
+- [`75b1454`](https://github.com/pufereq/template-repo/commit/75b1454a6256ae5f3064d7c2620ea8d07402d18a) **widget.py**: add `on_click` handler and handle it
+
+### Miscellaneous Tasks
+
+- [`dfbce53`](https://github.com/pufereq/template-repo/commit/dfbce5383cf398d7fed661edf091b9bb87b05868) **uv.lock**: update depedencies for Python 3.14
+- [`db142b5`](https://github.com/pufereq/template-repo/commit/db142b52253fd74b14786e3866b51ac6396192a9) **widget.py**: remove `# pragma: no cover` from `on_...` methods
+- [`97cdd49`](https://github.com/pufereq/template-repo/commit/97cdd496562e372af382a6d518055af928915bbe) **release.yaml**: remove if and allow 'merge into develop' step to fail
+
+### Refactor
+
+- [`edae712`](https://github.com/pufereq/template-repo/commit/edae71221c87c16a4bece2b40a62ace8546f260b) **button_widget.py**: correct typing for `on_click` and `on_hover`
+- [`bfbf761`](https://github.com/pufereq/template-repo/commit/bfbf761910fdc7ae4b0ae4f4e5cfbbfbcaa089a8) **widget.py**: replace deprecated `typing.Generator` with `collections.abc.Generator`
+
+### Testing
+
+- [`877b917`](https://github.com/pufereq/template-repo/commit/877b9172add8be5c54259c457c69dcd8189c26f6) **test_image_widget.py**: add tests for `PkImageWidget`
+- [`a7af9aa`](https://github.com/pufereq/template-repo/commit/a7af9aa5463904a874d6bd443020b03ff0efe74d) **test_image.py**: check `PkImage.filename`
+- [`f4ae27a`](https://github.com/pufereq/template-repo/commit/f4ae27a10cb2aa9b4efef257c7896c62636a4963) **test_image.py**: add tests for `PkImage`
+- [`bca1a4f`](https://github.com/pufereq/template-repo/commit/bca1a4f91a293821dea0f01822549902d0793241) **test_surface.py**: add test for `PkSurface.resize()`
+- [`a26197f`](https://github.com/pufereq/template-repo/commit/a26197f06da68fbf94b1b4c4e01a93bc2e887061) **test_button_widget.py**: adapt tests for `on_click`
+- [`69c2a92`](https://github.com/pufereq/template-repo/commit/69c2a924f1c3a10173b5ba5e145b54e7abf63d9d) **test_button_widget.py**: use `MagicMock` for on_click and on_hover
+- [`2dc0ad2`](https://github.com/pufereq/template-repo/commit/2dc0ad2571d7c827a921d0be9d0de2872b410de1) **test_widget.py**: adapt test to cover non-mocked `on_...` hooks
+
 ## [0.12.0] - 2025-08-24
 
 ### Features
