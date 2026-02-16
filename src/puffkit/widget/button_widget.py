@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, override
+from typing import TYPE_CHECKING, Any, override, Callable
 
 from puffkit.color import PkBasicPalette, PkColor, ColorValue
 from puffkit.container import PkContainer
@@ -29,8 +29,8 @@ class PkButtonWidget(PkWidget):
         label: str,
         rect: PkRect | RectValue,
         *,
-        on_click: Any | None = None,
-        on_hover: Any | None = None,
+        on_click: Callable[[PkButtonWidget, PkEvent], None] | None = None,
+        on_hover: Callable[[PkButtonWidget, PkEvent], None] | None = None,
         disabled: bool = False,
         font_id: str = "default",
         background_color: PkColor | ColorValue = PkBasicPalette.GREY,
@@ -42,7 +42,7 @@ class PkButtonWidget(PkWidget):
         text_color: PkColor | ColorValue = PkBasicPalette.WHITE,
         text_align: str = "center",
         border_radius: int = 0,
-    ):
+    ) -> None:
         """Initialize the button widget.
 
         Args:
@@ -98,8 +98,12 @@ class PkButtonWidget(PkWidget):
 
         self.label: str = label
 
-        self.action_on_click: Any | None = on_click
-        self.action_on_hover: Any | None = on_hover
+        self.action_on_click: (
+            Callable[[PkButtonWidget, PkEvent], None] | None
+        ) = on_click
+        self.action_on_hover: (
+            Callable[[PkButtonWidget, PkEvent], None] | None
+        ) = on_hover
         self.disabled: bool = disabled
 
         self.font_id: str = font_id
@@ -150,22 +154,18 @@ class PkButtonWidget(PkWidget):
         )
 
     def on_update(self, delta: float) -> None:
-        if self._disabled:
-            self._hovered = False
         self.inner_container.update(delta)
 
-    def on_mouse_up(self, event: PkEvent) -> None:
-        if self._disabled:
-            return
-
-        if callable(self.action_on_click) and self._pressed:
-            self.action_on_click()
+    @override
+    def on_click(self, event: PkEvent) -> None:
+        if callable(self.action_on_click):
+            self.action_on_click(self, event)
 
     @override
     def on_key_down(self, event: PkEvent) -> None:
         if event.key in ["return", "space"]:
             self.pressed = True
-            self.on_mouse_up(event)
+            self.on_click(event)
 
     @override
     def on_key_up(self, event: PkEvent) -> None:
@@ -177,7 +177,7 @@ class PkButtonWidget(PkWidget):
             return
 
         if callable(self.action_on_hover):
-            self.action_on_hover()
+            self.action_on_hover(self, event)
 
     def on_render(self) -> None:
         # fill the surface with a background color depending on the state

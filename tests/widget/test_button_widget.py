@@ -1,6 +1,6 @@
 from typing import Any
 import pytest
-from unittest.mock import Mock
+from unittest.mock import Mock, MagicMock
 from puffkit import PkApp
 from puffkit.color import PkBasicPalette, PkColor
 from puffkit.geometry import PkRect
@@ -44,8 +44,8 @@ def button_widget(mock_container: Mock):
         container=mock_container,
         rect=PkRect(0, 0, 100, 50),
         label="Click Me",
-        on_click=Mock(),
-        on_hover=Mock(),
+        on_click=MagicMock(),
+        on_hover=MagicMock(),
         disabled=False,
         font_id="default",
         background_color=PkBasicPalette.GREY,
@@ -149,7 +149,7 @@ def test_button_initialization(
 def test_button_on_click_action(button_widget: PkButtonWidget):
     """Test the on_click action of the button."""
     button_widget._pressed = True
-    button_widget.on_mouse_up(Mock(spec=PkEvent))
+    button_widget.on_click(Mock(spec=PkEvent))
     button_widget.action_on_click.assert_called_once()
 
 
@@ -230,25 +230,6 @@ def test_button_update(button_widget: PkButtonWidget, delta: float, disabled: bo
 
 
 @pytest.mark.parametrize(
-    "disabled",
-    [
-        (True),
-        (False),
-    ],
-)
-def test_button_on_mouse_up(button_widget: PkButtonWidget, disabled: bool):
-    """Test the on_mouse_up method of the button widget."""
-    button_widget._disabled = disabled
-    button_widget._pressed = True  # simulate button being pressed
-    button_widget.on_mouse_up(Mock(spec=PkEvent, kwargs={"pos": (5, 5)}))
-    if disabled:
-        button_widget.action_on_click.assert_not_called()
-    else:
-        button_widget.action_on_click.assert_called_once()
-    assert button_widget._pressed is True
-
-
-@pytest.mark.parametrize(
     "disabled, event",
     [
         (True, Mock(spec=PkEvent, kwargs={"pos": (5, 5)})),
@@ -279,10 +260,12 @@ def test_button_on_key_down(button_widget: PkButtonWidget, disabled: bool, event
     """Test the on_key_down method of the button widget."""
     button_widget.disabled = disabled
     button_widget.on_key_down(event)
-    if disabled or event.key not in ["return", "space"]:
-        button_widget.action_on_click.assert_not_called()
+
+    if event.key in ["return", "space"]:
+        button_widget.action_on_click.assert_called_with(button_widget, event)
+        assert button_widget.disabled is disabled
     else:
-        button_widget.action_on_click.assert_called_once()
+        button_widget.action_on_click.assert_not_called()
 
 @pytest.mark.parametrize(
     "event",

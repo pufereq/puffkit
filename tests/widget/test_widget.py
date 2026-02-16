@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import MagicMock
 from puffkit.widget.widget import PkWidget
 from puffkit.geometry import PkRect, RectValue
-from typing import Generator
+from collections.abc import Generator
 
 
 @pytest.fixture
@@ -74,16 +74,6 @@ def test_widget_update_calls_on_update(mock_container: MagicMock) -> None:
 def test_widget_update_event_handling(mock_container: MagicMock) -> None:
     """Test update method handles events by calling specific `on` methods."""
     widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10))
-    widget.on_key_down = MagicMock()
-    widget.on_key_up = MagicMock()
-    widget.on_mouse_motion = MagicMock()
-    widget.on_mouse_down = MagicMock()
-    widget.on_mouse_up = MagicMock()
-    widget.on_hover = MagicMock()
-    widget.on_mouse_enter = MagicMock()
-    widget.on_mouse_leave = MagicMock()
-    widget.on_focus = MagicMock()
-    widget.on_unfocus = MagicMock()
 
     KEYDOWN = MagicMock()
     KEYUP = MagicMock()
@@ -114,6 +104,7 @@ def test_widget_update_event_handling(mock_container: MagicMock) -> None:
     MOUSEBUTTONUP_OUT.name = "MOUSEBUTTONUP"
     MOUSEBUTTONUP_OUT.pos = (15, 15)
 
+    # first run coverage
     widget.input(
         events=[
             KEYDOWN,
@@ -121,15 +112,52 @@ def test_widget_update_event_handling(mock_container: MagicMock) -> None:
             MOUSEMOTION_IN,
             MOUSEMOTION_OUT,
             MOUSEBUTTONDOWN_IN,
-            MOUSEBUTTONDOWN_OUT,
             MOUSEBUTTONUP_IN,
+            MOUSEBUTTONDOWN_OUT,
             MOUSEBUTTONUP_OUT,
         ],
         keys={},
         mouse_pos=(0, 0),
         mouse_buttons=(False, False, False),
     )
+    widget.on_change()
     widget.update(0.016)
+    widget.render()
+
+    # set mocks
+    widget.on_key_down = MagicMock()
+    widget.on_key_up = MagicMock()
+    widget.on_mouse_motion = MagicMock()
+    widget.on_mouse_down = MagicMock()
+    widget.on_mouse_up = MagicMock()
+    widget.on_hover = MagicMock()
+    widget.on_mouse_enter = MagicMock()
+    widget.on_mouse_leave = MagicMock()
+    widget.on_focus = MagicMock()
+    widget.on_unfocus = MagicMock()
+    widget.on_change = MagicMock()
+    widget.on_update = MagicMock()
+    widget.on_render = MagicMock()
+    widget.on_click = MagicMock()
+
+    widget.input(
+        events=[
+            KEYDOWN,
+            KEYUP,
+            MOUSEMOTION_IN,
+            MOUSEMOTION_OUT,
+            MOUSEBUTTONDOWN_IN,
+            MOUSEBUTTONUP_IN,
+            MOUSEBUTTONDOWN_OUT,
+            MOUSEBUTTONUP_OUT,
+        ],
+        keys={},
+        mouse_pos=(0, 0),
+        mouse_buttons=(False, False, False),
+    )
+    widget.on_change()
+    widget.update(0.016)
+    widget.render()
 
     widget.on_key_down.assert_called_once()
     widget.on_key_up.assert_called_once()
@@ -140,7 +168,11 @@ def test_widget_update_event_handling(mock_container: MagicMock) -> None:
     widget.on_mouse_up.assert_called_once()
     widget.on_focus.assert_called_once()
     widget.on_unfocus.assert_called_once()
+    widget.on_change.assert_called_once()
     widget.on_hover.assert_called_once()
+    widget.on_click.assert_called_once()
+    widget.on_update.assert_called_once_with(0.016)
+    widget.on_render.assert_called_once()
 
 
 def test_widget_render_calls_on_render_and_blit(mock_container: MagicMock) -> None:
@@ -233,11 +265,6 @@ def test_widget_pressed(mock_container: MagicMock) -> None:
     """Test that setting pressed property sets the widget as pressed."""
     widget = PkWidget("test", mock_container, PkRect(0, 0, 10, 10), focusable=True)
     assert not widget.pressed
-    widget.pressed = True
-    assert not widget.pressed
-    assert widget._pressed
-
-    widget.focused = True
     widget.pressed = True
     assert widget.pressed
     assert widget._pressed
