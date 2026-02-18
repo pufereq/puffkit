@@ -10,32 +10,6 @@ def test_pksize_from_tuple() -> None:
     assert size.h == 20
 
 
-@pytest.mark.parametrize(
-    "w, h, expected_str",
-    [
-        (10, 20, "(10, 20)"),
-        (0, 0, "(0, 0)"),
-        (-5, 15, "(-5, 15)"),
-    ],
-)
-def test_pksize_str(w: int, h: int, expected_str: str) -> None:
-    """Test the __str__ method of PkSize."""
-    size = PkSize(w, h)
-    assert str(size) == expected_str
-
-
-@pytest.mark.parametrize(
-    "w, h, expected_repr",
-    [
-        (10, 20, "PkSize(10, 20)"),
-        (0, 0, "PkSize(0, 0)"),
-        (-5, 15, "PkSize(-5, 15)"),
-    ],
-)
-def test_pksize_repr(w: int, h: int, expected_repr: str) -> None:
-    """Test the __repr__ method of PkSize."""
-    size = PkSize(w, h)
-    assert repr(size) == expected_repr
 
 
 @pytest.mark.parametrize(

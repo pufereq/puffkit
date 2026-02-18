@@ -7,12 +7,10 @@ import logging as lg
 
 import pygame
 
-from puffkit.object import PkObject
-
-type RectValue = tuple[int | float, int | float, int | float, int | float]
+type RectValue = tuple[float, float, float, float]
 
 
-class PkRect(PkObject):
+class PkRect:
     """Rectangle class.
 
     A rectangle is defined by its top-left corner and its size. It is used to
@@ -37,12 +35,14 @@ class PkRect(PkObject):
             w (float): The width of the rectangle.
             h (float): The height of the rectangle.
         """
-        self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
+        self.logger: lg.Logger = lg.getLogger(
+            f"{__name__}.{self.__class__.__name__}"
+        )
 
-        self.x: float = x
-        self.y: float = y
-        self.w: float = w
-        self.h: float = h
+        self.x: float = float(x)
+        self.y: float = float(y)
+        self.w: float = float(w)
+        self.h: float = float(h)
 
     @classmethod
     def from_value(cls, rect: RectValue | PkRect) -> PkRect:

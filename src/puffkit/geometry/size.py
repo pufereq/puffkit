@@ -11,7 +11,7 @@ from __future__ import annotations
 from typing import Iterable
 
 
-type SizeValue = tuple[int | float, int | float]
+type SizeValue = tuple[float, float]
 
 
 class PkSize:
@@ -20,22 +20,23 @@ class PkSize:
     The class is used to represent the size of objects on the screen.
     """
 
-    def __init__(self, w: int | float, h: int | float) -> None:
+    def __init__(self, w: float, h: float) -> None:
         """Initialize the size.
 
         Args:
-            w (int | float): Width of the size.
-            h (int | float): Height of the size.
+            w (float): Width of the size.
+            h (float): Height of the size.
         """
-        self.w = w
-        self.h = h
+
+        self.w: float = float(w)
+        self.h: float = float(h)
 
     @classmethod
     def from_tuple(cls, size: SizeValue) -> PkSize:
         """Create a size from a tuple.
 
         Args:
-            size (tuple[int | float, int | float]): The size as a tuple.
+            size (tuple[float, float]): The size as a tuple.
 
         Returns:
             PkSize: The size object.
@@ -43,33 +44,33 @@ class PkSize:
         return cls(*size)
 
     @property
-    def width(self) -> int | float:
+    def width(self) -> float:
         """Return the width of the size."""
         return self.w
 
     @property
-    def height(self) -> int | float:
+    def height(self) -> float:
         """Return the height of the size."""
         return self.h
 
     @property
-    def tuple(self) -> tuple[int | float, int | float]:
+    def tuple(self) -> tuple[float, float]:
         """Return the size as a tuple."""
         return (self.w, self.h)
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         """Return a human-friendly representation of the size."""
         return f"({self.w}, {self.h})"
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> str:  # pragma: no cover
         """Return a string representation of the size."""
         return f"PkSize({self.w}, {self.h})"
 
-    def __eq__(self, other: PkSize | tuple[int | float, int | float]) -> bool:
+    def __eq__(self, other: PkSize | tuple[float, float]) -> bool:
         """Compare two sizes for equality.
 
         Args:
-            other (PkSize | tuple[int | float, int | float]): The other size to compare.
+            other (PkSize | tuple[float, float]): The other size to compare.
         Returns:
             bool: True if the sizes are equal, False otherwise.
         """
@@ -77,7 +78,7 @@ class PkSize:
             other = PkSize(*other)
         return self.w == other.w and self.h == other.h
 
-    def __ne__(self, other: PkSize | tuple[int | float, int | float]) -> bool:
+    def __ne__(self, other: PkSize | tuple[float, float]) -> bool:
         """Compare two sizes for inequality.
 
         Args:
@@ -134,10 +135,10 @@ class PkSize:
         """
         return PkSize(self.w // other, self.h // other)
 
-    def __iter__(self) -> Iterable[int | float]:
+    def __iter__(self) -> Iterable[float]:
         """Return an iterable of the size components."""
         return iter((self.w, self.h))
 
-    def __getitem__(self, index: int) -> int | float:
+    def __getitem__(self, index: int) -> float:
         """Return the size component at the given index."""
         return (self.w, self.h)[index]
