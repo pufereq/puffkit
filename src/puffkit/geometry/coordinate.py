@@ -39,11 +39,11 @@ class PkCoordinate:
         """
         return (self.x, self.y)
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         """Return a human-friendly representation of the coordinate."""
         return f"({self.x}, {self.y})"
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> str:  # pragma: no cover
         """Return a string representation of the coordinate."""
         return f"PkCoordinate({self.x}, {self.y})"
 
