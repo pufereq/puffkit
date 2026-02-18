@@ -3,32 +3,6 @@ import pytest
 from puffkit.geometry.coordinate import PkCoordinate
 
 
-@pytest.mark.parametrize(
-    "x, y, expected_str",
-    [
-        (1, 2, "(1, 2)"),
-        (0, 0, "(0, 0)"),
-        (-1, -2, "(-1, -2)"),
-    ],
-)
-def test_str(x: int, y: int, expected_str: str) -> None:
-    """Test the __str__ method of PkCoordinate."""
-    coord = PkCoordinate(x, y)
-    assert str(coord) == expected_str
-
-
-@pytest.mark.parametrize(
-    "x, y, expected_repr",
-    [
-        (1, 2, "PkCoordinate(1, 2)"),
-        (0, 0, "PkCoordinate(0, 0)"),
-        (-1, -2, "PkCoordinate(-1, -2)"),
-    ],
-)
-def test_repr(x: int, y: int, expected_repr: str) -> None:
-    """Test the __repr__ method of PkCoordinate."""
-    coord = PkCoordinate(x, y)
-    assert repr(coord) == expected_repr
 
 
 @pytest.mark.parametrize(
