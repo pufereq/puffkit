@@ -7,12 +7,10 @@ import logging as lg
 
 import pygame
 
-from puffkit.object import PkObject
-
 type RectValue = tuple[int | float, int | float, int | float, int | float]
 
 
-class PkRect(PkObject):
+class PkRect:
     """Rectangle class.
 
     A rectangle is defined by its top-left corner and its size. It is used to
