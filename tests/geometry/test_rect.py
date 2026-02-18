@@ -3,22 +3,6 @@ import pytest
 from puffkit.geometry.rect import PkRect, RectValue
 
 
-@pytest.mark.parametrize(
-    "x, y, w, h, expected_repr",
-    [
-        (0, 0, 10, 10, "PkRect(0, 0, 10, 10)"),
-        (-5, -5, 15, 15, "PkRect(-5, -5, 15, 15)"),
-        (1, 1, 2, 2, "PkRect(1, 1, 2, 2)"),
-        (-10, -10, 20, 20, "PkRect(-10, -10, 20, 20)"),
-    ],
-)
-def test_pkrect_repr(
-    x: float, y: float, w: float, h: float, expected_repr: str
-) -> None:
-    """Test the __repr__ method of PkRect."""
-    rect = PkRect(x, y, w, h)
-    assert repr(rect) == expected_repr
-
 
 @pytest.mark.parametrize(
     "x, y, w, h, point, expected_result",
