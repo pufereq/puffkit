@@ -25,7 +25,7 @@ class PkContainer(PkObject):
         self,
         app: PkApp,
         parent_surface: PkSurface,
-        name: str,
+        id_: str,
         rect: PkRect | RectValue,
         *,
         draw_outline: bool = False,
@@ -35,13 +35,13 @@ class PkContainer(PkObject):
         Args:
             app (PkApp): The app instance.
             parent_surface (PkSurface): The parent surface.
-            name (str): The name of the container.
+            id_ (str): The ID of the container.
             rect (PkRect | RectValue): The rectangle that the container occupies.
             draw_outline (bool): Whether to draw an outline around the container.
         """
         super().__init__()
         self.app: PkApp = app
-        self.name: str = name
+        self.id: str = id_
         self.draw_outline: bool = draw_outline
         self.parent_surface: PkSurface = parent_surface
 
@@ -96,7 +96,7 @@ class PkContainer(PkObject):
     def __str__(self) -> str:  # pragma: no cover
         """Return a human-friendly representation of the container."""
         return (
-            f"PkContainer({self.name} on {self.parent_surface},"
+            f"PkContainer({self.id} on {self.parent_surface},"
             f" {len(self.widgets)} widgets, {self.rect})"
         )
 
@@ -104,7 +104,7 @@ class PkContainer(PkObject):
         """Return a string representation of the container."""
         return (
             f"PkContainer({self.app}, {self.parent_surface},"
-            f" {self.name}, {self.rect})"
+            f" {self.id}, {self.rect})"
         )
 
     def add_widget(self, widget: PkWidget) -> None:
