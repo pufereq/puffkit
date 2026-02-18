@@ -27,8 +27,9 @@ class PkSize:
             w (float): Width of the size.
             h (float): Height of the size.
         """
-        self.w = w
-        self.h = h
+
+        self.w: float = float(w)
+        self.h: float = float(h)
 
     @classmethod
     def from_tuple(cls, size: SizeValue) -> PkSize:
