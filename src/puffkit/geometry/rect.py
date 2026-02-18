@@ -7,7 +7,7 @@ import logging as lg
 
 import pygame
 
-type RectValue = tuple[int | float, int | float, int | float, int | float]
+type RectValue = tuple[float, float, float, float]
 
 
 class PkRect:
