@@ -27,8 +27,8 @@ class PkCoordinate:
             x (float): X coordinate.
             y (float): Y coordinate.
         """
-        self.x = x
-        self.y = y
+        self.x: float = float(x)
+        self.y: float = float(y)
 
     @property
     def tuple(self) -> CoordinateValue:
