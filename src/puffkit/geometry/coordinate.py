@@ -11,7 +11,7 @@ from __future__ import annotations
 from typing import Iterable
 
 
-type CoordinateValue = tuple[int | float, int | float]
+type CoordinateValue = tuple[float, float]
 
 
 class PkCoordinate:
@@ -20,12 +20,12 @@ class PkCoordinate:
     The class is used to represent positions of objects on the screen.
     """
 
-    def __init__(self, x: int | float, y: int | float) -> None:
+    def __init__(self, x: float, y: float) -> None:
         """Initialize the coordinate.
 
         Args:
-            x (int | float): X coordinate.
-            y (int | float): Y coordinate.
+            x (float): X coordinate.
+            y (float): Y coordinate.
         """
         self.x = x
         self.y = y
@@ -92,7 +92,7 @@ class PkCoordinate:
         """
         return PkCoordinate(self.x // other, self.y // other)
 
-    def to_tuple(self) -> tuple[int | float, int | float]:
+    def to_tuple(self) -> tuple[float, float]:
         """Return the coordinate as a tuple.
 
         Returns:
@@ -111,24 +111,20 @@ class PkCoordinate:
         """
         return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5
 
-    def __eq__(
-        self, other: PkCoordinate | tuple[int | float, int | float]
-    ) -> bool:
+    def __eq__(self, other: PkCoordinate | tuple[float, float]) -> bool:
         if not isinstance(other, PkCoordinate):
             other = PkCoordinate(*other)
         return self.x == other.x and self.y == other.y
 
-    def __ne__(
-        self, other: PkCoordinate | tuple[int | float, int | float]
-    ) -> bool:
+    def __ne__(self, other: PkCoordinate | tuple[float, float]) -> bool:
         if not isinstance(other, PkCoordinate):
             other = PkCoordinate(*other)
         return self.x != other.x or self.y != other.y
 
-    def __iter__(self) -> Iterable[int | float]:
+    def __iter__(self) -> Iterable[float]:
         return iter((self.x, self.y))
 
-    def __getitem__(self, index: int) -> int | float:
+    def __getitem__(self, index: int) -> float:
         return (self.x, self.y)[index]
 
     @classmethod
