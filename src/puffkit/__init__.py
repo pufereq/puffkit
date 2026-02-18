@@ -29,6 +29,6 @@ __all__ = [
     "get_texture",
     "PkContainer",
 ]
-__version__ = "0.13.0"
+__version__ = "0.13.1"
 
 print(f"puffkit {__version__}")

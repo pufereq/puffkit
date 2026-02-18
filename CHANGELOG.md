@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.13.1] - 2026-02-18
+
+### Bug Fixes
+
+- [`0220344`](https://github.com/pufereq/template-repo/commit/02203441a6d4599335da94af194d86ce9f8d74ac) **size.py**: cast `w`, `h` to float
+- [`293af5c`](https://github.com/pufereq/template-repo/commit/293af5ce33843ef592a9d2dafcd32a3aabdbd5b4) **size.py**: use only floats for `PkSize`
+- [`bbeb3ef`](https://github.com/pufereq/template-repo/commit/bbeb3ef8ca8360a6e82ee14e2e12a5712511d688) **coordinate.py**: cast `x`, `y` to float
+- [`2b1c6ed`](https://github.com/pufereq/template-repo/commit/2b1c6ed1e0e7458cebe78ed9a06cf88750f6a8d8) **rect.py**: use only floats for `PkRect`
+- [`b40648c`](https://github.com/pufereq/template-repo/commit/b40648c29a39c67cd5b11132ffa145ee768ecb1b) **rect.py**: cast `x`, `y`, `w`, `h` to float
+- [`e5f730e`](https://github.com/pufereq/template-repo/commit/e5f730e09a5ee907c2ecbaaa495fc1aba1c0c95e) **rect.py**: use float type for RectValue
+- [`db37f6d`](https://github.com/pufereq/template-repo/commit/db37f6d8514d3e979d02c8229039d1cf950b9e24) **rect.py**: remove unnecesarry PkObject inheritance in PkRect
+
+### Miscellaneous Tasks
+
+- [`c840179`](https://github.com/pufereq/template-repo/commit/c8401790133cc0c9f8a0dcb30be971ab61b7881d) **size.py**: exempt `__str__` and `__repr__` from coverage
+- [`5216760`](https://github.com/pufereq/template-repo/commit/521676003aa42d5dca5aeeca3fc64584a985fb0b) **coordinate.py**: exempt `__str__` and `__repr__` from coverage
+
+### Testing
+
+- [`19ba8f3`](https://github.com/pufereq/template-repo/commit/19ba8f3cb7a74847e0c47f2684044a4bda8e906f) **test_rect.py**: remove tests for `__str__` and `__repr__`
+- [`4729f7c`](https://github.com/pufereq/template-repo/commit/4729f7c18291581dddaf11b2b8a38b5d60455b9d) **test_size.py**: remove tests for `__str__` and `__repr__`
+- [`b9d1f80`](https://github.com/pufereq/template-repo/commit/b9d1f80eb4c22387648240734461ac805c68c6d8) **test_coordinate.py**: remove tests for `__str__` and `__repr__`
+
 ## [0.13.0] - 2026-02-16
 
 ### Bug Fixes
