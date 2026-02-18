@@ -435,7 +435,7 @@ wheels = [
 
 [[package]]
 name = "puffkit"
-version = "0.13.1"
+version = "0.13.2"
 source = { editable = "." }
 dependencies = [
     { name = "pygame-ce" },

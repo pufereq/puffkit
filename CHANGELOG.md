@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.13.2] - 2026-02-18
+
+### Bug Fixes
+
+- [`d61422d`](https://github.com/pufereq/template-repo/commit/d61422d21d1a090647e215a956424810082cc316) **container.py**: use `id` instead of `name` in `PkContainer`
+
 ## [0.13.1] - 2026-02-18
 
 ### Bug Fixes
