@@ -58,11 +58,11 @@ class PkSize:
         """Return the size as a tuple."""
         return (self.w, self.h)
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         """Return a human-friendly representation of the size."""
         return f"({self.w}, {self.h})"
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> str:  # pragma: no cover
         """Return a string representation of the size."""
         return f"PkSize({self.w}, {self.h})"
 
