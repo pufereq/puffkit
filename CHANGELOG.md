@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.13.3] - 2026-02-19
+
+### Bug Fixes
+
+- [`bf98dc7`](https://github.com/pufereq/template-repo/commit/bf98dc7da42a18b656c48d6dbf2a8c0d8adf13ca) **text_input_widget.py**: fix typo (supress → suppress)
+- [`d84ba87`](https://github.com/pufereq/template-repo/commit/d84ba8754be2223d7e8a556fca386c4645119533) **scene_manager.py**: fix typo (supress → suppress)
+
+### Testing
+
+- [`c425113`](https://github.com/pufereq/template-repo/commit/c425113f3d0d318180eef968f4d201a156053a78) **test_text_input_widget.py**: fix typo (supress → suppress)
+
 ## [0.13.2] - 2026-02-18
 
 ### Bug Fixes
