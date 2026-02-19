@@ -193,7 +193,7 @@ class PkTextInputWidget(PkWidget):
             )
         )
 
-    def set_text(self, text: str, supress_hook: bool = False) -> None:
+    def set_text(self, text: str, suppress_hook: bool = False) -> None:
         """Set the text in the text input widget.
 
         Args:
@@ -204,7 +204,7 @@ class PkTextInputWidget(PkWidget):
         if self.max_length == 0 or len(text) <= self.max_length:
             self.text = text
             self.cursor = len(self.text)
-            if self.on_change_hook and not supress_hook:
+            if self.on_change_hook and not suppress_hook:
                 self.on_change_hook(self)
 
     def on_key_down(self, event: PkEvent) -> None:
