@@ -118,7 +118,7 @@ class PkSceneManager(PkObject):
         self.current_scene = new_scene
 
     def load_scene(
-        self, scene_id: str, *, supress_error: bool = False
+        self, scene_id: str, *, suppress_error: bool = False
     ) -> None:
         """Load a scene.
 
@@ -142,7 +142,7 @@ class PkSceneManager(PkObject):
             self.show_error_on_fallback(
                 f"Error loading scene: {e}\n\n{traceback.format_exc()}"
             )
-            if not supress_error:
+            if not suppress_error:
                 raise e
         else:
             self.logger.debug(
