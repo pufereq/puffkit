@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.13.4-post.1] - 2026-04-01
+
+### Miscellaneous Tasks
+
+- [`fd15b2d`](https://github.com/pufereq/template-repo/commit/fd15b2d95e3db1b52d9008ce837111734ad49336) **deps**: bump actions/setup-python from 5 to 6
+- [`dc59ac9`](https://github.com/pufereq/template-repo/commit/dc59ac9af4a9f5fde4508983337bf17266288ef7) **deps**: bump actions/checkout from 4 to 6
+- [`f0f749f`](https://github.com/pufereq/template-repo/commit/f0f749fd6db8e853c2b182fd388152fafa5e4cef) **deps**: bump astral-sh/setup-uv from 5 to 7
+
+### Build
+
+- [`7fad9e0`](https://github.com/pufereq/template-repo/commit/7fad9e008c1033937adeffbf9682381709c3b4ca) **dependabot.yaml**: add dependabot config
+
 ## [0.13.4] - 2026-04-01
 
 ### Miscellaneous Tasks
