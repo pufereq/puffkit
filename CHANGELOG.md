@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.13.4] - 2026-04-01
+
+### Miscellaneous Tasks
+
+- [`ddcdee2`](https://github.com/pufereq/template-repo/commit/ddcdee2a6f25d2bd157bd7bf0ec490c100b0a10c) **uv.lock**: update depedencies
+- [`7005007`](https://github.com/pufereq/template-repo/commit/700500745428624802c0bd82d6237dc6e1c510c9) **deps**: bump pygments from 2.18.0 to 2.20.0
+- [`2a33431`](https://github.com/pufereq/template-repo/commit/2a33431959562152ecc77dc5a3bfd8b40d3cf0ab) **deps**: bump requests from 2.32.3 to 2.33.0
+
 ## [0.13.3] - 2026-02-19
 
 ### Bug Fixes
