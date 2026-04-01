@@ -19,7 +19,7 @@ pygments==2.20.0
 pyyaml==6.0.2
 requests==2.33.0
 roman-numerals-py==3.1.0
-snowballstemmer==2.2.0
+snowballstemmer==3.0.1
 soupsieve==2.7
 sphinx==8.2.3
 sphinx-basic-ng==1.0.0b2
