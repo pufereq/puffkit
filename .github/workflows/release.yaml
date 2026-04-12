@@ -102,7 +102,7 @@ jobs:
           git push origin main
 
       - name: create release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           name: ${{ github.event.repository.name }} ${{ steps.get_version.outputs.BUMPED_VERSION }} - ${{ github.event.inputs.short_description }}
           tag_name: ${{ steps.get_version.outputs.BUMPED_VERSION }}
