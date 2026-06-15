@@ -143,3 +143,30 @@ def test_pkcontainer_render() -> None:
     container.render()
     mock_surface.blit.assert_called()
     mock_widget.render.assert_called_once()
+
+
+def test_pkcontainer_child_container_update_render() -> None:
+    """Test that child containers receive update and render calls."""
+    mock_app = MagicMock()
+    mock_surface = MagicMock()
+    mock_surface.get_width.return_value = 100
+    mock_surface.get_height.return_value = 100
+
+    parent = PkContainer(mock_app, mock_surface, "parent", (0, 0, 50, 50))
+    child = MagicMock(spec=PkContainer)
+    child.id = "child"
+
+    parent.add_container(child)
+
+    parent._input = {
+        "events": [],
+        "keys": [],
+        "mouse_pos": (0, 0),
+        "mouse_buttons": (False, False, False),
+    }
+    parent.update(0.01)
+    child.input.assert_called_once()
+    child.update.assert_called_once_with(0.01)
+
+    parent.render()
+    child.render.assert_called_once()

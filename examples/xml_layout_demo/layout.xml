@@ -1,0 +1,20 @@
+<Layout id="root" rect="0,0,320,180" resources="resources.json">
+  <Container id="panel" rect="10,10,300,160">
+    <Label id="title" rect="0,0,300,24" text="{Binding title}" style="Title" />
+    <TextInput
+      id="name_input"
+      rect="0,36,200,24"
+      placeholder="Your name"
+      on_change="on_name_change"
+      style="Input"
+    />
+    <Button
+      id="start_btn"
+      rect="0,72,120,30"
+      label="Start"
+      on_click="on_start"
+      style="PrimaryButton"
+    />
+    <Label id="status" rect="0,112,300,24" text="{Binding status}" />
+  </Container>
+</Layout>

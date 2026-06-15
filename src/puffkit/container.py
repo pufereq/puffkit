@@ -46,6 +46,7 @@ class PkContainer(PkObject):
         self.parent_surface: PkSurface = parent_surface
 
         self.widgets: dict[str, PkWidget] = {}
+        self.containers: dict[str, PkContainer] = {}
 
         self.rect: PkRect = PkRect.from_value(rect)
 
@@ -122,6 +123,21 @@ class PkContainer(PkObject):
             )
         self.widgets[widget.id] = widget
 
+    def add_container(self, container: PkContainer) -> None:
+        """Add a child container to the container.
+
+        Args:
+            container (PkContainer): The container to add.
+        """
+        self.logger.debug(
+            f"Adding child container {container.id} to container {self}"
+        )
+        if container.id in self.containers:
+            raise ValueError(
+                f"Container with ID '{container.id}' already exists in the container."
+            )
+        self.containers[container.id] = container
+
     def remove_widget(self, id_: str) -> None:
         """Remove a widget from the container.
 
@@ -134,6 +150,19 @@ class PkContainer(PkObject):
                 f"Widget with ID '{id_}' does not exist in the container."
             )
         del self.widgets[id_]
+
+    def remove_container(self, id_: str) -> None:
+        """Remove a child container from the container.
+
+        Args:
+            id_ (str): The ID of the container to remove.
+        """
+        self.logger.debug(f"Removing container ID {id_} from container {self}")
+        if id_ not in self.containers:
+            raise ValueError(
+                f"Container with ID '{id_}' does not exist in the container."
+            )
+        del self.containers[id_]
 
     def get_widget(self, id_: str) -> PkWidget:
         """Get a widget from the container.
@@ -150,6 +179,21 @@ class PkContainer(PkObject):
             )
         return self.widgets[id_]
 
+    def get_container(self, id_: str) -> PkContainer:
+        """Get a child container from the container.
+
+        Args:
+            id_ (str): The ID of the container to get.
+
+        Returns:
+            PkContainer: The container with the given ID.
+        """
+        if id_ not in self.containers:
+            raise ValueError(
+                f"Container with ID '{id_}' does not exist in the container."
+            )
+        return self.containers[id_]
+
     def update(self, delta: float) -> None:
         """Update the container.
 
@@ -164,6 +208,14 @@ class PkContainer(PkObject):
                 self._input["mouse_buttons"],
             )
             widget.update(delta)
+        for container in self.containers.values():
+            container.input(
+                self._input["events"],
+                self._input["keys"],
+                self._input["mouse_pos"],
+                self._input["mouse_buttons"],
+            )
+            container.update(delta)
 
     def render(self) -> None:
         """Render the container."""
@@ -174,5 +226,7 @@ class PkContainer(PkObject):
 
         for widget in self.widgets.values():
             widget.render()
+        for container in self.containers.values():
+            container.render()
 
         self.parent_surface.blit(self.surface, self.rect.pos)

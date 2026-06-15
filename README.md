@@ -10,6 +10,26 @@ puffkit is a collection of classes and functions that can be used to create appl
 It is built on top of the Pygame-ce library and aims to provide a similar experience to that of the Pygame library
 while adding some additional features and improvements without some of the limitations of Pygame.
 
+## XML layouts (XAML-like)
+
+Example XML:
+
+```xml
+<Layout id="root" rect="0,0,320,180">
+	<Label id="title" rect="10,10,300,30" text="{Binding title}" />
+	<Button id="start" rect="10,50,120,30" label="Start" on_click="on_start" />
+</Layout>
+```
+
+Example usage:
+
+```python
+from puffkit import PkXmlLayoutLoader
+
+loader = PkXmlLayoutLoader()
+layout = loader.load_from_file(scene, "ui/main.xml", view_model=view_model)
+```
+
 ## License
 
 puffkit is licensed under the [GNU Lesser General Public License v3.0](LICENSE).

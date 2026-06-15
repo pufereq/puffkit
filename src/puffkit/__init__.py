@@ -15,6 +15,7 @@ from puffkit.subsurface import PkSubSurface
 from puffkit.surface import PkSurface
 from puffkit.textures import get_texture
 from puffkit.container import PkContainer
+from puffkit.layout import PkLayout, PkXmlLayoutLoader
 
 __all__ = [
     "PkApp",
@@ -28,6 +29,8 @@ __all__ = [
     "PkSurface",
     "get_texture",
     "PkContainer",
+    "PkLayout",
+    "PkXmlLayoutLoader",
 ]
 __version__ = "0.13.4-post.1"
 

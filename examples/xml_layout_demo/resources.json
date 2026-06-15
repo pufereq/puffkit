@@ -1,0 +1,19 @@
+{
+  "Title": {
+    "fontId": "default",
+    "textColor": "#1d2b36",
+    "textAlign": "left"
+  },
+  "PrimaryButton": {
+    "backgroundColor": "#2d6cdf",
+    "textColor": "#ffffff",
+    "textAlign": "center",
+    "borderRadius": 6
+  },
+  "Input": {
+    "backgroundColor": "#1f2933",
+    "backgroundColorFocused": "#3b4a5a",
+    "textColor": "#ffffff",
+    "placeholderColor": "#9aa5b1"
+  }
+}
