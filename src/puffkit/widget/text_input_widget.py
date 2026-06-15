@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Callable
 
 import pygame
 from puffkit import PkContainer
@@ -29,9 +29,11 @@ class PkTextInputWidget(PkWidget):
         rect: PkRect | RectValue,
         text: str = "",
         *,
-        on_change_hook: Any | None = None,
-        on_focus_hook: Any | None = None,
-        on_unfocus_hook: Any | None = None,
+        change_hook: Callable[[PkTextInputWidget, PkEvent], None]
+        | None = None,
+        focus_hook: Callable[[PkTextInputWidget, PkEvent], None] | None = None,
+        unfocus_hook: Callable[[PkTextInputWidget, PkEvent], None]
+        | None = None,
         disabled: bool = False,
         font_id: str = "default",
         background_color: PkColor | ColorValue = PkBasicPalette.GREY,
@@ -58,12 +60,12 @@ class PkTextInputWidget(PkWidget):
                 position and size.
             text (str, optional): The initial text in the text box.
                 Defaults to "".
-            on_change_hook (Any | None, optional): Callback function for text change
-                events. Defaults to None.
-            on_focus_hook (Any | None, optional): Callback function for focus events.
-                Defaults to None.
-            on_unfocus_hook (Any | None, optional): Callback function for unfocus
-                events. Defaults to None.
+            on_change_hook (Callable[[PkTextInputWidget, PkEvent], None] | None, optional):
+                Callback function for text change events. Defaults to None.
+            on_focus_hook (Callable[[PkTextInputWidget, PkEvent], None] | None, optional):
+                Callback function for focus events. Defaults to None.
+            on_unfocus_hook (Callable[[PkTextInputWidget, PkEvent], None] | None, optional):
+                Callback function for unfocus events. Defaults to None.
             disabled (bool, optional): Whether the widget is disabled.
                 Defaults to False.
             font_id (str, optional): The font ID for the text.
@@ -98,9 +100,15 @@ class PkTextInputWidget(PkWidget):
         super().__init__(id_, container, rect, focusable=True)
         self.text: str = text
 
-        self.on_change_hook: Any | None = on_change_hook
-        self.on_focus_hook: Any | None = on_focus_hook
-        self.on_unfocus_hook: Any | None = on_unfocus_hook
+        self.change_hook: (
+            Callable[[PkTextInputWidget, PkEvent], None] | None
+        ) = change_hook
+        self.focus_hook: (
+            Callable[[PkTextInputWidget, PkEvent], None] | None
+        ) = focus_hook
+        self.unfocus_hook: (
+            Callable[[PkTextInputWidget, PkEvent], None] | None
+        ) = unfocus_hook
 
         self.disabled: bool = disabled
         self.font_id: str = font_id
@@ -204,8 +212,8 @@ class PkTextInputWidget(PkWidget):
         if self.max_length == 0 or len(text) <= self.max_length:
             self.text = text
             self.cursor = len(self.text)
-            if self.on_change_hook and not suppress_hook:
-                self.on_change_hook(self)
+            if self.change_hook and not suppress_hook:
+                self.change_hook(self)
 
     def on_key_down(self, event: PkEvent) -> None:
         """Handle key down events.
@@ -244,8 +252,8 @@ class PkTextInputWidget(PkWidget):
                         + self.text[self.cursor :]
                     )
                     self.cursor += 1
-        if self.on_change_hook:
-            self.on_change_hook(self)
+        if self.change_hook:
+            self.change_hook(self, event)
 
     def on_focus(self, event: PkEvent) -> None:
         """Handle focus events.
@@ -259,8 +267,8 @@ class PkTextInputWidget(PkWidget):
         pygame.key.set_repeat(500, 50)
 
         self.cursor_blink_timer = 0
-        if self.on_focus_hook:
-            self.on_focus_hook(self)
+        if self.focus_hook:
+            self.focus_hook(self, event)
 
     def on_unfocus(self, event: PkEvent) -> None:
         """Handle unfocus events.
@@ -273,8 +281,8 @@ class PkTextInputWidget(PkWidget):
 
         pygame.key.set_repeat()
 
-        if self.on_unfocus_hook:
-            self.on_unfocus_hook(self)
+        if self.unfocus_hook:
+            self.unfocus_hook(self, event)
 
     def on_update(self, delta: float) -> None:
         """Update the text input widget.
