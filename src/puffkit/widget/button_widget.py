@@ -29,8 +29,8 @@ class PkButtonWidget(PkWidget):
         label: str,
         rect: PkRect | RectValue,
         *,
-        on_click: Callable[[PkButtonWidget, PkEvent], None] | None = None,
-        on_hover: Callable[[PkButtonWidget, PkEvent], None] | None = None,
+        click_hook: Callable[[PkButtonWidget, PkEvent], None] | None = None,
+        hover_hook: Callable[[PkButtonWidget, PkEvent], None] | None = None,
         disabled: bool = False,
         font_id: str = "default",
         background_color: PkColor | ColorValue = PkBasicPalette.GREY,
@@ -51,9 +51,9 @@ class PkButtonWidget(PkWidget):
             label (str): The label of the button.
             rect (PkRect | RectValue): The rectangle that the button occupies.
                 Relative to the container.
-            on_click (Any | None, optional): The action to perform when the
+            click_hook (Any | None, optional): The action to perform when the
                 button is clicked. Defaults to None.
-            on_hover (Any | None, optional): The action to perform when the
+            hover_hook (Any | None, optional): The action to perform when the
                 button is hovered. Defaults to None.
             disabled (bool, optional): Whether the button is disabled.
                 Defaults to False.
@@ -98,12 +98,12 @@ class PkButtonWidget(PkWidget):
 
         self.label: str = label
 
-        self.action_on_click: (
-            Callable[[PkButtonWidget, PkEvent], None] | None
-        ) = on_click
-        self.action_on_hover: (
-            Callable[[PkButtonWidget, PkEvent], None] | None
-        ) = on_hover
+        self.click_hook: Callable[[PkButtonWidget, PkEvent], None] | None = (
+            click_hook
+        )
+        self.hover_hook: Callable[[PkButtonWidget, PkEvent], None] | None = (
+            hover_hook
+        )
         self.disabled: bool = disabled
 
         self.font_id: str = font_id
@@ -143,14 +143,14 @@ class PkButtonWidget(PkWidget):
         return (
             f"PkButtonWidget(container={self.container} label={self.label}, "
             f"disabled={self.disabled}, "
-            f"on_click={self.action_on_click}, on_hover={self.action_on_hover})"
+            f"click_hook={self.click_hook}, hover_hook={self.hover_hook})"
         )
 
     def __repr__(self) -> str:  # pragma: no cover
         return (
             f"PkButtonWidget(container={self.container}, label={self.label}, "
             f"disabled={self.disabled}, "
-            f"on_click={self.action_on_click}, on_hover={self.action_on_hover})"
+            f"click_hook={self.click_hook}, hover_hook={self.hover_hook})"
         )
 
     def on_update(self, delta: float) -> None:
@@ -158,8 +158,8 @@ class PkButtonWidget(PkWidget):
 
     @override
     def on_click(self, event: PkEvent) -> None:
-        if callable(self.action_on_click):
-            self.action_on_click(self, event)
+        if callable(self.click_hook):
+            self.click_hook(self, event)
 
     @override
     def on_key_down(self, event: PkEvent) -> None:
@@ -172,13 +172,12 @@ class PkButtonWidget(PkWidget):
         if event.key in ["return", "space"]:
             self.pressed = False
 
+    @override
     def on_hover(self, event: PkEvent) -> None:
-        if self._disabled:
-            return
+        if callable(self.hover_hook):
+            self.hover_hook(self, event)
 
-        if callable(self.action_on_hover):
-            self.action_on_hover(self, event)
-
+    @override
     def on_render(self) -> None:
         # fill the surface with a background color depending on the state
         if self.disabled:
