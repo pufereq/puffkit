@@ -44,8 +44,8 @@ def button_widget(mock_container: Mock):
         container=mock_container,
         rect=PkRect(0, 0, 100, 50),
         label="Click Me",
-        on_click=MagicMock(),
-        on_hover=MagicMock(),
+        click_hook=MagicMock(),
+        hover_hook=MagicMock(),
         disabled=False,
         font_id="default",
         background_color=PkBasicPalette.GREY,
@@ -59,7 +59,7 @@ def button_widget(mock_container: Mock):
 
 
 @pytest.mark.parametrize(
-    "rect, label, on_click, on_hover, disabled, font_id, background_color, "
+    "rect, label, click_hook, hover_hook, disabled, font_id, background_color, "
     "background_color_disabled, background_color_pressed, "
     "background_color_hovered, text_color, text_align, border_radius",
     [
@@ -114,8 +114,8 @@ def test_button_initialization(
     mock_container: Mock,
     rect: PkRect,
     label: str,
-    on_click: Mock,
-    on_hover: Mock,
+    click_hook: Mock,
+    hover_hook: Mock,
     disabled: bool,
     font_id: str,
     background_color: PkColor,
@@ -132,8 +132,8 @@ def test_button_initialization(
         container=mock_container,
         rect=rect,
         label=label,
-        on_click=on_click,
-        on_hover=on_hover,
+        click_hook=click_hook,
+        hover_hook=hover_hook,
         disabled=disabled,
         font_id=font_id,
         background_color=background_color,
@@ -146,17 +146,17 @@ def test_button_initialization(
     )
 
 
-def test_button_on_click_action(button_widget: PkButtonWidget):
-    """Test the on_click action of the button."""
+def test_button_click_hook_action(button_widget: PkButtonWidget):
+    """Test the click_hook action of the button."""
     button_widget._pressed = True
-    button_widget.on_click(Mock(spec=PkEvent))
-    button_widget.action_on_click.assert_called_once()
+    button_widget.click_hook(Mock(spec=PkEvent))
+    button_widget.click_hook.assert_called_once()
 
 
-def test_button_on_hover_action(button_widget: PkButtonWidget):
-    """Test the on_hover action of the button."""
-    button_widget.on_hover(Mock(spec=PkEvent))
-    button_widget.action_on_hover.assert_called_once()
+def test_button_hover_hook_action(button_widget: PkButtonWidget):
+    """Test the hover_hook action of the button."""
+    button_widget.hover_hook(Mock(spec=PkEvent))
+    button_widget.hover_hook.assert_called_once()
 
 
 @pytest.mark.parametrize(
@@ -240,10 +240,7 @@ def test_button_on_hover(button_widget: PkButtonWidget, disabled: bool, event: M
     """Test the on_hover method of the button widget."""
     button_widget._disabled = disabled
     button_widget.on_hover(event)
-    if disabled:
-        button_widget.action_on_hover.assert_not_called()
-    else:
-        button_widget.action_on_hover.assert_called_once()
+    button_widget.hover_hook.assert_called_once()
 
 @pytest.mark.parametrize(
     "disabled, event",
@@ -262,10 +259,10 @@ def test_button_on_key_down(button_widget: PkButtonWidget, disabled: bool, event
     button_widget.on_key_down(event)
 
     if event.key in ["return", "space"]:
-        button_widget.action_on_click.assert_called_with(button_widget, event)
+        button_widget.click_hook.assert_called_with(button_widget, event)
         assert button_widget.disabled is disabled
     else:
-        button_widget.action_on_click.assert_not_called()
+        button_widget.click_hook.assert_not_called()
 
 @pytest.mark.parametrize(
     "event",
